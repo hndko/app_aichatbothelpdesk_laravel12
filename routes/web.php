@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\TiketController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,20 +30,23 @@ Route::middleware('auth')->group(function () {
 
     // Tiket (semua role — filter di controller)
     Route::prefix('tiket')->name('tiket.')->group(function () {
-        Route::get('/', function () { abort(404); })->name('index');
-        Route::get('/{id}', function () { abort(404); })->name('show');
+        Route::get('/', [TiketController::class, 'index'])->name('index');
+        Route::get('/create', [TiketController::class, 'create'])->name('create');
+        Route::post('/', [TiketController::class, 'store'])->name('store');
+        Route::get('/{id}', [TiketController::class, 'show'])->name('show');
+        Route::patch('/{id}/status', [TiketController::class, 'updateStatus'])->middleware('role:admin')->name('update-status');
     });
 
     // === Admin Only Routes ===
     Route::middleware('role:admin')->group(function () {
 
-        // Knowledge Base — placeholder Fase 3
-        Route::prefix('knowledge-base')->name('knowledge-base.')->group(function () {
-            Route::get('/', function () { abort(404); })->name('index');
+        // Kelola User
+        Route::prefix('users')->name('users.')->group(function () {
+            Route::get('/', [UserController::class, 'index'])->name('index');
         });
 
-        // Kelola User — placeholder Fase 2
-        Route::prefix('users')->name('users.')->group(function () {
+        // Knowledge Base — placeholder Fase 3
+        Route::prefix('knowledge-base')->name('knowledge-base.')->group(function () {
             Route::get('/', function () { abort(404); })->name('index');
         });
 
