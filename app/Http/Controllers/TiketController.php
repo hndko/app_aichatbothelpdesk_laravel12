@@ -6,8 +6,11 @@ use App\Models\Category;
 use App\Models\ChatHistory;
 use App\Models\Ticket;
 use App\Models\User;
+use App\Notifications\TicketCreated;
+use App\Notifications\TicketStatusUpdated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class TiketController extends Controller
 {
@@ -76,7 +79,9 @@ class TiketController extends Controller
             'description.required' => 'Deskripsi detail masalah wajib diisi.',
         ]);
 
-        DB::transaction(function () use ($validated, $request) {
+        $ticket = null;
+
+        DB::transaction(function () use ($validated, &$ticket) {
             // Auto-assign admin berdasarkan spesialisasi kategori
             $assignedAdminId = null;
             $specialistAdmin = User::where('role', 'admin')
@@ -87,7 +92,6 @@ class TiketController extends Controller
             if ($specialistAdmin) {
                 $assignedAdminId = $specialistAdmin->id;
             } else {
-                // Fallback round-robin / random admin
                 $anyAdmin = User::where('role', 'admin')->inRandomOrder()->first();
                 $assignedAdminId = $anyAdmin?->id;
             }
@@ -110,6 +114,16 @@ class TiketController extends Controller
                 'message'     => $validated['description'],
             ]);
         });
+
+        // Kirim notifikasi email ke pelapor
+        if ($ticket) {
+            $ticket->load('category');
+            try {
+                $ticket->user()->first()?->notify(new TicketCreated($ticket));
+            } catch (\Exception $e) {
+                Log::warning('Gagal mengirim email TicketCreated: ' . $e->getMessage());
+            }
+        }
 
         return redirect()->route('tiket.index')
             ->with('success', 'Tiket berhasil dibuat! Tim teknis kami akan segera menindaklanjuti.');
@@ -141,8 +155,19 @@ class TiketController extends Controller
             'status' => ['required', 'in:open,progress,closed'],
         ]);
 
-        $ticket = Ticket::findOrFail($id);
-        $ticket->update(['status' => $validated['status']]);
+        $ticket    = Ticket::findOrFail($id);
+        $oldStatus = $ticket->status;
+
+        // Hanya kirim notifikasi jika status benar-benar berubah
+        if ($oldStatus !== $validated['status']) {
+            $ticket->update(['status' => $validated['status']]);
+
+            try {
+                $ticket->user()->first()?->notify(new TicketStatusUpdated($ticket, $oldStatus));
+            } catch (\Exception $e) {
+                Log::warning('Gagal mengirim email TicketStatusUpdated: ' . $e->getMessage());
+            }
+        }
 
         return back()->with('success', 'Status tiket berhasil diperbarui menjadi ' . strtoupper($validated['status']) . '.');
     }

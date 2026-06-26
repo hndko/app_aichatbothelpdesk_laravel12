@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\ChatHistory;
 use App\Models\KnowledgeBase;
 use App\Models\Ticket;
+use App\Notifications\TicketNewReply;
 use App\Services\LlmService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class ChatbotController extends Controller
 {
@@ -47,6 +49,22 @@ class ChatbotController extends Controller
             ],
             'bot_chat' => null,
         ];
+
+        // Jika admin membalas → notifikasi email ke pelapor
+        if ($senderType === 'admin') {
+            try {
+                $ticketOwner = $ticket->user()->first();
+                if ($ticketOwner) {
+                    $ticketOwner->notify(new TicketNewReply(
+                        $ticket,
+                        $user->name,
+                        $validated['message']
+                    ));
+                }
+            } catch (\Exception $e) {
+                Log::warning('Gagal mengirim email TicketNewReply: ' . $e->getMessage());
+            }
+        }
 
         // Hanya trigger AI jika pengirim adalah user (bukan admin)
         if ($senderType === 'user' && $ticket->status !== 'closed') {
