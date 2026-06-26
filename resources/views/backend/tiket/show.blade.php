@@ -36,9 +36,12 @@
         <div class="nd-card animate-fade-in mb-4">
             <div class="nd-card-header">
                 <h5><i class="bi bi-chat-dots-fill text-primary me-2"></i>Riwayat Percakapan & Bantuan AI</h5>
+                <span class="badge bg-primary-subtle text-primary-emphasis border border-primary-subtle">
+                    <i class="bi bi-robot me-1"></i>AI Aktif
+                </span>
             </div>
-            
-            <div class="chat-container bg-light-subtle p-4" id="chatArea">
+
+            <div class="chat-container bg-light-subtle p-4" id="chatArea" style="min-height: 350px;">
                 @foreach($ticket->chatHistories as $chat)
                     <div class="chat-bubble {{ $chat->sender_type }}">
                         <div class="chat-sender">
@@ -54,12 +57,43 @@
                 @endforeach
             </div>
 
-            <div class="p-3 border-top bg-white">
-                <div class="alert alert-secondary py-2 px-3 small mb-0 d-flex align-items-center gap-2">
-                    <i class="bi bi-info-circle-fill text-primary"></i>
-                    <span>Balasan interaktif AI Chatbot akan aktif setelah integrasi layanan LLM di Fase 3.</span>
+            <!-- Chat Input Form -->
+            @if($ticket->status !== 'closed')
+                <div class="p-3 border-top bg-white" style="border-radius: 0 0 var(--border-radius) var(--border-radius);">
+                    <form id="chatForm" autocomplete="off">
+                        <div class="d-flex gap-2">
+                            <input
+                                type="text"
+                                class="form-control"
+                                id="chatMessage"
+                                placeholder="{{ auth()->user()->isAdmin() ? 'Balas sebagai Teknisi IT...' : 'Ketik pesan atau tanyakan kendala IT Anda...' }}"
+                                maxlength="2000"
+                                required
+                            >
+                            <button type="submit" class="btn btn-nd-primary px-3" id="btnSendChat">
+                                <i class="bi bi-send-fill"></i>
+                            </button>
+                        </div>
+                        <div class="d-flex justify-content-between mt-1">
+                            <small class="text-muted" id="chatHint">
+                                @if(auth()->user()->isUser())
+                                    <i class="bi bi-robot me-1"></i>AI akan otomatis merespons pesan Anda
+                                @else
+                                    <i class="bi bi-person-badge me-1"></i>Balas langsung sebagai teknisi (tanpa AI)
+                                @endif
+                            </small>
+                            <small class="text-muted"><span id="charCount">0</span>/2000</small>
+                        </div>
+                    </form>
                 </div>
-            </div>
+            @else
+                <div class="p-3 border-top bg-white text-center">
+                    <div class="alert alert-success py-2 px-3 small mb-0 d-flex align-items-center justify-content-center gap-2">
+                        <i class="bi bi-check-circle-fill"></i>
+                        <span>Tiket ini sudah ditutup. Tidak dapat mengirim pesan baru.</span>
+                    </div>
+                </div>
+            @endif
         </div>
     </div>
 
@@ -90,7 +124,7 @@
                             <span class="fw-semibold text-dark">{{ $ticket->assignedAdmin->name }}</span>
                         </div>
                     @else
-                        <span class="text-muted small italic">Belum di-assign</span>
+                        <span class="text-muted small fst-italic">Belum di-assign</span>
                     @endif
                 </div>
 
@@ -108,4 +142,131 @@
         </div>
     </div>
 </div>
+
+<!-- AJAX Chat Script -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatForm    = document.getElementById('chatForm');
+    const chatInput   = document.getElementById('chatMessage');
+    const chatArea    = document.getElementById('chatArea');
+    const btnSend     = document.getElementById('btnSendChat');
+    const charCount   = document.getElementById('charCount');
+    const ticketId    = {{ $ticket->id }};
+    const csrfToken   = '{{ csrf_token() }}';
+
+    if (!chatForm) return;
+
+    // Scroll ke bawah
+    function scrollToBottom() {
+        chatArea.scrollTop = chatArea.scrollHeight;
+    }
+    scrollToBottom();
+
+    // Character counter
+    chatInput.addEventListener('input', function() {
+        charCount.textContent = this.value.length;
+    });
+
+    // Buat chat bubble DOM element
+    function createBubble(data) {
+        const div = document.createElement('div');
+        div.className = 'chat-bubble ' + data.sender_type;
+
+        let senderIcon = '';
+        if (data.sender_type === 'bot') {
+            senderIcon = '<i class="bi bi-robot me-1"></i>';
+        }
+
+        const escapedMsg = data.message
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/\n/g, '<br>');
+
+        div.innerHTML = `
+            <div class="chat-sender">${senderIcon}${data.sender_name}</div>
+            <div class="chat-text">${escapedMsg}</div>
+            <div class="chat-time">${data.time}</div>
+        `;
+        return div;
+    }
+
+    // Typing indicator
+    function showTyping() {
+        const typing = document.createElement('div');
+        typing.className = 'chat-typing';
+        typing.id = 'typingIndicator';
+        typing.innerHTML = '<span></span><span></span><span></span>';
+        chatArea.appendChild(typing);
+        scrollToBottom();
+    }
+
+    function hideTyping() {
+        const indicator = document.getElementById('typingIndicator');
+        if (indicator) indicator.remove();
+    }
+
+    // Submit handler
+    chatForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        // Disable input
+        chatInput.disabled = true;
+        btnSend.disabled = true;
+        btnSend.innerHTML = '<span class="spinner-border spinner-border-sm"></span>';
+
+        // Kirim pesan via AJAX
+        fetch('/chatbot/' + ticketId + '/send', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': csrfToken,
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({ message: message })
+        })
+        .then(function(response) {
+            if (!response.ok) throw new Error('Network response error');
+            return response.json();
+        })
+        .then(function(data) {
+            // Tampilkan pesan user
+            if (data.user_chat) {
+                chatArea.appendChild(createBubble(data.user_chat));
+            }
+
+            // Tampilkan pesan bot (jika ada)
+            if (data.bot_chat) {
+                showTyping();
+                setTimeout(function() {
+                    hideTyping();
+                    chatArea.appendChild(createBubble(data.bot_chat));
+                    scrollToBottom();
+                }, 800);
+            }
+
+            scrollToBottom();
+            chatInput.value = '';
+            charCount.textContent = '0';
+        })
+        .catch(function(err) {
+            console.error('Chat error:', err);
+            if (typeof Swal !== 'undefined') {
+                Swal.fire('Error', 'Gagal mengirim pesan. Silakan coba lagi.', 'error');
+            } else {
+                alert('Gagal mengirim pesan. Silakan coba lagi.');
+            }
+        })
+        .finally(function() {
+            chatInput.disabled = false;
+            btnSend.disabled = false;
+            btnSend.innerHTML = '<i class="bi bi-send-fill"></i>';
+            chatInput.focus();
+        });
+    });
+});
+</script>
 @endsection

@@ -35,4 +35,17 @@ return [
         ],
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | LLM API Configuration — NexusDesk AI
+    |--------------------------------------------------------------------------
+    */
+    'llm' => [
+        'provider' => env('LLM_PROVIDER', 'openrouter'),
+        'api_key'  => env('LLM_API_KEY', ''),
+        'base_url' => env('LLM_BASE_URL', 'https://openrouter.ai/api/v1'),
+        'model'    => env('LLM_MODEL', 'openai/gpt-3.5-turbo'),
+        'timeout'  => env('LLM_TIMEOUT', 30),
+    ],
+
 ];
