@@ -103,3 +103,29 @@ Jika terdapat konflik antara kebiasaan umum penulisan kode dengan aturan di bawa
 3. Di dalam Controller, siapkan array `$data['title'] = 'Judul Halaman';` beserta data model yang dibutuhkan.
 4. Daftarkan route di `routes/web.php` di dalam grup middleware `auth` dan *role check* yang sesuai.
 5. Tambahkan tautan navigasi di sidebar layout `app-backend.blade.php` jika diperlukan.
+
+### 8. Aturan Git Commit & Auto-Push
+
+Setiap selesai pengerjaan instruksi, agent wajib melakukan **auto commit dan push** dengan aturan penulisan pesan commit:
+
+#### A. Struktur Pesan
+`type(scope): subject`
+
+- **Type (huruf kecil):**
+  - `feat`: Menambahkan fitur baru.
+  - `fix`: Memperbaiki bug.
+  - `docs`: Perubahan dokumentasi.
+  - `refactor`: Perubahan kode yang tidak memperbaiki bug atau menambah fitur.
+  - `test`: Menambahkan atau memperbaiki tes.
+  - `chore`: Pekerjaan rutin seperti build atau manajemen dependensi.
+- **Scope:** (Opsional) Bagian kode yang diubah dalam tanda kurung, contoh: `(auth)`, `(tiket)`, `(ui)`.
+- **Subject:** Deskripsi singkat perubahan menggunakan kalimat imperatif (contoh: "tambahkan", "ubah", bukan "menambahkan" atau "mengubah").
+
+#### B. Aturan 50/72
+- **Maksimal 50 Karakter:** Baris subjek/judul tidak boleh lebih dari 50 karakter.
+- **Maksimal 72 Karakter:** Bagian isi (*body*) dibungkus maksimal 72 karakter per baris.
+
+#### C. Best Practices
+- Gunakan huruf kecil, kecuali untuk kata pertama pada kalimat deskripsi di body.
+- Selalu beri jarak satu baris kosong antara judul commit dan isi penjelasan (*body*).
+- Fokus pada **mengapa** perubahan dibuat, bukan bagaimana cara kerjanya.
