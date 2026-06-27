@@ -201,6 +201,22 @@ location /app {
 }
 ```
 
+### 5. 💡 Alternatif Deployment di Shared Hosting (cPanel)
+Apakah aplikasi ini bisa diinstal di **Shared Hosting biasa (cPanel)**? **Bisa!** Namun ada catatan khusus mengenai layanan WebSocket:
+- **Hosting Standar tanpa SSH / Supervisor:** Server Shared Hosting umumnya melarang pembukaan port custom (seperti port `8080` Reverb) atau menjalankan proses latar belakang permanen. Agar fitur obrolan realtime tetap berjalan lancar di cPanel, Anda dapat beralih menggunakan layanan **Pusher Cloud (Layanan Gratis hingga 200k pesan/hari)** dengan mengubah `.env`:
+  ```env
+  BROADCAST_CONNECTION=pusher
+  PUSHER_APP_ID="id-pusher-anda"
+  PUSHER_APP_KEY="key-pusher-anda"
+  PUSHER_APP_SECRET="secret-pusher-anda"
+  PUSHER_HOST=
+  PUSHER_PORT=443
+  PUSHER_SCHEME=https
+  PUSHER_APP_CLUSTER="ap1"
+  ```
+  *(Atau ubah menjadi `BROADCAST_CONNECTION=log` jika tidak membutuhkan WebSocket realtime).*
+- **Cloud Hosting dengan SSH / Cron Watchdog:** Jika cPanel Anda memiliki akses Terminal dan mengizinkan proses background, Anda bisa membuat Cron Job yang berjalan setiap 1 menit untuk memastikan `php artisan reverb:start` tetap aktif.
+
 ---
 
 ## 🔐 Akun Demo (Untuk Pengujian)

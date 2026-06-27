@@ -3,25 +3,25 @@
 @section('content')
 <style>
     .chat-bubble {
-        padding: 1rem 1.25rem;
-        margin-bottom: 1rem;
+        padding: 0.65rem 0.95rem;
         position: relative;
-        box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        box-shadow: 0 1px 2px rgba(0,0,0,0.06);
         transition: all 0.2s ease;
-        max-width: 82%;
+        max-width: 72%;
+        width: fit-content;
     }
     .chat-bubble.me {
-        margin-left: auto;
+        align-self: flex-end;
         background: linear-gradient(135deg, #2563eb, #4f46e5);
         color: white;
-        border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
+        border-radius: 1.15rem 1.15rem 0.2rem 1.15rem;
     }
     .chat-bubble.other {
-        margin-right: auto;
+        align-self: flex-start;
         background: white;
         color: #1f2937;
         border: 1px solid #e2e8f0;
-        border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
+        border-radius: 1.15rem 1.15rem 1.15rem 0.2rem;
     }
     .dark .chat-bubble.other {
         background: #1e293b;
@@ -29,17 +29,18 @@
         border-color: #334155;
     }
     .chat-sender {
-        font-size: 0.75rem;
+        font-size: 0.72rem;
         font-weight: 800;
-        margin-bottom: 0.35rem;
+        margin-bottom: 0.25rem;
         opacity: 0.9;
         display: flex;
         align-items: center;
         gap: 0.35rem;
     }
-    .chat-text { font-size: 0.9375rem; line-height: 1.6; word-break: break-word; }
-    .chat-time { font-size: 0.6875rem; opacity: 0.75; text-align: right; margin-top: 0.35rem; }
+    .chat-text { font-size: 0.9rem; line-height: 1.5; word-break: break-word; }
+    .chat-time { font-size: 0.65rem; opacity: 0.75; text-align: right; margin-top: 0.25rem; }
     .chat-typing {
+        align-self: flex-start;
         display: inline-flex;
         align-items: center;
         gap: 4px;
@@ -133,7 +134,7 @@
                 @php
                     $currentRoleIsStaff = auth()->user()->isStaff();
                 @endphp
-                <div class="p-6 overflow-y-auto bg-slate-50/70 dark:bg-gray-900/40 grow space-y-4" id="chatArea" style="min-height: 420px; max-height: 580px;">
+                <div class="p-6 overflow-y-auto bg-slate-50/70 dark:bg-gray-900/40 grow flex flex-col space-y-3" id="chatArea" style="min-height: 420px; max-height: 580px;">
                     @foreach($ticket->chatHistories as $chat)
                         @php
                             $isMe = $currentRoleIsStaff ? ($chat->sender_type === 'admin') : ($chat->sender_type === 'user');

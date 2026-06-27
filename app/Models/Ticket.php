@@ -64,7 +64,7 @@ class Ticket extends Model
 
     public function chatHistories()
     {
-        return $this->hasMany(\App\Models\ChatHistory::class, 'ticket_id');
+        return $this->hasMany(\App\Models\ChatHistory::class, 'ticket_id')->orderBy('created_at', 'asc')->orderBy('id', 'asc');
     }
 
     public function scopeOpen($query)

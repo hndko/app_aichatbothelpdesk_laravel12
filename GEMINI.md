@@ -13,7 +13,7 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 - **Estimasi Pengerjaan:** 2 Minggu
 
 ### 2. Tech Stack
-- **Backend:** PHP 8.2+, Laravel 12 (Laravel Reverb WebSocket Realtime Broadcasting)
+- **Backend:** PHP 8.2+, Laravel 12 (Laravel Reverb WebSocket Realtime Broadcasting / Kompatibel Pusher Cloud untuk Shared Hosting cPanel)
 - **Frontend:** Laravel Blade, Tailwind CSS v4.0 (Flowbite Component Library & Icons, Flowbite DataTables / `simple-datatables`, Responsive UI/UX, Vanilla JS, Laravel Echo)
 - **Database:** MySQL (via Laragon)
 - **AI Integration:** OpenAI API / Gemini API / OpenRouter / Custom Base URL + API Key (Mendukung fleksibilitas pergantian provider LLM)
