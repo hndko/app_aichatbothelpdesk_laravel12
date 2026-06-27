@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\WebsiteSetting;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
@@ -15,11 +16,11 @@ class LlmService
 
     public function __construct()
     {
-        $this->provider = config('services.llm.provider', 'openrouter');
-        $this->apiKey   = config('services.llm.api_key', '');
-        $this->baseUrl  = config('services.llm.base_url', 'https://openrouter.ai/api/v1');
-        $this->model    = config('services.llm.model', 'openai/gpt-3.5-turbo');
-        $this->timeout  = config('services.llm.timeout', 30);
+        $this->provider = WebsiteSetting::get('ai_provider', config('services.llm.provider', 'openrouter'));
+        $this->apiKey   = WebsiteSetting::get('ai_api_key', config('services.llm.api_key', ''));
+        $this->baseUrl  = WebsiteSetting::get('ai_base_url', config('services.llm.base_url', 'https://openrouter.ai/api/v1'));
+        $this->model    = WebsiteSetting::get('ai_model', config('services.llm.model', 'openai/gpt-3.5-turbo'));
+        $this->timeout  = (int) WebsiteSetting::get('ai_timeout', config('services.llm.timeout', 30));
     }
 
     /**

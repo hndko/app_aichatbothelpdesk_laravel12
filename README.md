@@ -40,11 +40,15 @@ Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Su
 ### 📑 4. Ekspor Laporan Eksekutif (PDF & Excel)
 * **Laporan Siap Cetak**: Unduh rekapitulasi performa teknisi, analisis sentimen, dan riwayat kendala dalam format **PDF** (berkualitas tinggi) maupun **Excel** untuk analisis lanjutan.
 
-### 🎨 5. Desain UI/UX Premium & Mode Gelap (*Dark Mode*)
+### ⚙️ 5. Konfigurasi AI Provider & Manajemen Profil Dinamis
+* **Fleksibilitas Provider AI**: Admin dapat memilih dan mengganti penyedia layanan AI (**OpenRouter, OpenAI, Google Gemini, atau Custom Base URL**) serta mengubah identifier model langsung dari Dasbor UI tanpa perlu merestart server atau mengedit file `.env`.
+* **Manajemen Profil & Keamanan**: Pengguna dapat mengelola informasi akun, memperbarui kontak, serta mengganti kata sandi secara aman.
+
+### 🎨 6. Desain UI/UX Premium & Mode Gelap (*Dark Mode*)
 * Didesain dengan **Tailwind CSS v4.0** dan **Flowbite**, memberikan tampilan yang estetis, *glassmorphism*, bergaya *modern dynamic*, serta **100% responsif** di semua perangkat (Desktop, Tablet, dan Mobile).
 * Dilengkapi dengan efek interaktif, transisi halus, dan kursor kustom.
 
-### 🇮🇩 6. Lokalisasi Indonesia Penuh
+### 🇮🇩 7. Lokalisasi Indonesia Penuh
 * Menggunakan format waktu **Carbon Indonesia (`translatedFormat`)** dengan jam, menit, dan detik (WIB).
 * Sudah dilengkapi 20+ seeder data *Knowledge Base* kasus nyata IT Helpdesk kantor di Indonesia.
 

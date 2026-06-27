@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AiSettingController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardController;
@@ -55,6 +56,10 @@ Route::middleware('auth')->group(function () {
 
     // === Admin Only Routes ===
     Route::middleware('role:admin')->group(function () {
+
+        // Konfigurasi AI
+        Route::get('/ai-setting', [AiSettingController::class, 'index'])->name('ai-setting.index');
+        Route::put('/ai-setting', [AiSettingController::class, 'update'])->name('ai-setting.update');
 
         // Kelola User
         Route::prefix('users')->name('users.')->group(function () {

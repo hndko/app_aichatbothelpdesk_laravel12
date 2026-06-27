@@ -36,6 +36,7 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 1. **Sentimen Analisis Tiket:** AI mendeteksi tingkat kepuasan pelapor (Puas / Netral / Tidak Puas) berdasarkan teks/pesan pada tiket atau chat.
 2. **Export Laporan:** Kemampuan mengunduh ringkasan performa helpdesk dan data tiket ke format **PDF** dan **Excel**.
 3. **Auto-Assign Tiket:** Sistem secara cerdas mendistribusikan tiket secara otomatis kepada admin/teknisi tertentu berdasarkan kategori kendala.
+4. **Konfigurasi AI Provider & Model Dinamis:** Admin dapat mengelola dan mengganti penyedia layanan LLM (OpenRouter, OpenAI, Gemini, Custom Base URL) serta model AI langsung melalui antarmuka UI tanpa perlu mengubah `.env` atau merestart server.
 
 ---
 
@@ -96,11 +97,11 @@ Jika terdapat konflik antara kebiasaan umum penulisan kode dengan aturan di bawa
 
 | Elemen | Konvensi | Contoh |
 | :--- | :--- | :--- |
-| **File View** | `snake_case.blade.php` | `index.blade.php`, `show_ticket.blade.php` |
-| **Folder View** | `lowercase` sesuai modul | `backend/tiket`, `backend/dashboard` |
-| **Controller** | `PascalCase + Controller` | `TiketController.php`, `ChatbotController.php` |
-| **Model** | `PascalCase` (Tunggal) | `Tiket.php`, `Kategori.php`, `ChatHistory.php` |
-| **Route Name** | `dot.notation` | `tiket.index`, `tiket.store`, `admin.dashboard` |
+| **File View** | `snake_case.blade.php` | `index.blade.php`, `show_ticket.blade.php`, `edit.blade.php` |
+| **Folder View** | `lowercase` sesuai modul | `backend/tiket`, `backend/dashboard`, `backend/profile`, `backend/ai_setting` |
+| **Controller** | `PascalCase + Controller` | `TiketController.php`, `ChatbotController.php`, `ProfileController.php`, `AiSettingController.php` |
+| **Model** | `PascalCase` (Tunggal) | `Tiket.php`, `Kategori.php`, `ChatHistory.php`, `WebsiteSetting.php` |
+| **Route Name** | `dot.notation` | `tiket.index`, `profile.edit`, `ai-setting.index` |
 | **File Layout** | `app-[nama].blade.php` | `app-backend.blade.php` |
 
 ### 7. Alur Menambah Halaman / Modul Baru

@@ -123,18 +123,18 @@
                         <span class="ms-3">Tiket Saya</span>
                     </a>
                 </li>
-                <li>
-                    <a href="{{ route('profile.edit') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('profile.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
-                        <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('profile.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0 0a8.949 8.949 0 0 0 4.951-1.488A3.987 3.987 0 0 0 13 16h-2a3.987 3.987 0 0 0-3.951 3.512A8.948 8.948 0 0 0 12 21Zm3-11a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
-                        <span class="ms-3">Profil Saya</span>
-                    </a>
-                </li>
 
                 @if(auth()->user()->role === 'admin')
                     <li class="pt-5">
                         <div class="px-3 py-2 text-[11px] font-bold text-gray-400 uppercase tracking-widest dark:text-gray-500">
                             Kelola Admin
                         </div>
+                    </li>
+                    <li>
+                        <a href="{{ route('ai-setting.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('ai-setting.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
+                            <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('ai-setting.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.464-.736a8.001 8.001 0 0 0-.39-.569l.533-.697a1 1 0 0 0 .068-1.16l-1-1.732a1 1 0 0 0-1.16-.068l-.697.533c-.2-.152-.408-.288-.624-.407l-.736-.464V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-.736.464c-.216.119-.424.255-.624.407l-.697-.533a1 1 0 0 0-1.16.068l-1 1.732a1 1 0 0 0 .068 1.16l.533.697-.39.569-.464.736H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.464.736c.119.216.255.424.407.624l-.533.697a1 1 0 0 0-.068 1.16l1 1.732a1 1 0 0 0 1.16.068l.697-.533c.2.152.408.288.624.407l.736.464V21a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l.736-.464c.216-.119.424-.255.624-.407l.697.533a1 1 0 0 0 1.16-.068l1-1.732a1 1 0 0 0-.068-1.16l-.533-.697c.152-.2.288-.408.407-.624l.464-.736H21a1 1 0 0 0 1-1Zm-9 2a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+                            <span class="ms-3">Konfigurasi AI</span>
+                        </a>
                     </li>
                     <li>
                         <a href="{{ route('knowledge-base.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('knowledge-base.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
@@ -158,14 +158,8 @@
             </ul>
         </div>
         
-        <div class="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50/80 dark:bg-gray-800/80">
-            <form action="{{ route('logout') }}" method="POST">
-                @csrf
-                <button type="submit" class="w-full flex items-center justify-center p-3 text-red-600 bg-red-50 hover:bg-red-100 rounded-xl dark:bg-red-900/20 dark:hover:bg-red-900/40 dark:text-red-400 font-bold transition-all gap-2.5 shadow-xs">
-                    <svg class="w-5 h-5 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/></svg>
-                    <span>Keluar Sistem</span>
-                </button>
-            </form>
+        <div class="p-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 text-center">
+            <span class="text-[11px] font-bold tracking-wider uppercase text-gray-400 dark:text-gray-500">MariDesk AI v1.0</span>
         </div>
     </aside>
 
