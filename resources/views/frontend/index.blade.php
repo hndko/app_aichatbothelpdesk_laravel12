@@ -2,51 +2,84 @@
 
 @section('content')
 
-<!-- Hero Banner & Search Section -->
-<section class="relative bg-linear-to-r from-blue-700 via-indigo-800 to-slate-900 py-20 px-4 text-center overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,var(--tw-gradient-stops))] from-blue-400/10 via-transparent to-transparent pointer-events-none"></div>
+<!-- Modern Hero Banner with Graphic Illustration -->
+<section class="relative bg-linear-to-br from-slate-900 via-indigo-950 to-blue-950 py-16 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden border-b border-gray-800">
+    <!-- Glowing background decorative circles -->
+    <div class="absolute top-1/4 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-10 right-10 w-96 h-96 bg-indigo-500/15 rounded-full blur-3xl pointer-events-none"></div>
 
-    <div class="max-w-4xl mx-auto relative z-10">
-        <span class="inline-flex items-center gap-1.5 bg-white/10 dark:bg-white/5 text-blue-200 dark:text-blue-300 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-semibold mb-6 border border-white/20 shadow-sm animate-fade-in">
-            <svg class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg>
-            <span>Knowledge Base AI Helpdesk</span>
-        </span>
-
-        <h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white mb-4 tracking-tight leading-tight">
-            Apa yang bisa kami bantu hari ini?
-        </h1>
-
-        <p class="text-lg text-blue-100/80 max-w-2xl mx-auto mb-8 font-normal">
-            Temukan panduan teknis dan solusi cepat untuk kendala IT kantor Anda seketika sebelum membuat tiket layanan.
-        </p>
-    </div>
-</section>
-
-<!-- Floating Search Bar Flowbite Card -->
-<div class="max-w-3xl mx-auto px-4 -mt-8 relative z-20">
-    <div class="bg-white dark:bg-gray-800 p-2 sm:p-3 rounded-2xl shadow-2xl border border-gray-100 dark:border-gray-700">
-        <form action="{{ route('portal') }}" method="GET" class="flex flex-col sm:flex-row gap-2">
-            @if(request('category_id'))
-                <input type="hidden" name="category_id" value="{{ request('category_id') }}">
-            @endif
-
-            <div class="relative grow">
-                <div class="absolute inset-y-0 inset-s-0 flex items-center ps-4 pointer-events-none">
-                    <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/></svg>
-                </div>
-                <input type="text" name="search"
-                    class="bg-transparent border-0 text-gray-900 text-base rounded-xl focus:ring-0 block w-full ps-12 p-3 dark:placeholder-gray-400 dark:text-white"
-                    placeholder="Ketik kata kunci masalah (contoh: wifi lemot, printer macet)..."
-                    value="{{ request('search') }}" autocomplete="off">
+    <div class="max-w-7xl mx-auto relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <!-- Left Column: Typography & Search -->
+        <div class="lg:col-span-7 text-center lg:text-left space-y-6">
+            <div class="inline-flex items-center gap-2 bg-blue-500/10 dark:bg-blue-900/40 text-blue-300 backdrop-blur-md px-4 py-2 rounded-full text-xs font-bold border border-blue-400/20 shadow-inner">
+                <span class="flex h-2 w-2 rounded-full bg-blue-400 animate-pulse"></span>
+                <span>AI-Powered Helpdesk Knowledge Base</span>
             </div>
 
-            <button type="submit"
-                class="text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-xl text-sm px-6 py-3 text-center transition-all shadow-md shrink-0">
-                Cari Solusi
-            </button>
-        </form>
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+                Pusat Solusi & Layanan <br class="hidden sm:inline">
+                <span class="bg-linear-to-r from-blue-400 via-indigo-300 to-teal-300 bg-clip-text text-transparent">IT Helpdesk Cerdas</span>
+            </h1>
+
+            <p class="text-base sm:text-lg text-blue-100/80 max-w-2xl mx-auto lg:mx-0 font-normal leading-relaxed">
+                Temukan jawaban teknis akurat seketika yang ditenagai oleh Artificial Intelligence dari pangkalan pengetahuan resmi MariDesk sebelum Anda mengajukan tiket bantuan.
+            </p>
+
+            <!-- Search Card inside Hero for better desktop integration -->
+            <div class="pt-2 max-w-xl mx-auto lg:mx-0">
+                <div class="bg-white/95 dark:bg-gray-800/95 p-2 sm:p-2.5 rounded-2xl shadow-2xl border border-white/20 backdrop-blur-xl">
+                    <form action="{{ route('portal') }}" method="GET" class="flex flex-col sm:flex-row gap-2">
+                        @if(request('category_id'))
+                            <input type="hidden" name="category_id" value="{{ request('category_id') }}">
+                        @endif
+
+                        <div class="relative grow">
+                            <div class="absolute inset-y-0 inset-s-0 flex items-center ps-4 pointer-events-none">
+                                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/></svg>
+                            </div>
+                            <input type="text" name="search"
+                                class="bg-transparent border-0 text-gray-900 text-sm sm:text-base rounded-xl focus:ring-0 block w-full ps-12 p-3 dark:placeholder-gray-400 dark:text-white"
+                                placeholder="Cari masalah (cth: wifi lemot, printer)..."
+                                value="{{ request('search') }}" autocomplete="off">
+                        </div>
+
+                        <button type="submit"
+                            class="text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-xl text-sm px-6 py-3 text-center transition-all shadow-md shrink-0 flex items-center justify-center gap-1.5">
+                            <span>Cari Solusi</span>
+                            <svg class="w-4 h-4 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m9 5 7 7-7 7"/></svg>
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Quick Stats/Tags -->
+            <div class="pt-4 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-blue-200/60 border-t border-white/10">
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-green-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span>Layanan 24/7 Aktif</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-blue-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span>Respon AI Instan</span>
+                </div>
+                <div class="flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-indigo-400 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                    <span>Eskalasi Tiket Mudah</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right Column: Modern Graphic Illustration -->
+        <div class="lg:col-span-5 flex justify-center items-center relative">
+            <div class="relative w-full max-w-md lg:max-w-none">
+                <div class="absolute -inset-1 bg-linear-to-r from-blue-600 to-indigo-600 rounded-3xl blur-xl opacity-40 animate-pulse"></div>
+                <img src="{{ asset('assets/images/hero-illustration.png') }}" 
+                     alt="MariDesk AI Illustration" 
+                     class="relative rounded-3xl shadow-2xl border border-white/10 w-full object-cover transform hover:scale-[1.02] transition-transform duration-500">
+            </div>
+        </div>
     </div>
-</div>
+</section>
 
 <!-- Main FAQ Content Section -->
 <section class="max-w-7xl mx-auto px-4 py-12">
