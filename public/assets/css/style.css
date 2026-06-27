@@ -760,3 +760,8 @@ a {
 .count-up {
     transition: var(--transition);
 }
+
+/* Ensure all buttons and clickable elements show pointer cursor on hover */
+button, [role="button"], input[type="submit"], input[type="button"], input[type="reset"], summary, .btn, a {
+    cursor: pointer !important;
+}
