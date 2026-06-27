@@ -14,22 +14,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap 5 CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
+    <!-- Bootstrap Icons for iconography -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <!-- Tailwind CSS & Flowbite via Vite -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body>
-    <div class="auth-wrapper">
+<body class="font-sans antialiased min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 flex items-center justify-center p-4">
+    <div class="w-full max-w-md">
         @yield('content')
     </div>
-
-    <!-- Bootstrap 5 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -42,7 +36,7 @@
         <input type="hidden" id="flash-error" value="{{ session('error') }}">
     @endif
 
-    <!-- Custom JS -->
+    <!-- Custom Alerts JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>
 </body>
 </html>

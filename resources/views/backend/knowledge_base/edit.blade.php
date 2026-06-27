@@ -1,93 +1,96 @@
 @extends('layouts.app-backend')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col-lg-8">
-        <div class="d-flex align-items-center justify-content-between mb-4">
+<div class="max-w-4xl mx-auto">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $title }}</h4>
+            <p class="text-sm text-gray-500 dark:text-gray-400">Perbarui konten artikel FAQ knowledge base</p>
+        </div>
+        <a href="{{ route('knowledge-base.index') }}" class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center gap-1 transition-all">
+            <i class="bi bi-arrow-left"></i> Kembali
+        </a>
+    </div>
+
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8">
+        <form action="{{ route('knowledge-base.update', $article->id) }}" method="POST" class="space-y-6">
+            @csrf
+            @method('PUT')
+
             <div>
-                <h4 class="mb-1 fw-bold">{{ $title }}</h4>
-                <p class="text-muted small mb-0">Perbarui konten artikel FAQ knowledge base</p>
+                <label for="question" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <i class="bi bi-question-circle me-1 text-blue-600 dark:text-blue-400"></i> Pertanyaan (FAQ) <span class="text-red-500">*</span>
+                </label>
+                <input
+                    type="text"
+                    id="question"
+                    name="question"
+                    value="{{ old('question', $article->question) }}"
+                    placeholder="Contoh: Bagaimana cara reset password email kantor?"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all @error('question') border-red-500 @enderror"
+                    required
+                >
+                @error('question')
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
-            <a href="{{ route('knowledge-base.index') }}" class="btn btn-sm btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Kembali
-            </a>
-        </div>
 
-        <div class="nd-card animate-slide-up">
-            <div class="nd-card-body p-4 p-md-5">
-                <form action="{{ route('knowledge-base.update', $article->id) }}" method="POST">
-                    @csrf
-                    @method('PUT')
-
-                    <div class="nd-form-group">
-                        <label for="question"><i class="bi bi-question-circle me-1"></i>Pertanyaan (FAQ) <span class="text-danger">*</span></label>
-                        <input
-                            type="text"
-                            class="form-control @error('question') is-invalid @enderror"
-                            id="question"
-                            name="question"
-                            value="{{ old('question', $article->question) }}"
-                            placeholder="Contoh: Bagaimana cara reset password email kantor?"
-                            required
-                        >
-                        @error('question')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="nd-form-group">
-                        <label for="answer"><i class="bi bi-chat-right-text me-1"></i>Jawaban <span class="text-danger">*</span></label>
-                        <textarea
-                            name="answer"
-                            id="answer"
-                            rows="8"
-                            class="form-control @error('answer') is-invalid @enderror"
-                            placeholder="Tulis jawaban step-by-step yang jelas dan mudah diikuti oleh karyawan..."
-                            required
-                        >{{ old('answer', $article->answer) }}</textarea>
-                        @error('answer')
-                            <div class="invalid-feedback">{{ $message }}</div>
-                        @enderror
-                    </div>
-
-                    <div class="row g-3">
-                        <div class="col-md-6">
-                            <div class="nd-form-group">
-                                <label for="category_id"><i class="bi bi-tags me-1"></i>Kategori</label>
-                                <select name="category_id" id="category_id" class="form-select @error('category_id') is-invalid @enderror">
-                                    <option value="">-- Umum (Tanpa Kategori) --</option>
-                                    @foreach($categories as $cat)
-                                        <option value="{{ $cat->id }}" {{ old('category_id', $article->category_id) == $cat->id ? 'selected' : '' }}>
-                                            {{ ucfirst($cat->name) }} — {{ $cat->description ?? '' }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('category_id')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="nd-form-group">
-                                <label><i class="bi bi-toggle-on me-1"></i>Status Artikel</label>
-                                <div class="form-check form-switch mt-2">
-                                    <input class="form-check-input" type="checkbox" id="is_active" name="is_active" value="1" {{ old('is_active', $article->is_active) ? 'checked' : '' }}>
-                                    <label class="form-check-label" for="is_active">Aktif (tampil sebagai referensi AI)</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-flex justify-content-end gap-2 mt-3">
-                        <a href="{{ route('knowledge-base.index') }}" class="btn btn-outline-secondary px-4">Batal</a>
-                        <button type="submit" class="btn btn-nd-primary px-4">
-                            <i class="bi bi-save"></i> Perbarui Artikel
-                        </button>
-                    </div>
-                </form>
+            <div>
+                <label for="answer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <i class="bi bi-chat-right-text me-1 text-blue-600 dark:text-blue-400"></i> Jawaban <span class="text-red-500">*</span>
+                </label>
+                <textarea
+                    name="answer"
+                    id="answer"
+                    rows="8"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all @error('answer') border-red-500 @enderror"
+                    placeholder="Tulis jawaban step-by-step yang jelas dan mudah diikuti oleh karyawan..."
+                    required
+                >{{ old('answer', $article->answer) }}</textarea>
+                @error('answer')
+                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
             </div>
-        </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+                <div>
+                    <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <i class="bi bi-tags me-1 text-blue-600 dark:text-blue-400"></i> Kategori
+                    </label>
+                    <select name="category_id" id="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all @error('category_id') border-red-500 @enderror">
+                        <option value="">-- Umum (Tanpa Kategori) --</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ old('category_id', $article->category_id) == $cat->id ? 'selected' : '' }}>
+                                {{ ucfirst($cat->name) }} — {{ $cat->description ?? '' }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('category_id')
+                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div class="pt-2">
+                    <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                        <i class="bi bi-toggle-on me-1 text-blue-600 dark:text-blue-400"></i> Status Artikel
+                    </label>
+                    <label class="inline-flex items-center cursor-pointer mt-1">
+                        <input type="checkbox" id="is_active" name="is_active" value="1" class="sr-only peer" {{ old('is_active', $article->is_active) ? 'checked' : '' }}>
+                        <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
+                        <span class="ms-3 text-sm font-medium text-gray-700 dark:text-gray-300">Aktif (tampil sebagai referensi AI)</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="flex justify-end items-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
+                <a href="{{ route('knowledge-base.index') }}" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 transition-all">
+                    Batal
+                </a>
+                <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all">
+                    <i class="bi bi-save"></i> Perbarui Artikel
+                </button>
+            </div>
+        </form>
     </div>
 </div>
 @endsection
