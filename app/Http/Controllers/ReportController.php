@@ -55,14 +55,14 @@ class ReportController extends Controller
             'closed'  => $tickets->where('status', 'closed')->count(),
         ])->setPaper('a4', 'landscape');
 
-        return $pdf->download('Laporan-Helpdesk-NexusDeskAI-' . date('Ymd-His') . '.pdf');
+        return $pdf->download('Laporan-Helpdesk-MariDeskAI-' . date('Ymd-His') . '.pdf');
     }
 
     /**
-     * Export laporan ke Excel.
+     * Export laporan statistik dan daftar tiket ke Excel.
      */
     public function exportExcel(Request $request)
     {
-        return Excel::download(new TicketsExport, 'Laporan-Helpdesk-NexusDeskAI-' . date('Ymd-His') . '.xlsx');
+        return Excel::download(new TicketsExport, 'Laporan-Helpdesk-MariDeskAI-' . date('Ymd-His') . '.xlsx');
     }
 }

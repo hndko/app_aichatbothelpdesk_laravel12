@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Laporan Helpdesk - NexusDesk AI</title>
+    <title>Laporan Helpdesk - MariDesk AI</title>
     <style>
         body { font-family: Arial, sans-serif; font-size: 11px; color: #333; }
         .header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #4f46e5; padding-bottom: 10px; }
@@ -22,7 +22,7 @@
 <body>
 
 <div class="header">
-    <h2>NEXUSDESK AI — LAPORAN PERFORMA IT HELPDESK</h2>
+    <h2>MARIDESK AI — LAPORAN PERFORMA IT HELPDESK</h2>
     <p>Dicetak pada: {{ date('d F Y, H:i') }} WIB | Oleh: {{ auth()->user()->name ?? 'Administrator' }}</p>
 </div>
 

@@ -39,6 +39,6 @@ class TicketCreated extends Notification implements ShouldQueue
             ->line('**Status:** OPEN')
             ->action('Lihat Detail Tiket', $url)
             ->line('Tim IT Helpdesk kami akan segera menindaklanjuti tiket Anda. Terima kasih telah melapor!')
-            ->salutation('Salam, Tim NexusDesk AI');
+            ->salutation('Salam, Tim MariDesk AI');
     }
 }

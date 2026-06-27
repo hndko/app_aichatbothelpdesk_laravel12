@@ -45,6 +45,6 @@ class TicketNewReply extends Notification implements ShouldQueue
             ->line('> ' . $this->messagePreview)
             ->action('Buka Percakapan', $url)
             ->line('Balas kembali melalui halaman tiket jika Anda membutuhkan bantuan lebih lanjut.')
-            ->salutation('Salam, Tim NexusDesk AI');
+            ->salutation('Salam, Tim MariDesk AI');
     }
 }

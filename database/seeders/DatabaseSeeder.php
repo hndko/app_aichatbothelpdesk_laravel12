@@ -62,9 +62,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // === 3. Seed Website Settings ===
-        WebsiteSetting::set('app_name', 'NexusDesk AI');
-        WebsiteSetting::set('company_name', 'PT Nexus Corporate Technology');
-        WebsiteSetting::set('support_email', 'helpdesk@nexusdesk.com');
+        WebsiteSetting::set('app_name', 'MariDesk AI');
+        WebsiteSetting::set('company_name', 'PT MariDesk Corporate Technology');
+        WebsiteSetting::set('support_email', 'helpdesk@maridesk.com');
 
         // === 4. Seed Knowledge Base (FAQ) ===
         KnowledgeBase::create([

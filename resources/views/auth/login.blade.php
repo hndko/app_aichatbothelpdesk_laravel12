@@ -3,8 +3,8 @@
 @section('content')
 <div class="bg-white/90 dark:bg-gray-800/90 backdrop-blur-xl border border-white/20 dark:border-gray-700 rounded-2xl shadow-2xl p-8 w-full transition-all">
     <div class="flex flex-col items-center mb-6">
-        <img src="{{ asset('assets/images/logo.png') }}" alt="NexusDesk AI" class="w-16 h-16 rounded-xl shadow-md mb-3">
-        <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">NexusDesk AI</h1>
+        <img src="{{ asset('assets/images/logo.png') }}" alt="MariDesk AI" class="w-16 h-16 rounded-xl shadow-md mb-3">
+        <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">MariDesk AI</h1>
         <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Masuk ke akun Helpdesk Anda</p>
     </div>
 
@@ -75,7 +75,7 @@
 
     <div class="text-center mt-6 pt-4 border-t border-gray-200 dark:border-gray-700">
         <p class="text-xs text-gray-500 dark:text-gray-400">
-            &copy; {{ date('Y') }} NexusDesk AI — ND AI Helpdesk System
+            &copy; {{ date('Y') }} MariDesk AI — MD AI Helpdesk System
         </p>
     </div>
 </div>

@@ -84,7 +84,7 @@ class LlmService
         // Header tambahan khusus OpenRouter
         if ($this->provider === 'openrouter') {
             $headers['HTTP-Referer'] = config('app.url', 'http://localhost');
-            $headers['X-Title']      = config('app.name', 'NexusDesk AI');
+            $headers['X-Title']      = config('app.name', 'MariDesk AI');
         }
 
         $payload = [
@@ -132,7 +132,7 @@ class LlmService
     public static function buildHelpdeskPrompt(array $knowledgeItems = []): string
     {
         $prompt = <<<PROMPT
-Kamu adalah NexusDesk AI, asisten virtual IT Helpdesk yang cerdas dan ramah.
+Kamu adalah MariDesk AI, asisten virtual IT Helpdesk yang cerdas dan ramah.
 Tugasmu adalah membantu karyawan perusahaan menyelesaikan kendala teknis IT.
 
 ATURAN:

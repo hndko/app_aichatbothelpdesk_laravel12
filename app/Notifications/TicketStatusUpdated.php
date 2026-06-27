@@ -52,6 +52,6 @@ class TicketStatusUpdated extends Notification implements ShouldQueue
             $mail->line('Teknisi kami sedang menangani kendala Anda. Anda akan mendapatkan notifikasi jika ada perkembangan.');
         }
 
-        return $mail->salutation('Salam, Tim NexusDesk AI');
+        return $mail->salutation('Salam, Tim MariDesk AI');
     }
 }

@@ -1,5 +1,5 @@
 /**
- * NexusDesk AI — Global JavaScript
+ * MariDesk AI — Global JavaScript
  */
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -22,50 +22,16 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // === SweetAlert2 Flash Messages ===
-    const flashSuccess = document.getElementById('flash-success');
-    const flashError = document.getElementById('flash-error');
-    const flashWarning = document.getElementById('flash-warning');
-
-    if (flashSuccess) {
-        Swal.fire({
-            icon: 'success',
-            title: 'Berhasil!',
-            text: flashSuccess.value,
-            timer: 3000,
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end',
-            timerProgressBar: true,
-            customClass: { popup: 'animate__animated animate__fadeInRight' }
-        });
-    }
-
-    if (flashError) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Gagal!',
-            text: flashError.value,
-            timer: 4000,
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end',
-            timerProgressBar: true
-        });
-    }
-
-    if (flashWarning) {
-        Swal.fire({
-            icon: 'warning',
-            title: 'Perhatian!',
-            text: flashWarning.value,
-            timer: 4000,
-            showConfirmButton: false,
-            toast: true,
-            position: 'top-end',
-            timerProgressBar: true
-        });
-    }
+    // === Flowbite Toast Auto-Dismiss ===
+    ['toast-success', 'toast-error', 'toast-warning'].forEach(id => {
+        const toast = document.getElementById(id);
+        if (toast) {
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                setTimeout(() => toast.remove(), 300);
+            }, 4500);
+        }
+    });
 
     // === Count-Up Animation ===
     const counters = document.querySelectorAll('.count-up');

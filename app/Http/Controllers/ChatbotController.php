@@ -80,7 +80,7 @@ class ChatbotController extends Controller
             $responseData['bot_chat'] = [
                 'id'          => $botChat->id,
                 'sender_type' => 'bot',
-                'sender_name' => 'NexusDesk AI Bot',
+                'sender_name' => 'MariDesk AI Bot',
                 'message'     => $botReply,
                 'time'        => $botChat->created_at->format('H:i'),
             ];

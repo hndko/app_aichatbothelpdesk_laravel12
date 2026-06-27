@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="NexusDesk AI — Sistem Helpdesk IT Cerdas">
-    <title>{{ $title ?? 'Dashboard' }} — NexusDesk AI</title>
+    <meta name="description" content="MariDesk AI — Sistem Helpdesk IT Cerdas">
+    <title>{{ $title ?? 'Dashboard' }} — MariDesk AI</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="{{ asset('assets/images/favicon.png') }}">
@@ -30,9 +30,9 @@
                         <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h18M3 12h18M3 18h18"/></svg>
                     </button>
                     <a href="{{ route('dashboard') }}" class="flex ms-2 md:me-24 items-center gap-3">
-                        <img src="{{ asset('assets/images/logo.png') }}" class="h-8 me-1" alt="NexusDesk AI Logo" />
+                        <img src="{{ asset('assets/images/logo.png') }}" class="h-8 me-1" alt="MariDesk AI Logo" />
                         <div>
-                            <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">NexusDesk AI</span>
+                            <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">MariDesk AI</span>
                             <span class="hidden md:inline-block ms-2 text-xs font-semibold px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-300">Helpdesk</span>
                         </div>
                     </a>
@@ -149,19 +149,62 @@
         </div>
     </div>
 
-    <!-- SweetAlert2 -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Flowbite Toast Notifications -->
+    <div class="fixed top-5 right-5 z-50 flex flex-col gap-3 max-w-sm w-full">
+        @if(session('success'))
+            <div id="toast-success" class="flex items-center w-full p-4 text-gray-500 bg-white rounded-xl shadow-lg border border-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 transition-all" role="alert">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-green-500 bg-green-100 rounded-lg dark:bg-green-800 dark:text-green-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                    </svg>
+                    <span class="sr-only">Check icon</span>
+                </div>
+                <div class="ms-3 text-sm font-medium text-gray-800 dark:text-gray-200">{{ session('success') }}</div>
+                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-success" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+        @endif
 
-    <!-- Flash Messages -->
-    @if(session('success'))
-        <input type="hidden" id="flash-success" value="{{ session('success') }}">
-    @endif
-    @if(session('error'))
-        <input type="hidden" id="flash-error" value="{{ session('error') }}">
-    @endif
-    @if(session('warning'))
-        <input type="hidden" id="flash-warning" value="{{ session('warning') }}">
-    @endif
+        @if(session('error'))
+            <div id="toast-error" class="flex items-center w-full p-4 text-gray-500 bg-white rounded-xl shadow-lg border border-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 transition-all" role="alert">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-red-500 bg-red-100 rounded-lg dark:bg-red-800 dark:text-red-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 11.793a1 1 0 1 1-1.414 1.414L10 11.414l-2.293 2.293a1 1 0 0 1-1.414-1.414L8.586 10 6.293 7.707a1 1 0 0 1 1.414-1.414L10 8.586l2.293-2.293a1 1 0 0 1 1.414 1.414L11.414 10l2.293 2.293Z"/>
+                    </svg>
+                    <span class="sr-only">Error icon</span>
+                </div>
+                <div class="ms-3 text-sm font-medium text-gray-800 dark:text-gray-200">{{ session('error') }}</div>
+                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-error" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+        @endif
+
+        @if(session('warning'))
+            <div id="toast-warning" class="flex items-center w-full p-4 text-gray-500 bg-white rounded-xl shadow-lg border border-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:border-gray-700 transition-all" role="alert">
+                <div class="inline-flex items-center justify-center shrink-0 w-8 h-8 text-orange-500 bg-orange-100 rounded-lg dark:bg-orange-700 dark:text-orange-200">
+                    <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/>
+                    </svg>
+                    <span class="sr-only">Warning icon</span>
+                </div>
+                <div class="ms-3 text-sm font-medium text-gray-800 dark:text-gray-200">{{ session('warning') }}</div>
+                <button type="button" class="ms-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" data-dismiss-target="#toast-warning" aria-label="Close">
+                    <span class="sr-only">Close</span>
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    </svg>
+                </button>
+            </div>
+        @endif
+    </div>
 
     <!-- Custom Alerts JS -->
     <script src="{{ asset('assets/js/app.js') }}"></script>

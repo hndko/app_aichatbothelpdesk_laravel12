@@ -4,7 +4,7 @@
 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
     <div>
         <h4 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $title }}</h4>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Daftar pengguna terdaftar di sistem NexusDesk AI</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Daftar pengguna terdaftar di sistem MariDesk AI</p>
     </div>
 </div>
 
