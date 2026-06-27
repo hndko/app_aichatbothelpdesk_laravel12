@@ -14,10 +14,10 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 
 ### 2. Tech Stack
 - **Backend:** PHP 8.2+, Laravel 12
-- **Frontend:** Laravel Blade, Bootstrap 5 (Responsive UI/UX, Vanilla CSS, JS)
+- **Frontend:** Laravel Blade, Tailwind CSS v4.0 (Flowbite Component Library & Icons, Responsive UI/UX, Vanilla JS)
 - **Database:** MySQL (via Laragon)
 - **AI Integration:** OpenAI API / Gemini API / OpenRouter / Custom Base URL + API Key (Mendukung fleksibilitas pergantian provider LLM)
-- **Eksternal & Library:** SweetAlert2, DomPDF / Maatwebsite Excel (untuk export laporan)
+- **Eksternal & Library:** Flowbite Toast / SweetAlert2, DomPDF / Maatwebsite Excel (untuk export laporan)
 
 ### 3. Daftar Fitur
 
@@ -74,9 +74,15 @@ Jika terdapat konflik antara kebiasaan umum penulisan kode dengan aturan di bawa
 ### 4. Konvensi Layout & Blade
 - **Pembatasan Yield:** Layout utama hanya boleh menyediakan satu `@yield('content')` sebagai slot area konten utama.
 - **Pengiriman Title:** Judul halaman dikirim dari controller melalui variabel `$title`, kemudian dirender langsung di layout utama. Jangan menambahkan `@yield('title')`, `@yield('styles')`, atau `@yield('scripts')` baru.
-- **Pemanfaatan Asset:** Jika membutuhkan gaya atau skrip khusus di suatu halaman, manfaatkan CSS/JS global Bootstrap atau tulis skrip terkontrol di dalam `@section('content')`. Gunakan helper `asset()` untuk memanggil asset publik.
+- **Pemanfaatan Asset & Tailwind CSS v4:** Seluruh styling wajib menggunakan Tailwind CSS v4 & Flowbite. Ikuti aturan standar Tailwind v4 berikut agar tidak menimbulkan warning/error:
+  - Gunakan `shrink-0` (bukan `flex-shrink-0`).
+  - Gunakan `grow` (bukan `flex-grow`).
+  - Gunakan `inset-s-0` / `inset-e-0` (bukan `start-0` / `end-0`).
+  - Gunakan `bg-linear-to-r` (bukan `bg-gradient-to-r`).
+  - Ikon wajib menggunakan Flowbite SVG Icons (`https://flowbite.com/docs/customize/icons/`).
+  - Notifikasi/Alert wajib menggunakan Flowbite Toast component (`https://flowbite.com/docs/components/toast/`).
 - **Larangan Query di Blade:** Dilarang keras melakukan query database atau memanggil Eloquent langsung di dalam file `.blade.php` (contoh: `Tiket::get()`). Seluruh data harus disiapkan oleh controller.
-- **Larangan Blok PHP di View:** Hindari penggunaan tag `@php ... @endphp` atau `<?php ... ?>` di dalam Blade. Pemetaan warna status (*badge* Bootstrap), kalkulasi, atau logika kondisional harus diproses di Controller atau Helper.
+- **Larangan Blok PHP di View:** Hindari penggunaan tag `@php ... @endphp` atau `<?php ... ?>` di dalam Blade. Pemetaan warna status (*badge* Tailwind/Flowbite), kalkulasi, atau logika kondisional harus diproses di Controller atau Helper.
 - **Keutuhan Form:** Form `create.blade.php` dan `edit.blade.php` wajib ditulis secara utuh dan mandiri. Jangan menggunakan `@include()` untuk memotong form atau tabel utama.
 
 ### 5. Konvensi Controller & Eloquent Model
