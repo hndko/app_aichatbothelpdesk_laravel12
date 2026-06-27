@@ -197,4 +197,28 @@ PROMPT;
         $instance = new self();
         return $instance->analyzeSentiment($text);
     }
+
+    /**
+     * Hasilkan saran balasan obrolan untuk teknisi Helpdesk.
+     */
+    public function generateReplySuggestion(\App\Models\Ticket $ticket, array $chatHistory): string
+    {
+        try {
+            $systemPrompt = "Anda adalah Asisten AI yang membantu merumuskan draf jawaban sopan, profesional, dan akurat bagi Teknisi IT Helpdesk untuk dikirimkan kepada pelapor tiket. Subjek masalah: '{$ticket->subject}'. Berikan langsung draf balasan dalam bahasa Indonesia yang komunikatif dan solutif (tanpa pengantar/penutup seperti 'Tentu, berikut drafnya:').";
+
+            return $this->chat('Tolong berikan rekomendasi balasan teknisi untuk percakapan terakhir di atas.', $systemPrompt, $chatHistory);
+        } catch (\Exception $e) {
+            Log::warning('Generate Reply Suggestion Fallback: ' . $e->getMessage());
+            return "Halo kak, terima kasih atas laporannya. Tim Helpdesk sedang memeriksa kendala ini. Mohon ditunggu ya.";
+        }
+    }
+
+    /**
+     * Static helper untuk generate rekomendasi balasan.
+     */
+    public static function suggestReply(\App\Models\Ticket $ticket, array $chatHistory): string
+    {
+        $instance = new self();
+        return $instance->generateReplySuggestion($ticket, $chatHistory);
+    }
 }

@@ -18,7 +18,12 @@ class RoleMiddleware
             return redirect()->route('login');
         }
 
-        if (!in_array(auth()->user()->role, $roles)) {
+        $allowedRoles = [];
+        foreach ($roles as $r) {
+            $allowedRoles = array_merge($allowedRoles, array_map('trim', explode(',', $r)));
+        }
+
+        if (!in_array(auth()->user()->role, $allowedRoles)) {
             abort(403, 'Anda tidak memiliki akses ke halaman ini.');
         }
 

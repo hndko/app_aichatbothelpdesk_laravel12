@@ -66,6 +66,30 @@ class User extends Authenticatable
     }
 
     /**
+     * Cek apakah user adalah service desk.
+     */
+    public function isServiceDesk(): bool
+    {
+        return $this->role === 'service_desk';
+    }
+
+    /**
+     * Cek apakah user adalah helpdesk teknisi.
+     */
+    public function isHelpdesk(): bool
+    {
+        return $this->role === 'helpdesk';
+    }
+
+    /**
+     * Cek apakah user adalah staf internal (admin, service desk, atau helpdesk).
+     */
+    public function isStaff(): bool
+    {
+        return in_array($this->role, ['admin', 'service_desk', 'helpdesk']);
+    }
+
+    /**
      * Relasi: Tiket yang dibuat user ini.
      */
     public function tickets()

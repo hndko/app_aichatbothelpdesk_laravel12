@@ -19,6 +19,11 @@ class Ticket extends Model
         'priority',
         'status',
         'sentiment',
+        'is_ai_active',
+    ];
+
+    protected $casts = [
+        'is_ai_active' => 'boolean',
     ];
 
     /**

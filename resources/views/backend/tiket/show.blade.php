@@ -90,12 +90,20 @@
         </div>
 
         <div class="flex items-center gap-2.5 flex-wrap">
-            @if(auth()->user()->isAdmin())
+            @if(auth()->user()->isStaff())
+                <form action="{{ route('tiket.toggle-ai', $ticket->id) }}" method="POST" class="inline">
+                    @csrf
+                    @method('PATCH')
+                    <button type="submit" class="py-1.5 px-3 text-xs font-bold rounded-xl border {{ $ticket->is_ai_active ? 'bg-amber-50 text-amber-800 border-amber-300 hover:bg-amber-100 dark:bg-amber-900/30 dark:text-amber-300 dark:border-amber-800' : 'bg-blue-50 text-blue-700 border-blue-300 hover:bg-blue-100 dark:bg-blue-900/30 dark:text-blue-300 dark:border-blue-800' }} inline-flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer">
+                        <span>{{ $ticket->is_ai_active ? '⏸️ Jeda AI (Takeover)' : '▶️ Aktifkan AI Kembali' }}</span>
+                    </button>
+                </form>
+
                 <form action="{{ route('tiket.update-status', $ticket->id) }}" method="POST" class="flex items-center gap-1 bg-gray-50 dark:bg-gray-700/50 p-1 rounded-xl border border-gray-200 dark:border-gray-600">
                     @csrf
                     @method('PATCH')
                     <span class="text-xs font-bold text-gray-500 dark:text-gray-400 px-2">Ubah Status:</span>
-                    <select name="status" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-xs font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 py-1.5 px-3 shadow-2xs cursor-pointer" onchange="this.form.submit()">
+                    <select name="status" class="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white text-xs font-bold rounded-lg focus:ring-blue-500 focus:border-blue-500 py-1 px-3 shadow-2xs cursor-pointer" onchange="this.form.submit()">
                         <option value="open" {{ $ticket->status === 'open' ? 'selected' : '' }}>🔴 OPEN</option>
                         <option value="progress" {{ $ticket->status === 'progress' ? 'selected' : '' }}>🟡 PROGRESS</option>
                         <option value="closed" {{ $ticket->status === 'closed' ? 'selected' : '' }}>🟢 CLOSED</option>
@@ -103,7 +111,7 @@
                 </form>
             @endif
 
-            <a href="{{ route('tiket.index') }}" class="py-2.5 px-4 text-xs font-bold text-gray-700 focus:outline-none bg-gray-100 rounded-xl border border-gray-200 hover:bg-gray-200 hover:text-blue-700 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 inline-flex items-center gap-1.5 transition-all shadow-2xs">
+            <a href="{{ route('tiket.index') }}" class="py-2 px-4 text-xs font-bold text-gray-700 focus:outline-none bg-gray-100 rounded-xl border border-gray-200 hover:bg-gray-200 hover:text-blue-700 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 inline-flex items-center gap-1.5 transition-all shadow-2xs">
                 <svg class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
                 <span>Kembali</span>
             </a>
@@ -119,11 +127,17 @@
                     <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
                         <span class="text-lg">💬</span>
                         <span>Ruang Diskusi & Bantuan AI</span>
-                    </h3>
-                    <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs">
-                        <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
-                        <span>AI Active</span>
-                    </span>
+                    @if($ticket->is_ai_active)
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
+                            <span>AI Otomatis Aktif</span>
+                        </span>
+                    @else
+                        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800 shadow-2xs">
+                            <span class="w-2 h-2 rounded-full bg-amber-600"></span>
+                            <span>Diambil Alih Teknisi (AI Jeda)</span>
+                        </span>
+                    @endif
                 </div>
 
                 <!-- Chat Messages Area -->
@@ -148,17 +162,25 @@
                 <!-- Chat Input Box -->
                 @if($ticket->status !== 'closed')
                     <div class="p-4 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800">
+                        @if(auth()->user()->isStaff())
+                            <div class="mb-2.5 flex items-center justify-between">
+                                <button type="button" id="btnSuggestReply" class="text-xs font-bold text-indigo-700 bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-900/30 dark:text-indigo-300 dark:hover:bg-indigo-900/50 py-1.5 px-3 rounded-lg border border-indigo-200 dark:border-indigo-800 inline-flex items-center gap-1.5 transition-all shadow-2xs cursor-pointer">
+                                    <span>✨ Rekomendasi Balasan AI (Draf Teknisi)</span>
+                                </button>
+                                <span class="text-[11px] text-indigo-500 dark:text-indigo-400 italic hidden animate-pulse" id="suggestLoading">⏳ Merumuskan saran balasan...</span>
+                            </div>
+                        @endif
                         <form id="chatForm" autocomplete="off">
                             <div class="flex gap-2.5">
                                 <input
                                     type="text"
                                     class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-inner"
                                     id="chatMessage"
-                                    placeholder="{{ auth()->user()->isAdmin() ? 'Ketik balasan resmi sebagai Teknisi IT...' : 'Tanyakan sesuatu atau balas pesan...' }}"
+                                    placeholder="{{ auth()->user()->isStaff() ? 'Ketik balasan resmi sebagai Teknisi IT...' : 'Tanyakan sesuatu atau balas pesan...' }}"
                                     maxlength="2000"
                                     required
                                 >
-                                <button type="submit" class="text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-xl text-sm px-6 py-3.5 text-center flex items-center justify-center transition-all shadow-md shrink-0 active:scale-95" id="btnSendChat">
+                                <button type="submit" class="text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-xl text-sm px-6 py-3.5 text-center flex items-center justify-center transition-all shadow-md shrink-0 active:scale-95 cursor-pointer" id="btnSendChat">
                                     <svg class="w-5 h-5 shrink-0 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 8.594-16-8.5A1 1 0 0 0 .658.347l2.853 8.358a1 1 0 0 0 .943.695h7.24a1 1 0 0 1 0 2h-7.24a1 1 0 0 0-.944.695L.658 20.453a1 1 0 0 0 1.256 1.257l16-8.5a1 1 0 0 0 0-1.761Z"/></svg>
                                 </button>
                             </div>
@@ -218,7 +240,7 @@
                 <!-- Penugasan Teknisi -->
                 <div>
                     <span class="block text-xs font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1.5">Teknisi Penanggung Jawab</span>
-                    @if(auth()->user()->isAdmin())
+                    @if(auth()->user()->isAdmin() || auth()->user()->isServiceDesk())
                         <form action="{{ route('tiket.update-assignee', $ticket->id) }}" method="POST" class="flex items-center gap-1.5">
                             @csrf
                             @method('PATCH')
@@ -319,7 +341,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const now = new Date();
         const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
         const userBubble = createBubble({
-            sender_type: '{{ auth()->user()->role === "admin" ? "admin" : "user" }}',
+            sender_type: '{{ auth()->user()->isStaff() ? "admin" : "user" }}',
             sender_name: '{{ auth()->user()->name }}',
             message: msg.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
             created_at: timeStr
@@ -330,7 +352,7 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToBottom();
 
         let typingIndicator = null;
-        if ('{{ auth()->user()->role }}' === 'user') {
+        if ('{{ auth()->user()->isUser() }}' === '1') {
             typingIndicator = document.createElement('div');
             typingIndicator.className = 'chat-typing';
             typingIndicator.innerHTML = '<span></span><span></span><span></span>';
@@ -338,7 +360,7 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToBottom();
         }
 
-        fetch(`/chat/${ticketId}`, {
+        fetch(`/chatbot/${ticketId}/send`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -350,11 +372,11 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (typingIndicator) typingIndicator.remove();
-            if (data.status === 'success' && data.bot_reply) {
+            if (data.bot_chat) {
                 const botBubble = createBubble({
                     sender_type: 'bot',
-                    message: data.bot_reply.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
-                    created_at: timeStr
+                    message: data.bot_chat.message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
+                    created_at: data.bot_chat.time
                 });
                 chatArea.appendChild(botBubble);
                 scrollToBottom();
@@ -370,6 +392,42 @@ document.addEventListener('DOMContentLoaded', function() {
             chatInput.focus();
         });
     });
+
+    const btnSuggest = document.getElementById('btnSuggestReply');
+    const suggestLoading = document.getElementById('suggestLoading');
+    if (btnSuggest) {
+        btnSuggest.addEventListener('click', function() {
+            btnSuggest.disabled = true;
+            if (suggestLoading) suggestLoading.classList.remove('hidden');
+
+            fetch(`/chatbot/${ticketId}/suggest`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': csrfToken,
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success' && data.suggestion) {
+                    chatInput.value = data.suggestion;
+                    charCount.textContent = chatInput.value.length;
+                    chatInput.focus();
+                } else {
+                    alert(data.error || 'Gagal merumuskan saran balasan.');
+                }
+            })
+            .catch(err => {
+                console.error(err);
+                alert('Terjadi kesalahan saat memanggil AI.');
+            })
+            .finally(() => {
+                btnSuggest.disabled = false;
+                if (suggestLoading) suggestLoading.classList.add('hidden');
+            });
+        });
+    }
 });
 </script>
 @endsection

@@ -24,25 +24,29 @@ Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Su
 
 ## ✨ Fitur Unggulan
 
-### 🤖 1. AI Chatbot Asisten Virtual 24/7
-* **Automasi Jawaban Instan**: Pelapor dapat berinteraksi langsung dengan AI Chatbot sebelum tiket diteruskan ke admin. AI menjawab pertanyaan secara akurat berdasarkan data *Knowledge Base* perusahaan.
-* **Smart Fallback**: Jika kendala membutuhkan intervensi manusia, alur percakapan mulus beralih menjadi tiket penanganan oleh teknisi.
+### 🛡️ 1. Arsitektur Multi-Role Enterprise (4 Peran)
+* **Pemisahan Hak Akses Spesifik**:
+  * `Admin`: Pusat kontrol sistem (konfigurasi AI, kelola user, knowledge base, laporan menyeluruh).
+  * `Service Desk`: Penerima awal tiket kendala yang bertugas memvalidasi dan mendistribusikan (*assign*) tiket kepada teknisi.
+  * `Helpdesk`: Teknisi spesialis penanggung jawab eksekusi penanganan kendala teknis.
+  * `User`: Karyawan/Pelapor yang mengajukan tiket dan memantau status penyelesaian.
 
-### 🎫 2. Manajemen Tiket Multi-Kategori & Status
-* **Dasbor Analisis & Filter Waktu**: Pemantauan KPI layanan IT secara real-time yang dilengkapi filter rentang waktu (*Hari Ini, 7 Hari, 30 Hari, Bulan Ini, atau Kustom*) serta breakdown grafik visual.
-* **Kategori Terstruktur**: Pemisahan kendala ke dalam **Hardware**, **Software**, dan **Network**.
-* **Alur Status Transparan**: Pemantauan status tiket secara *real-time* dari `Open` ➔ `Progress` ➔ `Closed`.
-* **Prioritas Penanganan**: Pengelompokan tingkat urgensi (*Low*, *Medium*, *High*, *Urgent*).
+### 🤖 2. AI Chatbot, Takeover & Rekomendasi Balasan
+* **Automasi Jawaban Instan**: AI menjawab kendala pelapor 24/7 berdasarkan *Knowledge Base*.
+* **AI Takeover (Smart Pause)**: Begitu teknisi Helpdesk membalas pesan di ruang obrolan, bot AI otomatis dijeda (*Takeover*) agar tidak berbenturan dengan instruksi teknisi, dilengkapi tombol sakelar aktif/nonaktif manual.
+* **AI Suggested Reply (*Standout Feature*)**: Tombol pintar yang merumuskan draf rekomendasi jawaban solutif dan profesional bagi teknisi dalam satu klik, mempercepat waktu penanganan tiket (*SLA*).
 
-### 💡 3. Sentimen Analisis AI (*Standout Feature*)
-* **Deteksi Emosi Pelapor**: AI secara otomatis menganalisis nada pesan dan percakapan untuk menentukan tingkat kepuasan pelapor (**😊 Puas / 😐 Netral / 😠 Tidak Puas / Urgent**).
-* Membantu manajer IT memprioritaskan tiket dengan sentimen negatif agar segera ditangani guna menjaga kualitas layanan (*SLA*).
+### 🎫 3. Manajemen Tiket & Penugasan Teknisi
+* **Dasbor Analisis & Filter Waktu**: Pemantauan KPI layanan IT secara real-time dengan filter rentang waktu (*Hari Ini, 7 Hari, 30 Hari, Bulan Ini, atau Kustom*).
+* **Alur Status Transparan**: Tiket baru secara default berstatus `Open` dan `Unassigned`. Service Desk dapat menugaskannya langsung ke Helpdesk yang relevan (`Open` ➔ `Progress` ➔ `Closed`).
+* **Kategori & Prioritas**: Pengelompokan *Hardware*, *Software*, *Network* dengan indikator urgensi (*Low*, *Medium*, *High*, *Urgent*).
 
-### 📑 4. Ekspor Laporan Eksekutif (PDF & Excel)
-* **Laporan Siap Cetak**: Unduh rekapitulasi performa teknisi, analisis sentimen, dan riwayat kendala dalam format **PDF** (berkualitas tinggi) maupun **Excel** untuk analisis lanjutan.
+### 📊 4. Analisis Sentimen AI & Statistik Kinerja Helpdesk
+* **Deteksi Emosi Pelapor**: AI otomatis memindai nada pesan saat tiket dibuat (**😊 Puas / 😐 Netral / 😠 Tidak Puas / Urgent**).
+* **Statistik Evaluasi Helpdesk**: Rekapitulasi performa harian, mingguan, bulanan, serta rasio tiket aktif vs selesai untuk setiap teknisi sebagai acuan evaluasi KPI tim.
 
 ### ⚙️ 5. Konfigurasi AI Provider & Manajemen Profil Dinamis
-* **Fleksibilitas Provider AI**: Admin dapat memilih dan mengganti penyedia layanan AI (**OpenRouter, OpenAI, Google Gemini, atau Custom Base URL**) serta mengubah identifier model langsung dari Dasbor UI tanpa perlu merestart server atau mengedit file `.env`.
+* **Fleksibilitas Provider AI**: Admin dapat memilih dan mengganti penyedia layanan AI (**OpenRouter, OpenAI, Google Gemini, atau Custom Base URL**) serta mengubah identifier model langsung dari Dasbor UI tanpa mengedit `.env`.
 * **Manajemen Profil & Keamanan**: Pengguna dapat mengelola informasi akun, memperbarui kontak, serta mengganti kata sandi secara aman.
 
 ### 🎨 6. Desain UI/UX Premium & Mode Gelap (*Dark Mode*)

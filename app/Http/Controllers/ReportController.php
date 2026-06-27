@@ -38,6 +38,19 @@ class ReportController extends Controller
         $data['positive']   = Ticket::where('sentiment', 'positive')->count();
         $data['negative']   = Ticket::where('sentiment', 'negative')->count();
 
+        // Statistik Kinerja Helpdesk
+        $data['helpdeskStats'] = User::whereIn('role', ['helpdesk', 'service_desk', 'admin'])->get()->map(function ($staff) {
+            return (object) [
+                'name'         => $staff->name,
+                'role_label'   => strtoupper(str_replace('_', ' ', $staff->role)),
+                'daily'        => $staff->assignedTickets()->whereDate('updated_at', \Carbon\Carbon::today())->count(),
+                'weekly'       => $staff->assignedTickets()->whereBetween('updated_at', [\Carbon\Carbon::now()->startOfWeek(), \Carbon\Carbon::now()->endOfWeek()])->count(),
+                'monthly'      => $staff->assignedTickets()->whereMonth('updated_at', \Carbon\Carbon::now()->month)->whereYear('updated_at', \Carbon\Carbon::now()->year)->count(),
+                'total_closed' => $staff->assignedTickets()->where('status', 'closed')->count(),
+                'total_active' => $staff->assignedTickets()->whereIn('status', ['open', 'progress'])->count(),
+            ];
+        });
+
         return view('backend.report.index', $data);
     }
 

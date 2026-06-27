@@ -29,7 +29,12 @@ class ChatbotController extends Controller
             return response()->json(['error' => 'Akses ditolak.'], 403);
         }
 
-        $senderType = $user->isAdmin() ? 'admin' : 'user';
+        $senderType = $user->isStaff() ? 'admin' : 'user';
+
+        // Jika staf yang membalas, otomatis nonaktifkan AI takeover
+        if ($senderType === 'admin') {
+            $ticket->update(['is_ai_active' => false]);
+        }
 
         // Simpan pesan user/admin
         $userChat = ChatHistory::create([
@@ -50,7 +55,7 @@ class ChatbotController extends Controller
             'bot_chat' => null,
         ];
 
-        // Jika admin membalas → notifikasi email ke pelapor
+        // Jika staf membalas → notifikasi email ke pelapor
         if ($senderType === 'admin') {
             try {
                 $ticketOwner = $ticket->user()->first();
@@ -66,8 +71,8 @@ class ChatbotController extends Controller
             }
         }
 
-        // Hanya trigger AI jika pengirim adalah user (bukan admin)
-        if ($senderType === 'user' && $ticket->status !== 'closed') {
+        // Hanya trigger AI jika pengirim adalah user, tiket belum closed, dan AI aktif
+        if ($senderType === 'user' && $ticket->status !== 'closed' && $ticket->is_ai_active) {
             $botReply = $this->getAiResponse($ticket, $validated['message']);
 
             $botChat = ChatHistory::create([
@@ -125,5 +130,32 @@ class ChatbotController extends Controller
         $llm = new LlmService();
 
         return $llm->chat($userMessage, $systemPrompt, $chatHistory);
+    }
+
+    /**
+     * Hasilkan draf rekomendasi balasan dari AI untuk teknisi Helpdesk.
+     */
+    public function suggestReply(Request $request, string $ticketId)
+    {
+        $ticket = Ticket::with('chatHistories.user')->findOrFail($ticketId);
+
+        if (!auth()->user()->isStaff()) {
+            return response()->json(['error' => 'Akses ditolak.'], 403);
+        }
+
+        $formattedHistory = [];
+        foreach ($ticket->chatHistories as $chat) {
+            $formattedHistory[] = [
+                'role'    => $chat->sender_type === 'user' ? 'user' : 'assistant',
+                'content' => $chat->message,
+            ];
+        }
+
+        $suggestion = LlmService::suggestReply($ticket, $formattedHistory);
+
+        return response()->json([
+            'status'     => 'success',
+            'suggestion' => $suggestion,
+        ]);
     }
 }

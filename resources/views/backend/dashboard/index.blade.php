@@ -218,6 +218,70 @@
         </div>
     </div>
 
+    @if(!auth()->user()->isUser())
+    <!-- Statistik Kinerja per Helpdesk -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden mb-8">
+        <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-700/50 flex items-center justify-between">
+            <h5 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <span>🛡️</span>
+                <span>Statistik Kinerja Tim Helpdesk & Service Desk</span>
+            </h5>
+            <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">Patokan Evaluasi Penanganan Tiket</span>
+        </div>
+        <div class="relative overflow-x-auto">
+            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="px-6 py-3.5">Nama Teknisi / Staf</th>
+                        <th scope="col" class="px-6 py-3.5">Peran (Role)</th>
+                        <th scope="col" class="px-6 py-3.5 text-center">Tiket Hari Ini</th>
+                        <th scope="col" class="px-6 py-3.5 text-center">Minggu Ini</th>
+                        <th scope="col" class="px-6 py-3.5 text-center">Bulan Ini</th>
+                        <th scope="col" class="px-6 py-3.5 text-center">Aktif (Open/Progress)</th>
+                        <th scope="col" class="px-6 py-3.5 text-center">Selesai (Closed)</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
+                    @forelse($helpdeskStats as $staff)
+                        <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
+                            <td class="px-6 py-4 font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                                <div class="w-8 h-8 rounded-full bg-blue-100 dark:bg-blue-900/40 text-blue-700 dark:text-blue-300 flex items-center justify-center font-black text-xs">
+                                    {{ strtoupper(substr($staff->name, 0, 1)) }}
+                                </div>
+                                <span>{{ $staff->name }}</span>
+                            </td>
+                            <td class="px-6 py-4">
+                                <span class="bg-blue-50 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300 text-xs font-bold px-2.5 py-1 rounded-lg border border-blue-200 dark:border-blue-800">
+                                    {{ $staff->role_label }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                                {{ $staff->daily }}
+                            </td>
+                            <td class="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                                {{ $staff->weekly }}
+                            </td>
+                            <td class="px-6 py-4 text-center font-bold text-gray-900 dark:text-white">
+                                {{ $staff->monthly }}
+                            </td>
+                            <td class="px-6 py-4 text-center font-bold text-amber-600 dark:text-amber-400">
+                                {{ $staff->total_active }}
+                            </td>
+                            <td class="px-6 py-4 text-center font-bold text-emerald-600 dark:text-emerald-400">
+                                {{ $staff->total_closed }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="7" class="px-6 py-8 text-center text-gray-400">Belum ada data staf Helpdesk.</td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @endif
+
     <!-- Tabel Tiket Terbaru Section -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
         <div class="p-6 border-b border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

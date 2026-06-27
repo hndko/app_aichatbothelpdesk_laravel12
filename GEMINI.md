@@ -22,21 +22,27 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 ### 3. Daftar Fitur
 
 #### A. Fitur Wajib
-1. **Login Multi-Role:** Pemisahan hak akses dan tampilan dasbor antara `admin` (IT Helpdesk) dan `user` (Karyawan/Pelapor).
-2. **Submit Tiket:** Pelapor dapat membuat tiket kendala dengan pengelompokan kategori:
+1. **Login Multi-Role:** Pemisahan hak akses menjadi 4 peran utama:
+   - `admin`: Pengelola sistem penuh (konfigurasi AI, manajemen user, knowledge base, laporan).
+   - `service_desk`: Penerima dan distributor tiket yang dapat memantau serta menugaskan teknisi.
+   - `helpdesk`: Teknisi penanggung jawab eksekusi penyelesaian kendala teknis pelapor.
+   - `user`: Karyawan/Pelapor yang membuat dan memantau tiket masalah.
+2. **Submit Tiket:** Pelapor dapat membuat tiket kendala (default status `open` dan belum ditugaskan) dengan pengelompokan kategori:
    - *Hardware* (Kendala perangkat keras)
    - *Software* (Kendala aplikasi/sistem operasi)
    - *Network* (Kendala jaringan/internet)
-3. **AI Chatbot FAQ:** Asisten virtual otomatis yang menjawab pertanyaan umum dari *knowledge base* sebelum tiket diteruskan ke admin.
-4. **Admin Dashboard:** Pusat kelola tiket, pemantauan statistik analitik lengkap (distribusi kategori, prioritas, sentimen AI, dan SLA completion rate) yang dilengkapi filter rentang waktu (*range date*), serta pembaruan alur status tiket (`open` → `progress` → `closed`).
-5. **History Chat:** Riwayat interaksi/percakapan lengkap per ID tiket antara pelapor, chatbot, dan admin.
-6. **Notifikasi Email:** Pengiriman pemberitahuan otomatis kepada pelapor setiap kali ada balasan atau pembaruan status pada tiketnya.
+3. **AI Chatbot FAQ & Takeover:** Asisten virtual otomatis yang menjawab pertanyaan umum dari *knowledge base*. Ketika teknisi membalas pesan di ruang obrolan, bot AI otomatis dijeda (*Takeover*) agar tidak bertabrakan dengan balasan teknisi, dilengkapi tombol sakelar manual.
+4. **Admin & Staff Dashboard:** Pusat kelola tiket dan pemantauan statistik analitik lengkap (distribusi kategori, prioritas, sentimen AI, dan SLA completion rate) yang dilengkapi filter rentang waktu (*range date*).
+5. **Statistik Kinerja Helpdesk:** Merekap performa harian, mingguan, bulanan, dan total penanganan tiket untuk setiap teknisi Helpdesk sebagai patokan evaluasi KPI.
+6. **History Chat:** Riwayat interaksi/percakapan lengkap per ID tiket antara pelapor, chatbot, dan teknisi.
+7. **Notifikasi Email:** Pengiriman pemberitahuan otomatis kepada pelapor setiap kali ada balasan atau pembaruan status pada tiketnya.
 
 #### B. Fitur Bonus (*Standout Features*)
-1. **Sentimen Analisis Tiket:** AI mendeteksi tingkat kepuasan pelapor (Puas / Netral / Tidak Puas) berdasarkan teks/pesan pada tiket atau chat.
-2. **Export Laporan:** Kemampuan mengunduh ringkasan performa helpdesk dan data tiket ke format **PDF** dan **Excel**.
-3. **Auto-Assign Tiket:** Sistem secara cerdas mendistribusikan tiket secara otomatis kepada admin/teknisi tertentu berdasarkan kategori kendala.
-4. **Konfigurasi AI Provider & Model Dinamis:** Admin dapat mengelola dan mengganti penyedia layanan LLM (OpenRouter, OpenAI, Gemini, Custom Base URL) serta model AI langsung melalui antarmuka UI tanpa perlu mengubah `.env` atau merestart server.
+1. **Sentimen Analisis Tiket:** AI mendeteksi tingkat kepuasan pelapor (Puas / Netral / Tidak Puas) otomatis saat tiket dibuat berdasarkan analisis bahasa natural.
+2. **Rekomendasi Balasan AI (*AI Suggested Reply*):** Fitur asisten pintar yang merumuskan draf jawaban profesional dan solutif bagi teknisi Helpdesk dengan satu klik untuk mempercepat penanganan kendala.
+3. **Export Laporan:** Kemampuan mengunduh ringkasan performa helpdesk dan data tiket ke format **PDF** dan **Excel**.
+4. **Alur Penugasan Tiket Fleksibel:** Service Desk dan Admin dapat mendistribusikan tiket kepada teknisi Helpdesk spesialis terkait.
+5. **Konfigurasi AI Provider & Model Dinamis:** Admin dapat mengelola dan mengganti penyedia layanan LLM (OpenRouter, OpenAI, Gemini, Custom Base URL) serta model AI langsung melalui antarmuka UI tanpa perlu mengubah `.env` atau merestart server.
 
 ---
 

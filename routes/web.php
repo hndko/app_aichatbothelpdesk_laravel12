@@ -47,12 +47,14 @@ Route::middleware('auth')->group(function () {
         Route::get('/create', [TiketController::class, 'create'])->name('create');
         Route::post('/', [TiketController::class, 'store'])->name('store');
         Route::get('/{id}', [TiketController::class, 'show'])->name('show');
-        Route::patch('/{id}/status', [TiketController::class, 'updateStatus'])->middleware('role:admin')->name('update-status');
-        Route::patch('/{id}/assignee', [TiketController::class, 'updateAssignee'])->middleware('role:admin')->name('update-assignee');
+        Route::patch('/{id}/status', [TiketController::class, 'updateStatus'])->middleware('role:admin,service_desk,helpdesk')->name('update-status');
+        Route::patch('/{id}/assignee', [TiketController::class, 'updateAssignee'])->middleware('role:admin,service_desk')->name('update-assignee');
+        Route::patch('/{id}/toggle-ai', [TiketController::class, 'toggleAiStatus'])->middleware('role:admin,service_desk,helpdesk')->name('toggle-ai');
     });
 
     // Chatbot AJAX Endpoint
     Route::post('/chatbot/{ticketId}/send', [ChatbotController::class, 'sendMessage'])->name('chatbot.send');
+    Route::post('/chatbot/{ticketId}/suggest', [ChatbotController::class, 'suggestReply'])->middleware('role:admin,service_desk,helpdesk')->name('chatbot.suggest');
 
     // === Admin Only Routes ===
     Route::middleware('role:admin')->group(function () {
@@ -75,12 +77,12 @@ Route::middleware('auth')->group(function () {
             Route::put('/{id}', [KnowledgeBaseController::class, 'update'])->name('update');
             Route::delete('/{id}', [KnowledgeBaseController::class, 'destroy'])->name('destroy');
         });
+    });
 
-        // Laporan Performa Helpdesk
-        Route::prefix('report')->name('report.')->group(function () {
-            Route::get('/', [ReportController::class, 'index'])->name('index');
-            Route::get('/export/pdf', [ReportController::class, 'exportPdf'])->name('export-pdf');
-            Route::get('/export/excel', [ReportController::class, 'exportExcel'])->name('export-excel');
-        });
+    // Laporan Performa Helpdesk & Analitik (Admin, Service Desk, Helpdesk)
+    Route::middleware('role:admin,service_desk,helpdesk')->prefix('report')->name('report.')->group(function () {
+        Route::get('/', [ReportController::class, 'index'])->name('index');
+        Route::get('/export/pdf', [ReportController::class, 'exportPdf'])->name('export-pdf');
+        Route::get('/export/excel', [ReportController::class, 'exportExcel'])->name('export-excel');
     });
 });

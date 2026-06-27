@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Ticket;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -152,6 +153,19 @@ class DashboardController extends Controller
 
                 return $ticket;
             });
+
+        // Statistik Kinerja Helpdesk (Harian, Mingguan, Bulanan)
+        $data['helpdeskStats'] = User::whereIn('role', ['helpdesk', 'service_desk', 'admin'])->get()->map(function ($staff) {
+            return (object) [
+                'name'         => $staff->name,
+                'role_label'   => strtoupper(str_replace('_', ' ', $staff->role)),
+                'daily'        => $staff->assignedTickets()->whereDate('updated_at', \Carbon\Carbon::today())->count(),
+                'weekly'       => $staff->assignedTickets()->whereBetween('updated_at', [\Carbon\Carbon::now()->startOfWeek(), \Carbon\Carbon::now()->endOfWeek()])->count(),
+                'monthly'      => $staff->assignedTickets()->whereMonth('updated_at', \Carbon\Carbon::now()->month)->whereYear('updated_at', \Carbon\Carbon::now()->year)->count(),
+                'total_closed' => $staff->assignedTickets()->where('status', 'closed')->count(),
+                'total_active' => $staff->assignedTickets()->whereIn('status', ['open', 'progress'])->count(),
+            ];
+        });
 
         return view('backend.dashboard.index', $data);
     }

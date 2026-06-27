@@ -117,32 +117,19 @@ class TiketController extends Controller
         $ticket = null;
 
         DB::transaction(function () use ($validated, &$ticket) {
-            // Auto-assign admin berdasarkan spesialisasi kategori
-            $assignedAdminId = null;
-            $specialistAdmin = User::where('role', 'admin')
-                ->whereHas('specializations', function ($q) use ($validated) {
-                    $q->where('categories.id', $validated['category_id']);
-                })->inRandomOrder()->first();
-
-            if ($specialistAdmin) {
-                $assignedAdminId = $specialistAdmin->id;
-            } else {
-                $anyAdmin = User::where('role', 'admin')->inRandomOrder()->first();
-                $assignedAdminId = $anyAdmin?->id;
-            }
-
             // Deteksi sentimen AI awal
             $sentiment = LlmService::detectSentiment($validated['subject'] . ' ' . $validated['description']);
 
             $ticket = Ticket::create([
                 'user_id'           => auth()->id(),
                 'category_id'       => $validated['category_id'],
-                'assigned_admin_id' => $assignedAdminId,
+                'assigned_admin_id' => null,
                 'subject'           => $validated['subject'],
                 'description'       => $validated['description'],
                 'priority'          => $validated['priority'],
                 'status'            => 'open',
                 'sentiment'         => $sentiment,
+                'is_ai_active'      => true,
             ]);
 
             // Simpan deskripsi awal sebagai pesan pertama di chat history
@@ -210,13 +197,13 @@ class TiketController extends Controller
 
         $data['title']  = 'Detail Tiket #' . $ticket->ticket_number;
         $data['ticket'] = $ticket;
-        $data['admins'] = User::where('role', 'admin')->get();
+        $data['admins'] = User::whereIn('role', ['helpdesk', 'admin'])->get();
 
         return view('backend.tiket.show', $data);
     }
 
     /**
-     * Perbarui status tiket (Admin only).
+     * Perbarui status tiket (Admin & Service Desk).
      */
     public function updateStatus(Request $request, string $id)
     {
@@ -241,7 +228,7 @@ class TiketController extends Controller
     }
 
     /**
-     * Perbarui penugasan admin pada tiket (Admin only).
+     * Perbarui penugasan teknisi pada tiket (Admin & Service Desk).
      */
     public function updateAssignee(Request $request, string $id)
     {
@@ -253,5 +240,17 @@ class TiketController extends Controller
         $ticket->update(['assigned_admin_id' => $validated['assigned_admin_id']]);
 
         return back()->with('success', 'Penugasan teknisi tiket berhasil diperbarui.');
+    }
+
+    /**
+     * Aktifkan atau nonaktifkan otomatisasi balasan AI pada obrolan tiket.
+     */
+    public function toggleAiStatus(Request $request, string $id)
+    {
+        $ticket = Ticket::findOrFail($id);
+        $ticket->update(['is_ai_active' => !$ticket->is_ai_active]);
+
+        $statusMsg = $ticket->is_ai_active ? 'diaktifkan kembali' : 'dinonaktifkan (diambil alih teknisi)';
+        return back()->with('success', "Asisten AI berhasil $statusMsg pada tiket ini.");
     }
 }
