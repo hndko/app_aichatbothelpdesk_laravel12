@@ -144,7 +144,7 @@
                 <!-- Chat Messages Area -->
                 <div class="p-6 overflow-y-auto bg-slate-50/70 dark:bg-gray-900/40 grow space-y-4" id="chatArea" style="min-height: 420px; max-height: 580px;">
                     @foreach($ticket->chatHistories as $chat)
-                        <div class="chat-bubble {{ $chat->sender_type }}">
+                        <div class="chat-bubble {{ $chat->sender_type }}" data-chat-id="{{ $chat->id }}">
                             <div class="chat-sender">
                                 @if($chat->sender_type === 'bot')
                                     <span>🤖 MariDesk AI Assistant</span>
@@ -313,6 +313,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function createBubble(data) {
         const div = document.createElement('div');
         div.className = 'chat-bubble ' + data.sender_type;
+        if (data.id) {
+            div.setAttribute('data-chat-id', data.id);
+        }
 
         let senderName = '';
         if (data.sender_type === 'bot') {
@@ -373,14 +376,20 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
             if (typingIndicator) typingIndicator.remove();
+            if (data.user_chat && data.user_chat.id) {
+                userBubble.setAttribute('data-chat-id', data.user_chat.id);
+            }
             if (data.bot_chat) {
-                const botBubble = createBubble({
-                    sender_type: 'bot',
-                    message: data.bot_chat.message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
-                    created_at: data.bot_chat.time
-                });
-                chatArea.appendChild(botBubble);
-                scrollToBottom();
+                if (!document.querySelector(`[data-chat-id="${data.bot_chat.id}"]`)) {
+                    const botBubble = createBubble({
+                        id: data.bot_chat.id,
+                        sender_type: 'bot',
+                        message: data.bot_chat.message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
+                        created_at: data.bot_chat.time
+                    });
+                    chatArea.appendChild(botBubble);
+                    scrollToBottom();
+                }
             }
         })
         .catch(err => {
@@ -393,6 +402,31 @@ document.addEventListener('DOMContentLoaded', function() {
             chatInput.focus();
         });
     });
+
+    if (typeof window.Echo !== 'undefined') {
+        window.Echo.private(`ticket.${ticketId}`)
+            .listen('.message.sent', (e) => {
+                const chat = e.chatData;
+                if (!chat || !chat.id) return;
+                
+                if (document.querySelector(`[data-chat-id="${chat.id}"]`)) return;
+                
+                if ('{{ auth()->user()->isUser() }}' === '1' && chat.sender_type === 'admin') {
+                    const typing = document.querySelector('.chat-typing');
+                    if (typing) typing.remove();
+                }
+
+                const bubble = createBubble({
+                    id: chat.id,
+                    sender_type: chat.sender_type,
+                    sender_name: chat.sender_name,
+                    message: chat.message.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
+                    created_at: chat.time
+                });
+                chatArea.appendChild(bubble);
+                scrollToBottom();
+            });
+    }
 
     const btnSuggest = document.getElementById('btnSuggestReply');
     const suggestLoading = document.getElementById('suggestLoading');

@@ -31,7 +31,8 @@ Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Su
   * `Helpdesk`: Teknisi spesialis penanggung jawab eksekusi penanganan kendala teknis.
   * `User`: Karyawan/Pelapor yang mengajukan tiket dan memantau status penyelesaian.
 
-### 🤖 2. AI Chatbot, Takeover & Rekomendasi Balasan
+### 🤖 2. AI Chatbot, Takeover & Ruang Diskusi Realtime (Laravel Reverb)
+* **Komunikasi Realtime WebSocket**: Ruang diskusi obrolan tiket terintegrasi secara *realtime* menggunakan **Laravel Reverb** (tanpa perlu layanan pihak ketiga). Pesan baru dan balasan bot AI muncul seketika di layar semua partisipan.
 * **Automasi Jawaban Instan**: AI menjawab kendala pelapor 24/7 berdasarkan *Knowledge Base*.
 * **AI Takeover (Smart Pause)**: Begitu teknisi Helpdesk membalas pesan di ruang obrolan, bot AI otomatis dijeda (*Takeover*) agar tidak berbenturan dengan instruksi teknisi, dilengkapi tombol sakelar aktif/nonaktif manual.
 * **AI Suggested Reply (*Standout Feature*)**: Tombol pintar yang merumuskan draf rekomendasi jawaban solutif dan profesional bagi teknisi dalam satu klik, mempercepat waktu penanganan tiket (*SLA*).

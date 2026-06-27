@@ -13,8 +13,8 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 - **Estimasi Pengerjaan:** 2 Minggu
 
 ### 2. Tech Stack
-- **Backend:** PHP 8.2+, Laravel 12
-- **Frontend:** Laravel Blade, Tailwind CSS v4.0 (Flowbite Component Library & Icons, Responsive UI/UX, Vanilla JS)
+- **Backend:** PHP 8.2+, Laravel 12 (Laravel Reverb WebSocket Realtime Broadcasting)
+- **Frontend:** Laravel Blade, Tailwind CSS v4.0 (Flowbite Component Library & Icons, Responsive UI/UX, Vanilla JS, Laravel Echo)
 - **Database:** MySQL (via Laragon)
 - **AI Integration:** OpenAI API / Gemini API / OpenRouter / Custom Base URL + API Key (Mendukung fleksibilitas pergantian provider LLM)
 - **Eksternal & Library:** Flowbite Toast / SweetAlert2, DomPDF / Maatwebsite Excel (untuk export laporan)
@@ -34,7 +34,7 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 3. **AI Chatbot FAQ & Takeover:** Asisten virtual otomatis yang menjawab pertanyaan umum dari *knowledge base*. Ketika teknisi membalas pesan di ruang obrolan, bot AI otomatis dijeda (*Takeover*) agar tidak bertabrakan dengan balasan teknisi, dilengkapi tombol sakelar manual.
 4. **Admin & Staff Dashboard:** Pusat kelola tiket dan pemantauan statistik analitik lengkap (distribusi kategori, prioritas, sentimen AI, dan SLA completion rate) yang dilengkapi filter rentang waktu (*range date*).
 5. **Statistik Kinerja Helpdesk:** Merekap performa harian, mingguan, bulanan, dan total penanganan tiket untuk setiap teknisi Helpdesk sebagai patokan evaluasi KPI.
-6. **History Chat:** Riwayat interaksi/percakapan lengkap per ID tiket antara pelapor, chatbot, dan teknisi.
+6. **History Chat Realtime (Laravel Reverb):** Riwayat interaksi/percakapan lengkap per ID tiket yang terintegrasi secara *realtime WebSocket* antara pelapor, chatbot, dan teknisi tanpa refresh halaman.
 7. **Notifikasi Email:** Pengiriman pemberitahuan otomatis kepada pelapor setiap kali ada balasan atau pembaruan status pada tiketnya.
 
 #### B. Fitur Bonus (*Standout Features*)

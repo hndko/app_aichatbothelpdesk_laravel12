@@ -50,10 +50,13 @@ class ChatbotController extends Controller
                 'sender_type' => $userChat->sender_type,
                 'sender_name' => $user->name,
                 'message'     => $userChat->message,
-                'time'        => $userChat->created_at->translatedFormat('H:i:s WIB'),
+                'time'        => $userChat->created_at->translatedFormat('H:i WIB'),
             ],
             'bot_chat' => null,
         ];
+
+        // Broadcast pesan pengirim ke partisipan lain di WebSocket Reverb
+        broadcast(new \App\Events\MessageSent($ticket->id, $responseData['user_chat']))->toOthers();
 
         // Jika staf membalas → notifikasi email ke pelapor
         if ($senderType === 'admin') {
@@ -87,8 +90,11 @@ class ChatbotController extends Controller
                 'sender_type' => 'bot',
                 'sender_name' => 'MariDesk AI Bot',
                 'message'     => $botReply,
-                'time'        => $botChat->created_at->translatedFormat('H:i:s WIB'),
+                'time'        => $botChat->created_at->translatedFormat('H:i WIB'),
             ];
+
+            // Broadcast respons bot AI ke partisipan lain di WebSocket Reverb
+            broadcast(new \App\Events\MessageSent($ticket->id, $responseData['bot_chat']))->toOthers();
         }
 
         return response()->json($responseData);
