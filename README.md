@@ -29,6 +29,7 @@ Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Su
 * **Smart Fallback**: Jika kendala membutuhkan intervensi manusia, alur percakapan mulus beralih menjadi tiket penanganan oleh teknisi.
 
 ### 🎫 2. Manajemen Tiket Multi-Kategori & Status
+* **Dasbor Analisis & Filter Waktu**: Pemantauan KPI layanan IT secara real-time yang dilengkapi filter rentang waktu (*Hari Ini, 7 Hari, 30 Hari, Bulan Ini, atau Kustom*) serta breakdown grafik visual.
 * **Kategori Terstruktur**: Pemisahan kendala ke dalam **Hardware**, **Software**, dan **Network**.
 * **Alur Status Transparan**: Pemantauan status tiket secara *real-time* dari `Open` ➔ `Progress` ➔ `Closed`.
 * **Prioritas Penanganan**: Pengelompokan tingkat urgensi (*Low*, *Medium*, *High*, *Urgent*).

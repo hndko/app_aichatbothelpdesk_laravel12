@@ -28,7 +28,7 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
    - *Software* (Kendala aplikasi/sistem operasi)
    - *Network* (Kendala jaringan/internet)
 3. **AI Chatbot FAQ:** Asisten virtual otomatis yang menjawab pertanyaan umum dari *knowledge base* sebelum tiket diteruskan ke admin.
-4. **Admin Dashboard:** Pusat kelola tiket, pemantauan statistik, dan pembaruan alur status tiket (`open` → `progress` → `closed`).
+4. **Admin Dashboard:** Pusat kelola tiket, pemantauan statistik analitik lengkap (distribusi kategori, prioritas, sentimen AI, dan SLA completion rate) yang dilengkapi filter rentang waktu (*range date*), serta pembaruan alur status tiket (`open` → `progress` → `closed`).
 5. **History Chat:** Riwayat interaksi/percakapan lengkap per ID tiket antara pelapor, chatbot, dan admin.
 6. **Notifikasi Email:** Pengiriman pemberitahuan otomatis kepada pelapor setiap kali ada balasan atau pembaruan status pada tiketnya.
 
