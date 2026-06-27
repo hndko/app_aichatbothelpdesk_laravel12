@@ -75,7 +75,7 @@
         <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">Patokan Evaluasi Penanganan Tiket</span>
     </div>
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table id="table-stats" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3.5">Nama Teknisi / Staf</th>
@@ -140,7 +140,7 @@
     </div>
 
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table id="table-report" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3.5">No. Tiket</th>
@@ -204,11 +204,41 @@
             </tbody>
         </table>
     </div>
-
-    @if($tickets->hasPages())
-        <div class="p-4 border-t border-gray-100 dark:border-gray-700">
-            {{ $tickets->links() }}
-        </div>
-    @endif
 </div>
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.DataTable !== 'undefined') {
+        if (document.getElementById('table-stats')) {
+            new window.DataTable('#table-stats', {
+                searchable: true,
+                sortable: true,
+                perPage: 5,
+                perPageSelect: [5, 10, 25],
+                labels: {
+                    placeholder: "Cari nama staf...",
+                    perPage: "data per halaman",
+                    noRows: "Tidak ada data staf",
+                    info: "Menampilkan {start} - {end} dari {rows} data"
+                }
+            });
+        }
+        if (document.getElementById('table-report')) {
+            new window.DataTable('#table-report', {
+                searchable: true,
+                sortable: true,
+                perPage: 10,
+                perPageSelect: [10, 25, 50, 100],
+                labels: {
+                    placeholder: "Cari laporan tiket...",
+                    perPage: "data per halaman",
+                    noRows: "Tidak ada data tiket untuk laporan",
+                    info: "Menampilkan {start} - {end} dari {rows} data"
+                }
+            });
+        }
+    }
+});
+</script>
+@endpush
 @endsection

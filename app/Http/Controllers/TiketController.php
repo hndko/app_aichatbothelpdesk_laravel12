@@ -48,8 +48,8 @@ class TiketController extends Controller
             });
         }
 
-        $tickets = $query->latest()->paginate(10)->withQueryString();
-        $tickets->getCollection()->transform(function ($ticket) {
+        $tickets = $query->latest()->get();
+        $tickets->transform(function ($ticket) {
             $ticket->status_badge = match($ticket->status) {
                 'open'     => 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border border-red-200 dark:border-red-800',
                 'progress' => 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800',

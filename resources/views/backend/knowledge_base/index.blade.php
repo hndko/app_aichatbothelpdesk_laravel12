@@ -50,7 +50,7 @@
 <!-- Table Flowbite -->
 <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden">
     <div class="relative overflow-x-auto">
-        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+        <table id="table-kb" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-6 py-3.5 w-12">#</th>
@@ -64,7 +64,7 @@
             <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
                 @forelse($articles as $idx => $article)
                     <tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors">
-                        <td class="px-6 py-4 text-gray-400 font-medium">{{ $articles->firstItem() + $idx }}</td>
+                        <td class="px-6 py-4 text-gray-400 font-medium">{{ $idx + 1 }}</td>
                         <td class="px-6 py-4">
                             <div class="font-bold text-gray-900 dark:text-white mb-1">{{ \Illuminate\Support\Str::limit($article->question, 60) }}</div>
                             <div class="text-xs text-gray-500 dark:text-gray-400">{{ \Illuminate\Support\Str::limit(strip_tags($article->answer), 80) }}</div>
@@ -119,11 +119,25 @@
             </tbody>
         </table>
     </div>
-
-    @if($articles->hasPages())
-        <div class="p-4 border-t border-gray-100 dark:border-gray-700">
-            {{ $articles->links() }}
-        </div>
-    @endif
 </div>
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('table-kb') && typeof window.DataTable !== 'undefined') {
+        new window.DataTable('#table-kb', {
+            searchable: true,
+            sortable: true,
+            perPage: 10,
+            perPageSelect: [10, 25, 50, 100],
+            labels: {
+                placeholder: "Cari artikel FAQ...",
+                perPage: "data per halaman",
+                noRows: "Tidak ada artikel knowledge base",
+                info: "Menampilkan {start} - {end} dari {rows} data"
+            }
+        });
+    }
+});
+</script>
+@endpush
 @endsection

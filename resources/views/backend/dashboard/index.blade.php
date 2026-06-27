@@ -229,7 +229,7 @@
             <span class="text-xs font-semibold text-gray-500 dark:text-gray-400">Patokan Evaluasi Penanganan Tiket</span>
         </div>
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table id="table-dashboard-stats" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                     <tr>
                         <th scope="col" class="px-6 py-3.5">Nama Teknisi / Staf</th>
@@ -296,7 +296,7 @@
         </div>
 
         <div class="relative overflow-x-auto">
-            <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <table id="table-dashboard-tickets" class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50/75 dark:bg-gray-700/75 dark:text-gray-300">
                     <tr>
                         <th scope="col" class="px-6 py-3.5">No. Tiket</th>
@@ -351,4 +351,40 @@
         </div>
     </div>
 </div>
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    if (typeof window.DataTable !== 'undefined') {
+        if (document.getElementById('table-dashboard-stats')) {
+            new window.DataTable('#table-dashboard-stats', {
+                searchable: true,
+                sortable: true,
+                perPage: 5,
+                perPageSelect: [5, 10, 25],
+                labels: {
+                    placeholder: "Cari nama staf...",
+                    perPage: "data per halaman",
+                    noRows: "Belum ada data staf Helpdesk",
+                    info: "Menampilkan {start} - {end} dari {rows} data"
+                }
+            });
+        }
+        if (document.getElementById('table-dashboard-tickets')) {
+            new window.DataTable('#table-dashboard-tickets', {
+                searchable: true,
+                sortable: true,
+                perPage: 5,
+                perPageSelect: [5, 10, 25],
+                labels: {
+                    placeholder: "Cari tiket terbaru...",
+                    perPage: "data per halaman",
+                    noRows: "Belum ada data tiket",
+                    info: "Menampilkan {start} - {end} dari {rows} data"
+                }
+            });
+        }
+    }
+});
+</script>
+@endpush
 @endsection

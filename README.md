@@ -67,6 +67,13 @@ Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Su
 | **Backend Framework** | Laravel 12 (PHP 8.2+) |
 | **Frontend Styling** | Tailwind CSS v4.0, Vanilla CSS |
 | **Component Library** | Flowbite Components & Flowbite SVG Icons |
+| Komponen | Teknologi / Library |
+| :--- | :--- |
+| **Backend Framework** | Laravel 12 (PHP 8.2+) |
+| **Realtime WebSocket** | Laravel Reverb & Laravel Echo |
+| **Frontend Styling** | Tailwind CSS v4.0, Vanilla CSS |
+| **Component Library** | Flowbite UI Components & Flowbite SVG Icons |
+| **Interactive Tables** | Flowbite DataTables (`simple-datatables`) |
 | **Database** | MySQL (Laragon / Eloquent ORM) |
 | **AI Integration** | OpenAI API / Gemini API / OpenRouter LLM |
 | **PDF & Excel Export** | DomPDF & Maatwebsite Excel |
@@ -74,57 +81,138 @@ Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Su
 
 ---
 
-## 🚀 Panduan Instalasi & Menjalankan Proyek
+## 🚀 Panduan Instalasi & Menjalankan Proyek (Local Development)
 
-### 1. Kloning Repositori
+### 1. Kloning Repositori & Instal Dependensi
 ```bash
 git clone https://github.com/hndko/app_aichatbothelpdesk_laravel12.git
 cd app_aichatbothelpdesk_laravel12
-```
-
-### 2. Instal Dependensi
-```bash
 composer install
 npm install
 ```
 
-### 3. Konfigurasi Environment (`.env`)
-Salin file `.env.example` menjadi `.env`, lalu atur koneksi database dan API Key AI Anda:
+### 2. Konfigurasi Environment (`.env`)
+Salin file `.env.example` menjadi `.env`, lalu atur koneksi database dan kredensial AI Anda:
 ```bash
 cp .env.example .env
 php artisan key:generate
 ```
-Pastikan Anda menambahkan konfigurasi AI di `.env`:
+Pastikan konfigurasi AI dan WebSocket Reverb di `.env` sudah diatur:
 ```env
-AI_PROVIDER=openai # atau gemini / openrouter
+# AI Provider Configuration
+AI_PROVIDER=openai # Pilihan: openai / gemini / openrouter / custom
 AI_API_KEY="your-api-key-here"
-AI_MODEL="gpt-4o-mini" # atau model pilihan Anda
+AI_MODEL="gpt-4o-mini"
+
+# Laravel Reverb WebSocket
+BROADCAST_CONNECTION=reverb
+REVERB_APP_ID=my-app-id
+REVERB_APP_KEY=my-app-key
+REVERB_APP_SECRET=my-app-secret
+REVERB_HOST="localhost"
+REVERB_PORT=8080
+REVERB_SCHEME=http
 ```
 
-### 4. Migrasi & Seeding Database
-Jalankan migrasi beserta seeder terpecah yang sudah menyediakan 20 FAQ dan akun demo:
+### 3. Migrasi & Seeding Database
+Jalankan migrasi beserta seeder terpecah yang menyediakan 20+ FAQ dan akun demo multi-role:
 ```bash
 php artisan migrate:fresh --seed
 ```
 
-### 5. Build Asset & Jalankan Server
+### 4. Build Asset & Menjalankan Server Realtime
+Untuk menjalankan aplikasi dengan dukungan penuh fitur obrolan realtime (*WebSocket*) dan tabel interaktif, Anda disarankan membuka **3 terminal terpisah**:
+
+**Terminal 1 (Laravel Web Server):**
 ```bash
-npm run build
 php artisan serve
 ```
-Buka browser Anda dan akses: **`http://127.0.0.1:8000`**
+
+**Terminal 2 (Laravel Reverb WebSocket Server):**
+```bash
+php artisan reverb:start --debug
+```
+
+**Terminal 3 (Vite Asset Compiler - Development / Production Build):**
+```bash
+# Untuk pengembangan lokal:
+npm run dev
+
+# ATAU untuk build produksi:
+npm run build
+```
+
+Buka browser Anda dan akses aplikasi melalui: **`http://127.0.0.1:8000`**
+
+---
+
+## 🌐 Panduan Deployment (Produksi / Server Cloud)
+
+Jika Anda ingin mendeploy aplikasi ini ke VPS (Ubuntu/Debian) atau Shared Hosting, ikuti langkah berikut:
+
+### 1. Persiapan Lingkungan Produksi
+Pastikan server memiliki PHP 8.2+, MySQL 8.0+/MariaDB, Nginx/Apache, Composer, dan Node.js.
+
+### 2. Optimasi Laravel & Vite Build
+Di server produksi, jalankan perintah optimasi:
+```bash
+composer install --optimize-autoloader --no-dev
+npm install
+npm run build
+php artisan config:cache
+php artisan route:cache
+php artisan view:cache
+```
+
+### 3. Menjalankan Laravel Reverb di Background (Supervisor)
+Agar server WebSocket Reverb tetap berjalan di latar belakang tanpa henti pada lingkungan VPS, gunakan **Supervisor**. Buat file konfigurasi `/etc/supervisor/conf.d/reverb.conf`:
+```ini
+[program:maridesk-reverb]
+process_name=%(program_name)s_%(process_num)02d
+command=php /path/to/app_aichatbothelpdesk_laravel12/artisan reverb:start
+autostart=true
+autorestart=true
+user=www-data
+redirect_stderr=true
+stdout_logfile=/path/to/app_aichatbothelpdesk_laravel12/storage/logs/reverb.log
+```
+Perbarui supervisor:
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start maridesk-reverb:*
+```
+
+### 4. Konfigurasi Proxy Nginx untuk WebSocket
+Tambahkan blok lokasi reverse proxy untuk port Reverb (8080) pada konfigurasi Nginx domain Anda:
+```nginx
+location /app {
+    proxy_http_version 1.1;
+    proxy_set_header Host $http_host;
+    proxy_set_header Scheme $scheme;
+    proxy_set_header SERVER_PORT $server_port;
+    proxy_set_header REMOTE_ADDR $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "Upgrade";
+    proxy_pass http://0.0.0.0:8080;
+}
+```
 
 ---
 
 ## 🔐 Akun Demo (Untuk Pengujian)
 
-Anda dapat masuk menggunakan akun seeder berikut:
+Proyek ini telah menyediakan 5 akun uji coba multi-role yang siap digunakan:
 
-| Peran (*Role*) | Email | Password | Hak Akses |
+| Peran (*Role*) | Email | Password | Spesialisasi & Hak Akses |
 | :--- | :--- | :--- | :--- |
-| 🛡️ **Administrator IT** | `admin@example.com` | `password` | Kelola tiket, balas chat, analisis sentimen, ekspor laporan PDF/Excel, kelola FAQ |
-| 👤 **Karyawan / Pelapor** | `user@example.com` | `password` | Submit tiket baru, chat dengan AI Bot, pantau status tiket |
-| 👤 **Karyawan 2** | `siti@example.com` | `password` | Submit tiket baru |
+| 🛡️ **Admin IT** | `admin@example.com` | `password` | Kendali penuh sistem, konfigurasi AI LLM, kelola seluruh pengguna & laporan PDF/Excel |
+| 📋 **Service Desk** | `servicedesk@example.com` | `password` | Menerima tiket masuk, memvalidasi kendala, dan menugaskan (*assign*) ke teknisi Helpdesk |
+| 🔧 **Helpdesk 1** | `helpdesk1@example.com` | `password` | Spesialis **Hardware & Network**. Mengeksekusi penanganan tiket, fitur AI Suggested Reply |
+| 💻 **Helpdesk 2** | `helpdesk2@example.com` | `password` | Spesialis **Software**. Mengeksekusi penanganan tiket, interaksi chat realtime dengan pelapor |
+| 👤 **Karyawan / User** | `user@example.com` | `password` | Pelapor kendala IT, tanya jawab otomatis dengan AI Chatbot (Takeover siap saji) |
+| 👤 **Karyawan 2** | `siti@example.com` | `password` | Pelapor kendala IT |
 
 ---
 
@@ -132,7 +220,7 @@ Anda dapat masuk menggunakan akun seeder berikut:
 
 Proyek ini menerapkan arsitektur *seeder* yang modular dan bersih (`database/seeders/`):
 * `CategorySeeder.php` ➔ Data kategori Hardware, Software, Network.
-* `UserSeeder.php` ➔ Akun Administrator & Karyawan (dengan email `@example.com`).
+* `UserSeeder.php` ➔ Akun Administrator, Service Desk, Helpdesk Spesialis, & Karyawan.
 * `WebsiteSettingSeeder.php` ➔ Konfigurasi nama platform & identitas perusahaan.
 * `KnowledgeBaseSeeder.php` ➔ 20+ FAQ realistis IT Helpdesk Indonesia.
 * `TicketSeeder.php` ➔ Contoh tiket awal beserta riwayat interaksi.

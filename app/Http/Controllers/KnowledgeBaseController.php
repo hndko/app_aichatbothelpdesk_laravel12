@@ -28,7 +28,7 @@ class KnowledgeBaseController extends Controller
         }
 
         $data['title']      = 'Knowledge Base';
-        $data['articles']   = $query->latest()->paginate(10)->withQueryString();
+        $data['articles']   = $query->latest()->get();
         $data['categories'] = Category::all();
 
         return view('backend.knowledge_base.index', $data);

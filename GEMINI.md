@@ -14,10 +14,10 @@ Dokumen ini berisi informasi lengkap spesifikasi project **AI Chatbot Helpdesk**
 
 ### 2. Tech Stack
 - **Backend:** PHP 8.2+, Laravel 12 (Laravel Reverb WebSocket Realtime Broadcasting)
-- **Frontend:** Laravel Blade, Tailwind CSS v4.0 (Flowbite Component Library & Icons, Responsive UI/UX, Vanilla JS, Laravel Echo)
+- **Frontend:** Laravel Blade, Tailwind CSS v4.0 (Flowbite Component Library & Icons, Flowbite DataTables / `simple-datatables`, Responsive UI/UX, Vanilla JS, Laravel Echo)
 - **Database:** MySQL (via Laragon)
 - **AI Integration:** OpenAI API / Gemini API / OpenRouter / Custom Base URL + API Key (Mendukung fleksibilitas pergantian provider LLM)
-- **Eksternal & Library:** Flowbite Toast / SweetAlert2, DomPDF / Maatwebsite Excel (untuk export laporan)
+- **Eksternal & Library:** Flowbite Toast / SweetAlert2, DomPDF / Maatwebsite Excel (export laporan), Flowbite DataTables
 
 ### 3. Daftar Fitur
 
