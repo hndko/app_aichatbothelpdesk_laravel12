@@ -69,6 +69,9 @@
                     <th>Kategori</th>
                     <th>Prioritas</th>
                     <th>Status</th>
+                    @if(auth()->user()->isAdmin())
+                        <th>Sentimen AI</th>
+                    @endif
                     <th>Teknisi</th>
                     <th>Tanggal</th>
                     <th class="text-end">Aksi</th>
@@ -104,6 +107,23 @@
                                 {{ ucfirst($ticket->status) }}
                             </span>
                         </td>
+                        @if(auth()->user()->isAdmin())
+                            <td>
+                                @php
+                                    $sBadge = match($ticket->sentiment) {
+                                        'positive' => 'bg-success-subtle text-success border-success',
+                                        'negative' => 'bg-danger-subtle text-danger border-danger',
+                                        default    => 'bg-info-subtle text-info border-info',
+                                    };
+                                    $sIcon = match($ticket->sentiment) {
+                                        'positive' => '😊 Puas',
+                                        'negative' => '😠 Urgent',
+                                        default    => '😐 Netral',
+                                    };
+                                @endphp
+                                <span class="badge border {{ $sBadge }}">{{ $sIcon }}</span>
+                            </td>
+                        @endif
                         <td>
                             @if($ticket->assignedAdmin)
                                 <span class="badge bg-info-subtle text-info-emphasis border border-info-subtle">
@@ -122,7 +142,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="{{ auth()->user()->isAdmin() ? 9 : 8 }}" class="text-center py-5">
+                        <td colspan="{{ auth()->user()->isAdmin() ? 10 : 8 }}" class="text-center py-5">
                             <i class="bi bi-ticket-perforated text-muted" style="font-size: 2.5rem; opacity: 0.4;"></i>
                             <p class="text-muted mt-2 mb-0">Tidak ada data tiket yang ditemukan.</p>
                         </td>

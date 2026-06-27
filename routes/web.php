@@ -5,6 +5,7 @@ use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\KnowledgeBaseController;
+use App\Http\Controllers\ReportController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/', [TiketController::class, 'store'])->name('store');
         Route::get('/{id}', [TiketController::class, 'show'])->name('show');
         Route::patch('/{id}/status', [TiketController::class, 'updateStatus'])->middleware('role:admin')->name('update-status');
+        Route::patch('/{id}/assignee', [TiketController::class, 'updateAssignee'])->middleware('role:admin')->name('update-assignee');
     });
 
     // Chatbot AJAX Endpoint
@@ -64,9 +66,11 @@ Route::middleware('auth')->group(function () {
             Route::delete('/{id}', [KnowledgeBaseController::class, 'destroy'])->name('destroy');
         });
 
-        // Laporan — placeholder Fase 6
+        // Laporan Performa Helpdesk
         Route::prefix('report')->name('report.')->group(function () {
-            Route::get('/', function () { abort(404); })->name('index');
+            Route::get('/', [ReportController::class, 'index'])->name('index');
+            Route::get('/export/pdf', [ReportController::class, 'exportPdf'])->name('export-pdf');
+            Route::get('/export/excel', [ReportController::class, 'exportExcel'])->name('export-excel');
         });
     });
 });

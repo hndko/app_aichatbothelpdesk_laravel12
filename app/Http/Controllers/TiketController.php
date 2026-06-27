@@ -8,6 +8,7 @@ use App\Models\Ticket;
 use App\Models\User;
 use App\Notifications\TicketCreated;
 use App\Notifications\TicketStatusUpdated;
+use App\Services\LlmService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -96,6 +97,9 @@ class TiketController extends Controller
                 $assignedAdminId = $anyAdmin?->id;
             }
 
+            // Deteksi sentimen AI awal
+            $sentiment = LlmService::detectSentiment($validated['subject'] . ' ' . $validated['description']);
+
             $ticket = Ticket::create([
                 'user_id'           => auth()->id(),
                 'category_id'       => $validated['category_id'],
@@ -104,6 +108,7 @@ class TiketController extends Controller
                 'description'       => $validated['description'],
                 'priority'          => $validated['priority'],
                 'status'            => 'open',
+                'sentiment'         => $sentiment,
             ]);
 
             // Simpan deskripsi awal sebagai pesan pertama di chat history
@@ -142,6 +147,7 @@ class TiketController extends Controller
 
         $data['title']  = 'Detail Tiket #' . $ticket->ticket_number;
         $data['ticket'] = $ticket;
+        $data['admins'] = User::where('role', 'admin')->get();
 
         return view('backend.tiket.show', $data);
     }
@@ -158,7 +164,6 @@ class TiketController extends Controller
         $ticket    = Ticket::findOrFail($id);
         $oldStatus = $ticket->status;
 
-        // Hanya kirim notifikasi jika status benar-benar berubah
         if ($oldStatus !== $validated['status']) {
             $ticket->update(['status' => $validated['status']]);
 
@@ -170,5 +175,20 @@ class TiketController extends Controller
         }
 
         return back()->with('success', 'Status tiket berhasil diperbarui menjadi ' . strtoupper($validated['status']) . '.');
+    }
+
+    /**
+     * Perbarui penugasan admin pada tiket (Admin only).
+     */
+    public function updateAssignee(Request $request, string $id)
+    {
+        $validated = $request->validate([
+            'assigned_admin_id' => ['nullable', 'exists:users,id'],
+        ]);
+
+        $ticket = Ticket::findOrFail($id);
+        $ticket->update(['assigned_admin_id' => $validated['assigned_admin_id']]);
+
+        return back()->with('success', 'Penugasan teknisi tiket berhasil diperbarui.');
     }
 }

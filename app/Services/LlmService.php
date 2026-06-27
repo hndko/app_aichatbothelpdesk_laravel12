@@ -157,4 +157,43 @@ PROMPT;
 
         return $prompt;
     }
+
+    /**
+     * Deteksi sentimen dari teks masukan (positive, neutral, negative).
+     */
+    public function analyzeSentiment(string $text): string
+    {
+        try {
+            $prompt = "Analisis sentimen dari teks keluhan/pesan IT helpdesk berikut. Balas HANYA dengan KATA TUNGGAL dalam bahasa inggris: 'positive' (jika ramah/puas/mengucapkan terima kasih), 'neutral' (jika biasa/netral/melaporkan masalah secara normal), atau 'negative' (jika marah/frustrasi/kecewa/urgent sekali). Jangan tambahkan tanda baca atau kata lain.";
+            
+            $messages = [
+                ['role' => 'system', 'content' => $prompt],
+                ['role' => 'user', 'content' => substr($text, 0, 500)],
+            ];
+
+            $response = $this->sendRequest($messages);
+            $clean = strtolower(trim(preg_replace('/[^a-zA-Z]/', '', $response)));
+
+            if (in_array($clean, ['positive', 'neutral', 'negative'])) {
+                return $clean;
+            }
+
+            if (str_contains($clean, 'positi')) return 'positive';
+            if (str_contains($clean, 'negati')) return 'negative';
+
+            return 'neutral';
+        } catch (\Exception $e) {
+            Log::warning('Sentiment Analysis Fallback: ' . $e->getMessage());
+            return 'neutral';
+        }
+    }
+
+    /**
+     * Static helper untuk analisis sentimen.
+     */
+    public static function detectSentiment(string $text): string
+    {
+        $instance = new self();
+        return $instance->analyzeSentiment($text);
+    }
 }

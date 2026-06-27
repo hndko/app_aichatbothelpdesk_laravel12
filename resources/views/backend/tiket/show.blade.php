@@ -115,16 +115,51 @@
                 </div>
 
                 <div class="mb-3">
+                    <small class="text-muted d-block fw-medium">Analisis Sentimen AI</small>
+                    @php
+                        $sentBadge = match($ticket->sentiment) {
+                            'positive' => 'bg-success-subtle text-success border-success',
+                            'negative' => 'bg-danger-subtle text-danger border-danger',
+                            default    => 'bg-info-subtle text-info border-info',
+                        };
+                        $sentLabel = match($ticket->sentiment) {
+                            'positive' => '😊 Puas / Positif',
+                            'negative' => '😠 Tidak Puas / Urgent',
+                            default    => '😐 Netral / Normal',
+                        };
+                    @endphp
+                    <span class="badge border {{ $sentBadge }} px-2 py-1 mt-1">{{ $sentLabel }}</span>
+                </div>
+
+                <div class="mb-3">
                     <small class="text-muted d-block fw-medium">Teknisi IT Menangani</small>
-                    @if($ticket->assignedAdmin)
-                        <div class="d-flex align-items-center gap-2 mt-1">
-                            <div class="topbar-user-avatar" style="width:30px;height:30px;font-size:0.75rem;">
-                                {{ substr($ticket->assignedAdmin->name, 0, 1) }}
-                            </div>
-                            <span class="fw-semibold text-dark">{{ $ticket->assignedAdmin->name }}</span>
-                        </div>
+                    @if(auth()->user()->isAdmin())
+                        <form action="{{ route('tiket.update-assignee', $ticket->id) }}" method="POST" class="d-flex gap-1 mt-1">
+                            @csrf
+                            @method('PATCH')
+                            <select name="assigned_admin_id" class="form-select form-select-sm border-secondary-subtle">
+                                <option value="">-- Belum di-assign --</option>
+                                @foreach($admins as $adm)
+                                    <option value="{{ $adm->id }}" {{ $ticket->assigned_admin_id == $adm->id ? 'selected' : '' }}>
+                                        {{ $adm->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            <button type="submit" class="btn btn-sm btn-nd-primary px-2" title="Simpan Penugasan">
+                                <i class="bi bi-check2"></i>
+                            </button>
+                        </form>
                     @else
-                        <span class="text-muted small fst-italic">Belum di-assign</span>
+                        @if($ticket->assignedAdmin)
+                            <div class="d-flex align-items-center gap-2 mt-1">
+                                <div class="topbar-user-avatar" style="width:30px;height:30px;font-size:0.75rem;">
+                                    {{ substr($ticket->assignedAdmin->name, 0, 1) }}
+                                </div>
+                                <span class="fw-semibold text-dark">{{ $ticket->assignedAdmin->name }}</span>
+                            </div>
+                        @else
+                            <span class="text-muted small fst-italic">Belum di-assign</span>
+                        @endif
                     @endif
                 </div>
 

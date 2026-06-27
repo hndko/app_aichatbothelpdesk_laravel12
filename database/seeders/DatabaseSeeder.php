@@ -97,6 +97,7 @@ class DatabaseSeeder extends Seeder
             'description'       => 'Sejak pagi tadi saat menyalakan PC, layar monitor bagian kanan muncul garis hijau vertikal yang terus berkedip.',
             'priority'          => 'high',
             'status'            => 'progress',
+            'sentiment'         => 'negative',
         ]);
 
         $ticket1->chatHistories()->create([
@@ -119,6 +120,7 @@ class DatabaseSeeder extends Seeder
             'description'       => 'Saat meeting Zoom di ruang meeting lantai 2, koneksi berkali-kali disconnect.',
             'priority'          => 'medium',
             'status'            => 'open',
+            'sentiment'         => 'neutral',
         ]);
 
         $ticket2->chatHistories()->create([
