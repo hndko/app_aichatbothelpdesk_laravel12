@@ -71,7 +71,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 text-gray-600 dark:text-gray-300">{{ $user->phone ?? '-' }}</td>
-                        <td class="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $user->created_at->translatedFormat('d F Y, H:i:s WIB') }}</td>
+                        <td class="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $user->created_at->translatedFormat('d F Y, H:i:s') . ' WIB' }}</td>
                     </tr>
                 @empty
                     <tr>

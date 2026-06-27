@@ -91,7 +91,7 @@
                                 </span>
                             @endif
                         </td>
-                        <td class="px-6 py-4 text-xs text-gray-400 whitespace-nowrap">{{ $article->updated_at->translatedFormat('d F Y, H:i:s WIB') }}</td>
+                        <td class="px-6 py-4 text-xs text-gray-400 whitespace-nowrap">{{ $article->updated_at->translatedFormat('d F Y, H:i:s') . ' WIB' }}</td>
                         <td class="px-6 py-4 text-right whitespace-nowrap">
                             <div class="flex items-center justify-end gap-2">
                                 <a href="{{ route('knowledge-base.edit', $article->id) }}" class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg dark:text-blue-400 dark:hover:bg-gray-700 transition-colors" title="Edit">

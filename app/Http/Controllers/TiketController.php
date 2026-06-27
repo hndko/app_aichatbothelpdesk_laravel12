@@ -76,7 +76,7 @@ class TiketController extends Controller
                 default    => '😐 Netral',
             };
 
-            $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i WIB');
+            $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i') . ' WIB';
             $ticket->category_name  = strtoupper($ticket->category->name ?? '-');
 
             return $ticket;
@@ -198,7 +198,7 @@ class TiketController extends Controller
             default    => '😐 Netral / Normal',
         };
 
-        $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i:s WIB');
+        $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i:s') . ' WIB';
         $ticket->category_name  = strtoupper($ticket->category->name ?? '-');
 
         $data['title']  = 'Detail Tiket #' . $ticket->ticket_number;

@@ -50,7 +50,7 @@ class ChatbotController extends Controller
                 'sender_type' => $userChat->sender_type,
                 'sender_name' => $user->name,
                 'message'     => $userChat->message,
-                'time'        => $userChat->created_at->translatedFormat('H:i WIB'),
+                'time'        => $userChat->created_at->translatedFormat('H:i') . ' WIB',
             ],
             'bot_chat' => null,
         ];
@@ -90,7 +90,7 @@ class ChatbotController extends Controller
                 'sender_type' => 'bot',
                 'sender_name' => 'MariDesk AI Bot',
                 'message'     => $botReply,
-                'time'        => $botChat->created_at->translatedFormat('H:i WIB'),
+                'time'        => $botChat->created_at->translatedFormat('H:i') . ' WIB',
             ];
 
             // Broadcast respons bot AI ke partisipan lain di WebSocket Reverb

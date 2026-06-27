@@ -43,7 +43,7 @@ class TicketsExport implements FromCollection, WithHeadings, WithMapping, Should
             strtoupper($ticket->status),
             ucfirst($ticket->sentiment ?? 'Neutral'),
             $ticket->assignedAdmin->name ?? 'Belum di-assign',
-            $ticket->created_at->translatedFormat('d F Y, H:i:s WIB'),
+            $ticket->created_at->translatedFormat('d F Y, H:i:s') . ' WIB',
         ];
     }
 }

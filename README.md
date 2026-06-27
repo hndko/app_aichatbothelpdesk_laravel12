@@ -113,6 +113,8 @@ REVERB_HOST="localhost"
 REVERB_PORT=8080
 REVERB_SCHEME=http
 ```
+> [!TIP]
+> **Cara Mengisi Konfigurasi Reverb:** Karena Laravel Reverb bertindak sebagai server WebSocket *self-hosted* lokal, Anda **tidak perlu mendaftar ke layanan pihak ketiga (seperti Pusher)**. Nilai `REVERB_APP_ID`, `REVERB_APP_KEY`, dan `REVERB_APP_SECRET` **bebas Anda buat dengan teks rahasia/angka acak apa saja** (contoh: `REVERB_APP_ID=982341`, `REVERB_APP_KEY=rahasia_key_maridesk`, `REVERB_APP_SECRET=rahasia_secret_maridesk`). Alternatifnya, Anda juga bisa menjalankan perintah `php artisan reverb:install` untuk dibuatkan secara otomatis oleh Laravel.
 
 ### 3. Migrasi & Seeding Database
 Jalankan migrasi beserta seeder terpecah yang menyediakan 20+ FAQ dan akun demo multi-role:

@@ -139,7 +139,7 @@
                     @endif
                     <span class="text-xs text-gray-400 flex items-center gap-1">
                         <svg class="w-3.5 h-3.5 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"/></svg>
-                        <span>{{ $article->updated_at->translatedFormat('d F Y, H:i:s WIB') }}</span>
+                        <span>{{ $article->updated_at->translatedFormat('d F Y, H:i:s') . ' WIB' }}</span>
                     </span>
                 </div>
 
@@ -194,7 +194,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="flex items-center justify-between p-6 border-t border-gray-200 rounded-b dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
-                        <span class="text-xs text-gray-400">Terakhir diperbarui: {{ $article->updated_at->translatedFormat('d F Y, H:i:s WIB') }}</span>
+                        <span class="text-xs text-gray-400">Terakhir diperbarui: {{ $article->updated_at->translatedFormat('d F Y, H:i:s') . ' WIB' }}</span>
                         <button data-modal-hide="faqModal{{ $article->id }}" type="button"
                             class="py-2 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 transition-all">
                             Tutup

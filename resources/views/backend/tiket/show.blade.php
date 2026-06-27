@@ -10,35 +10,23 @@
         transition: all 0.2s ease;
         max-width: 82%;
     }
-    .chat-bubble.user {
+    .chat-bubble.me {
         margin-left: auto;
         background: linear-gradient(135deg, #2563eb, #4f46e5);
         color: white;
         border-radius: 1.25rem 1.25rem 0.25rem 1.25rem;
     }
-    .chat-bubble.bot {
+    .chat-bubble.other {
         margin-right: auto;
         background: white;
         color: #1f2937;
-        border: 1px solid #f1f5f9;
+        border: 1px solid #e2e8f0;
         border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
     }
-    .dark .chat-bubble.bot {
+    .dark .chat-bubble.other {
         background: #1e293b;
         color: #f8fafc;
         border-color: #334155;
-    }
-    .chat-bubble.admin {
-        margin-right: auto;
-        background: #f0fdf4;
-        color: #14532d;
-        border: 1px solid #bbf7d0;
-        border-radius: 1.25rem 1.25rem 1.25rem 0.25rem;
-    }
-    .dark .chat-bubble.admin {
-        background: #064e3b;
-        color: #ecfdf5;
-        border-color: #047857;
     }
     .chat-sender {
         font-size: 0.75rem;
@@ -142,9 +130,15 @@
                 </div>
 
                 <!-- Chat Messages Area -->
+                @php
+                    $currentRoleIsStaff = auth()->user()->isStaff();
+                @endphp
                 <div class="p-6 overflow-y-auto bg-slate-50/70 dark:bg-gray-900/40 grow space-y-4" id="chatArea" style="min-height: 420px; max-height: 580px;">
                     @foreach($ticket->chatHistories as $chat)
-                        <div class="chat-bubble {{ $chat->sender_type }}" data-chat-id="{{ $chat->id }}">
+                        @php
+                            $isMe = $currentRoleIsStaff ? ($chat->sender_type === 'admin') : ($chat->sender_type === 'user');
+                        @endphp
+                        <div class="chat-bubble {{ $isMe ? 'me' : 'other' }}" data-chat-id="{{ $chat->id }}" data-sender-type="{{ $chat->sender_type }}">
                             <div class="chat-sender">
                                 @if($chat->sender_type === 'bot')
                                     <span>🤖 MariDesk AI Assistant</span>
@@ -155,7 +149,7 @@
                                 @endif
                             </div>
                             <div class="chat-text">{!! nl2br(e($chat->message)) !!}</div>
-                            <div class="chat-time">{{ $chat->created_at->translatedFormat('H:i WIB') }}</div>
+                            <div class="chat-time">{{ $chat->created_at->translatedFormat('H:i') . ' WIB' }}</div>
                         </div>
                     @endforeach
                 </div>
@@ -310,12 +304,19 @@ document.addEventListener('DOMContentLoaded', function() {
         charCount.textContent = this.value.length;
     });
 
+    const currentRoleIsStaff = {{ auth()->user()->isStaff() ? 'true' : 'false' }};
+
     function createBubble(data) {
         const div = document.createElement('div');
-        div.className = 'chat-bubble ' + data.sender_type;
+        const isMe = currentRoleIsStaff ? (data.sender_type === 'admin') : (data.sender_type === 'user');
+        div.className = 'chat-bubble ' + (isMe ? 'me' : 'other');
         if (data.id) {
             div.setAttribute('data-chat-id', data.id);
         }
+        if (data.temp_id) {
+            div.setAttribute('data-temp-id', data.temp_id);
+        }
+        div.setAttribute('data-sender-type', data.sender_type);
 
         let senderName = '';
         if (data.sender_type === 'bot') {
@@ -344,8 +345,12 @@ document.addEventListener('DOMContentLoaded', function() {
 
         const now = new Date();
         const timeStr = now.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' }) + ' WIB';
+        const mySenderType = currentRoleIsStaff ? 'admin' : 'user';
+        const tempId = 'temp_' + Date.now() + '_' + Math.random().toString(36).substr(2, 5);
+
         const userBubble = createBubble({
-            sender_type: '{{ auth()->user()->isStaff() ? "admin" : "user" }}',
+            temp_id: tempId,
+            sender_type: mySenderType,
             sender_name: '{{ auth()->user()->name }}',
             message: msg.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"),
             created_at: timeStr
@@ -356,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
         scrollToBottom();
 
         let typingIndicator = null;
-        if ('{{ auth()->user()->isUser() }}' === '1') {
+        if (!currentRoleIsStaff) {
             typingIndicator = document.createElement('div');
             typingIndicator.className = 'chat-typing';
             typingIndicator.innerHTML = '<span></span><span></span><span></span>';
@@ -364,13 +369,18 @@ document.addEventListener('DOMContentLoaded', function() {
             scrollToBottom();
         }
 
+        const fetchHeaders = {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': csrfToken,
+            'Accept': 'application/json'
+        };
+        if (typeof window.Echo !== 'undefined' && window.Echo.socketId()) {
+            fetchHeaders['X-Socket-ID'] = window.Echo.socketId();
+        }
+
         fetch(`/chatbot/${ticketId}/send`, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': csrfToken,
-                'Accept': 'application/json'
-            },
+            headers: fetchHeaders,
             body: JSON.stringify({ message: msg })
         })
         .then(response => response.json())
@@ -378,6 +388,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (typingIndicator) typingIndicator.remove();
             if (data.user_chat && data.user_chat.id) {
                 userBubble.setAttribute('data-chat-id', data.user_chat.id);
+                userBubble.removeAttribute('data-temp-id');
             }
             if (data.bot_chat) {
                 if (!document.querySelector(`[data-chat-id="${data.bot_chat.id}"]`)) {
@@ -411,7 +422,19 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 if (document.querySelector(`[data-chat-id="${chat.id}"]`)) return;
                 
-                if ('{{ auth()->user()->isUser() }}' === '1' && chat.sender_type === 'admin') {
+                // Cek apakah pesan sudah ditampilkan secara optimistik (mencegah duplikat pesan)
+                const optimisticBubbles = document.querySelectorAll('.chat-bubble[data-temp-id]');
+                for (let i = optimisticBubbles.length - 1; i >= 0; i--) {
+                    const textEl = optimisticBubbles[i].querySelector('.chat-text');
+                    const bSenderType = optimisticBubbles[i].getAttribute('data-sender-type');
+                    if (textEl && textEl.textContent.trim() === chat.message.trim() && bSenderType === chat.sender_type) {
+                        optimisticBubbles[i].setAttribute('data-chat-id', chat.id);
+                        optimisticBubbles[i].removeAttribute('data-temp-id');
+                        return;
+                    }
+                }
+                
+                if (!currentRoleIsStaff && chat.sender_type === 'admin') {
                     const typing = document.querySelector('.chat-typing');
                     if (typing) typing.remove();
                 }

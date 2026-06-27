@@ -150,7 +150,7 @@ class DashboardController extends Controller
                     default  => 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600',
                 };
 
-                $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i:s WIB');
+                $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i:s') . ' WIB';
                 $ticket->category_name  = strtoupper($ticket->category->name ?? '-');
 
                 return $ticket;

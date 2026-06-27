@@ -191,7 +191,7 @@
                             <span class="text-xs font-medium px-2.5 py-1 rounded border {{ $sBadge }}">{{ $sIcon }}</span>
                         </td>
                         <td class="px-6 py-4 text-gray-600 dark:text-gray-300 whitespace-nowrap">{{ $ticket->assignedAdmin->name ?? 'Belum di-assign' }}</td>
-                        <td class="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $ticket->created_at->translatedFormat('d F Y, H:i:s WIB') }}</td>
+                        <td class="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">{{ $ticket->created_at->translatedFormat('d F Y, H:i:s') . ' WIB' }}</td>
                     </tr>
                 @empty
                     <tr>
