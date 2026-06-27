@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatbotController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FrontendController;
 use App\Http\Controllers\KnowledgeBaseController;
 use App\Http\Controllers\TiketController;
 use App\Http\Controllers\UserController;
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 | Web Routes — NexusDesk AI
 |--------------------------------------------------------------------------
 */
+
+// === Public Portal Route ===
+Route::get('/', [FrontendController::class, 'index'])->name('portal');
 
 // === Guest Routes ===
 Route::middleware('guest')->group(function () {
@@ -27,8 +31,8 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     // Dashboard (semua role)
-    Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard.index');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/dashboard-index', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Tiket (semua role — filter di controller)
     Route::prefix('tiket')->name('tiket.')->group(function () {
