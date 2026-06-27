@@ -218,7 +218,7 @@
 
     <!-- Pagination -->
     @if($articles->hasPages())
-    <div class="flex justify-center mt-12">
+    <div class="w-full mt-4">
         {{ $articles->links() }}
     </div>
     @endif
