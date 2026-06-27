@@ -9,7 +9,8 @@
 
     @if(auth()->user()->isUser())
         <a href="{{ route('tiket.create') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2.5 text-center inline-flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all">
-            <i class="bi bi-plus-lg text-lg"></i> Buat Tiket Baru
+            <svg class="w-5 h-5 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14m-7 7V5"/></svg>
+            <span>Buat Tiket Baru</span>
         </a>
     @endif
 </div>
@@ -18,8 +19,8 @@
 <div class="bg-white dark:bg-gray-800 p-4 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 mb-6">
     <form action="{{ route('tiket.index') }}" method="GET" class="grid grid-cols-1 md:grid-cols-12 gap-3 items-center">
         <div class="md:col-span-4 relative">
-            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none text-gray-400">
-                <i class="bi bi-search"></i>
+            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
+                <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/></svg>
             </div>
             <input type="text" name="search" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full ps-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition-all" placeholder="Cari No. Tiket atau Subjek..." value="{{ request('search') }}">
         </div>
@@ -50,7 +51,7 @@
             </button>
             @if(request()->hasAny(['search', 'category_id', 'status']))
                 <a href="{{ route('tiket.index') }}" class="py-2.5 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 flex items-center justify-center" title="Reset Filter">
-                    <i class="bi bi-x-lg"></i>
+                    <svg class="w-4 h-4 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18 17.94 6M18 18 6.06 6"/></svg>
                 </a>
             @endif
         </div>
@@ -146,7 +147,7 @@
                         <td class="px-6 py-4 whitespace-nowrap">
                             @if($ticket->assignedAdmin)
                                 <span class="inline-flex items-center gap-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800">
-                                    <i class="bi bi-person-fill"></i> {{ $ticket->assignedAdmin->name }}
+                                    <svg class="w-3.5 h-3.5 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg> {{ $ticket->assignedAdmin->name }}
                                 </span>
                             @else
                                 <span class="text-xs text-gray-400 italic">Belum di-assign</span>
@@ -157,14 +158,15 @@
                         </td>
                         <td class="px-6 py-4 text-right whitespace-nowrap">
                             <a href="{{ route('tiket.show', $ticket->id) }}" class="py-1.5 px-3 text-xs font-medium text-blue-600 focus:outline-none bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-600 dark:hover:text-white dark:hover:bg-blue-700 inline-flex items-center gap-1 transition-all">
-                                <i class="bi bi-eye"></i> Detail
+                                <svg class="w-4 h-4 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-width="2" d="M21 12c0 1.2-4.03 6-9 6s-9-4.8-9-6c0-1.2 4.03-6 9-6s9 4.8 9 6Z"/><path stroke="currentColor" stroke-width="2" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                                <span>Detail</span>
                             </a>
                         </td>
                     </tr>
                 @empty
                     <tr>
                         <td colspan="{{ auth()->user()->isAdmin() ? 10 : 8 }}" class="px-6 py-12 text-center text-gray-500 dark:text-gray-400">
-                            <i class="bi bi-ticket-perforated text-4xl block mb-2 opacity-40"></i>
+                            <svg class="w-10 h-10 mx-auto mb-2 opacity-40 text-gray-500" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .586 1.414l2.828 2.828A2 2 0 0 0 6.828 20H18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm2 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Z" clip-rule="evenodd"/></svg>
                             <p class="text-sm">Tidak ada data tiket yang ditemukan.</p>
                         </td>
                     </tr>

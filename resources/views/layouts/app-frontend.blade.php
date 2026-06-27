@@ -14,61 +14,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-    <!-- Bootstrap Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
     <!-- Tailwind CSS & Flowbite via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <!-- Kompatibilitas Kelas Tambahan Sementara untuk Tahap 6 -->
-    <style>
-        .hero-section {
-            background: linear-gradient(135deg, #4F46E5 0%, #3B82F6 50%, #06B6D4 100%);
-            padding: 5rem 1rem 6rem;
-            color: white;
-            position: relative;
-            overflow: hidden;
-            text-align: center;
-        }
-        .hero-search-card {
-            max-width: 720px;
-            margin: -3rem auto 3rem;
-            position: relative;
-            z-index: 10;
-        }
-        .faq-card {
-            transition: all 0.3s ease;
-            border: 1px solid #e5e7eb;
-            border-radius: 0.75rem;
-            background: white;
-            overflow: hidden;
-            height: 100%;
-        }
-        .faq-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-            border-color: #60a5fa;
-        }
-        .category-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1.25rem;
-            border-radius: 50px;
-            background: white;
-            border: 1px solid #e5e7eb;
-            color: #374151;
-            font-weight: 500;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-        }
-        .category-pill:hover, .category-pill.active {
-            background: #3b82f6;
-            color: white;
-            border-color: #3b82f6;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-        }
-    </style>
 </head>
 <body class="font-sans antialiased bg-gray-50 dark:bg-gray-900 text-gray-800 dark:text-gray-200 min-h-screen flex flex-col justify-between">
 
@@ -87,11 +34,11 @@
                 <div class="flex items-center gap-3">
                     @auth
                         <a href="{{ route('dashboard') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center gap-2 transition-all shadow-sm">
-                            <i class="bi bi-speedometer2"></i> Ke Dasbor Helpdesk
+                            <svg class="w-4 h-4 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm10 0a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-6ZM4 16a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2H4Zm10 0a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-2a2 2 0 0 0-2-2h-6Z" clip-rule="evenodd"/></svg> Ke Dasbor Helpdesk
                         </a>
                     @else
                         <a href="{{ route('login') }}" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center inline-flex items-center gap-2 transition-all shadow-sm">
-                            <i class="bi bi-box-arrow-in-right"></i> Login Helpdesk
+                            <svg class="w-4 h-4 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12H3m12 0-4 4m4-4-4-4m5-4v12a2 2 0 0 1-2 2h-3"/></svg> Login Helpdesk
                         </a>
                     @endauth
                 </div>
@@ -119,7 +66,8 @@
                     <h3 class="text-sm font-semibold text-white tracking-wider uppercase mb-2">Butuh Bantuan Langsung?</h3>
                     <p class="text-sm text-gray-400 mb-3">Jika kendala tidak ditemukan di FAQ ini, silakan login untuk membuat tiket baru.</p>
                     <a href="{{ route('login') }}" class="text-blue-400 hover:text-blue-300 font-medium text-sm inline-flex items-center gap-1 transition-colors">
-                        Submit Tiket Kendala <i class="bi bi-arrow-right"></i>
+                        <span>Submit Tiket Kendala</span>
+                        <svg class="w-4 h-4 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 12H5m14 0-4 4m4-4-4-4"/></svg>
                     </a>
                 </div>
             </div>
