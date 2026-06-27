@@ -91,7 +91,7 @@
             <span class="text-xs font-bold px-2.5 py-1 rounded border {{ $statusBadge }}">{{ strtoupper($ticket->status) }}</span>
             <span class="text-xs font-semibold px-2.5 py-1 rounded {{ $prioBadge }}">{{ ucfirst($ticket->priority) }} Priority</span>
         </div>
-        <p class="text-sm text-gray-500 dark:text-gray-400">Dibuat oleh <strong class="text-gray-700 dark:text-gray-300">{{ $ticket->user->name ?? '-' }}</strong> pada {{ $ticket->created_at->format('d M Y, H:i') }}</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400">Dibuat oleh <strong class="text-gray-700 dark:text-gray-300">{{ $ticket->user->name ?? '-' }}</strong> pada {{ $ticket->created_at->translatedFormat('d F Y, H:i:s WIB') }}</p>
     </div>
 
     <div class="flex items-center gap-2">
@@ -140,7 +140,7 @@
                             @endif
                         </div>
                         <div class="chat-text">{!! nl2br(e($chat->message)) !!}</div>
-                        <div class="chat-time">{{ $chat->created_at->format('H:i') }}</div>
+                        <div class="chat-time">{{ $chat->created_at->translatedFormat('H:i:s WIB') }}</div>
                     </div>
                 @endforeach
             </div>
@@ -265,7 +265,7 @@
 
                 <div>
                     <span class="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-1">Waktu Submit</span>
-                    <span class="text-xs text-gray-600 dark:text-gray-300">{{ $ticket->created_at->format('l, d F Y - H:i:s') }}</span>
+                    <span class="text-xs text-gray-600 dark:text-gray-300">{{ $ticket->created_at->translatedFormat('l, d F Y - H:i:s WIB') }}</span>
                 </div>
             </div>
         </div>

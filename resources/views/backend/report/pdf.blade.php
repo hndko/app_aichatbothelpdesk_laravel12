@@ -59,7 +59,7 @@
                 <td><span class="badge badge-{{ $t->status }}">{{ strtoupper($t->status) }}</span></td>
                 <td>{{ ucfirst($t->sentiment ?? 'Neutral') }}</td>
                 <td>{{ $t->assignedAdmin->name ?? 'Belum di-assign' }}</td>
-                <td>{{ $t->created_at->format('Y-m-d H:i') }}</td>
+                <td>{{ $t->created_at->translatedFormat('d F Y, H:i:s WIB') }}</td>
             </tr>
         @empty
             <tr>

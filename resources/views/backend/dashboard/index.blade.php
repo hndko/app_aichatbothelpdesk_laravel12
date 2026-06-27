@@ -115,7 +115,7 @@
                             </span>
                         </td>
                         <td class="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                            {{ $ticket->created_at->format('d M Y, H:i') }}
+                            {{ $ticket->created_at->translatedFormat('d F Y, H:i:s WIB') }}
                         </td>
                     </tr>
                 @empty

@@ -154,7 +154,7 @@
                             @endif
                         </td>
                         <td class="px-6 py-4 text-gray-500 dark:text-gray-400 whitespace-nowrap">
-                            {{ $ticket->created_at->format('d/m/Y H:i') }}
+                            {{ $ticket->created_at->translatedFormat('d F Y, H:i:s WIB') }}
                         </td>
                         <td class="px-6 py-4 text-right whitespace-nowrap">
                             <a href="{{ route('tiket.show', $ticket->id) }}" class="py-1.5 px-3 text-xs font-medium text-blue-600 focus:outline-none bg-blue-50 rounded-lg border border-blue-200 hover:bg-blue-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-700 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-600 dark:hover:text-white dark:hover:bg-blue-700 inline-flex items-center gap-1 transition-all">

@@ -45,7 +45,7 @@ class ChatbotController extends Controller
                 'sender_type' => $userChat->sender_type,
                 'sender_name' => $user->name,
                 'message'     => $userChat->message,
-                'time'        => $userChat->created_at->format('H:i'),
+                'time'        => $userChat->created_at->translatedFormat('H:i:s WIB'),
             ],
             'bot_chat' => null,
         ];
@@ -82,7 +82,7 @@ class ChatbotController extends Controller
                 'sender_type' => 'bot',
                 'sender_name' => 'MariDesk AI Bot',
                 'message'     => $botReply,
-                'time'        => $botChat->created_at->format('H:i'),
+                'time'        => $botChat->created_at->translatedFormat('H:i:s WIB'),
             ];
         }
 
