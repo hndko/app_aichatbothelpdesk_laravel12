@@ -5,7 +5,7 @@
     <div class="flex flex-col items-center mb-6">
         <img src="{{ asset('assets/images/logo.png') }}" alt="MariDesk AI" class="w-16 h-16 rounded-xl shadow-md mb-3">
         <h1 class="text-2xl font-bold text-gray-900 dark:text-white tracking-tight">MariDesk AI</h1>
-        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Masuk ke akun Helpdesk Anda</p>
+        <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Masuk ke akun Platform Anda</p>
     </div>
 
     @if($errors->any())

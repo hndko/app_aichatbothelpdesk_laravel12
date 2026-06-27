@@ -33,7 +33,7 @@
                         <img src="{{ asset('assets/images/logo.png') }}" class="h-8 me-1" alt="MariDesk AI Logo" />
                         <div>
                             <span class="self-center text-xl font-bold sm:text-2xl whitespace-nowrap bg-linear-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">MariDesk AI</span>
-                            <span class="hidden md:inline-block ms-2 text-xs font-semibold px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-300">Helpdesk</span>
+                            <span class="hidden md:inline-block ms-2 text-xs font-semibold px-2 py-0.5 bg-blue-100 text-blue-800 rounded-full dark:bg-blue-900 dark:text-blue-300">Platform</span>
                         </div>
                     </a>
                     <div class="hidden lg:block border-l border-gray-200 dark:border-gray-700 pl-4 ms-4">
