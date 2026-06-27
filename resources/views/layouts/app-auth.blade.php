@@ -17,7 +17,7 @@
     <!-- Tailwind CSS & Flowbite via Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased min-h-screen bg-gradient-to-br from-slate-900 via-indigo-950 to-blue-950 flex items-center justify-center p-4">
+<body class="font-sans antialiased min-h-screen bg-linear-to-br from-slate-900 via-indigo-950 to-blue-950 flex items-center justify-center p-4">
     <div class="w-full max-w-md">
         @yield('content')
     </div>

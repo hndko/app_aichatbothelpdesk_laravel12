@@ -108,7 +108,7 @@
         @endif
 
         <a href="{{ route('tiket.index') }}" class="py-1.5 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center gap-1 transition-all">
-            <svg class="w-4 h-4 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
+            <svg class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
             <span>Kembali</span>
         </a>
     </div>
@@ -120,7 +120,7 @@
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 overflow-hidden flex flex-col h-full">
             <div class="px-6 py-4 border-b border-gray-100 dark:border-gray-700 flex items-center justify-between bg-gray-50/50 dark:bg-gray-800/50">
                 <h5 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
-                    <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18"><path d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z"/></svg>
+                    <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18"><path d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z"/></svg>
                     <span>Riwayat Percakapan & Bantuan AI</span>
                 </h5>
                 <span class="inline-flex items-center gap-1 text-xs font-semibold px-2.5 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800">
@@ -129,14 +129,14 @@
                 </span>
             </div>
 
-            <div class="p-6 overflow-y-auto bg-slate-50/60 dark:bg-gray-900/50 flex-grow" id="chatArea" style="min-height: 380px; max-height: 550px;">
+            <div class="p-6 overflow-y-auto bg-slate-50/60 dark:bg-gray-900/50 grow" id="chatArea" style="min-height: 380px; max-height: 550px;">
                 @foreach($ticket->chatHistories as $chat)
                     <div class="chat-bubble {{ $chat->sender_type }}">
                         <div class="chat-sender">
                             @if($chat->sender_type === 'bot')
-                                <svg class="w-3.5 h-3.5 text-blue-500 inline-block flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg> NexusDesk AI Bot
+                                <svg class="w-3.5 h-3.5 text-blue-500 inline-block shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg> NexusDesk AI Bot
                             @else
-                                <svg class="w-3.5 h-3.5 inline-block flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg> {{ $chat->user->name ?? ($chat->sender_type === 'admin' ? 'Teknisi IT' : 'Pelapor') }}
+                                <svg class="w-3.5 h-3.5 inline-block shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg> {{ $chat->user->name ?? ($chat->sender_type === 'admin' ? 'Teknisi IT' : 'Pelapor') }}
                             @endif
                         </div>
                         <div class="chat-text">{!! nl2br(e($chat->message)) !!}</div>
@@ -158,17 +158,17 @@
                                 maxlength="2000"
                                 required
                             >
-                            <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-3 text-center flex items-center justify-center transition-all shadow-md flex-shrink-0" id="btnSendChat">
-                                <svg class="w-5 h-5 flex-shrink-0 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 8.594-16-8.5A1 1 0 0 0 .658.347l2.853 8.358a1 1 0 0 0 .943.695h7.24a1 1 0 0 1 0 2h-7.24a1 1 0 0 0-.944.695L.658 20.453a1 1 0 0 0 1.256 1.257l16-8.5a1 1 0 0 0 0-1.761Z"/></svg>
+                            <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-xl text-sm px-5 py-3 text-center flex items-center justify-center transition-all shadow-md shrink-0" id="btnSendChat">
+                                <svg class="w-5 h-5 shrink-0 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 8.594-16-8.5A1 1 0 0 0 .658.347l2.853 8.358a1 1 0 0 0 .943.695h7.24a1 1 0 0 1 0 2h-7.24a1 1 0 0 0-.944.695L.658 20.453a1 1 0 0 0 1.256 1.257l16-8.5a1 1 0 0 0 0-1.761Z"/></svg>
                             </button>
                         </div>
                         <div class="flex justify-between items-center mt-2 px-1">
                             <span class="text-xs text-gray-500 dark:text-gray-400 flex items-center gap-1" id="chatHint">
                                 @if(auth()->user()->isUser())
-                                    <svg class="w-3.5 h-3.5 text-blue-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg>
+                                    <svg class="w-3.5 h-3.5 text-blue-500 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg>
                                     <span>AI akan otomatis merespons pesan Anda</span>
                                 @else
-                                    <svg class="w-3.5 h-3.5 text-indigo-500 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg>
+                                    <svg class="w-3.5 h-3.5 text-indigo-500 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg>
                                     <span>Balas langsung sebagai teknisi (tanpa AI)</span>
                                 @endif
                             </span>
@@ -179,7 +179,7 @@
             @else
                 <div class="p-4 border-t border-gray-100 dark:border-gray-700 bg-white dark:bg-gray-800 text-center">
                     <div class="inline-flex items-center gap-2 p-3 text-sm text-emerald-800 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-300 font-medium">
-                        <svg class="w-5 h-5 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/></svg>
+                        <svg class="w-5 h-5 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm13.707-1.293a1 1 0 0 0-1.414-1.414L11 12.586l-1.793-1.793a1 1 0 0 0-1.414 1.414l2.5 2.5a1 1 0 0 0 1.414 0l4-4Z" clip-rule="evenodd"/></svg>
                         <span>Tiket ini sudah ditutup. Tidak dapat mengirim pesan baru.</span>
                     </div>
                 </div>
@@ -191,7 +191,7 @@
     <div class="lg:col-span-4">
         <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sticky top-24">
             <h5 class="font-bold text-gray-900 dark:text-white mb-4 pb-3 border-b border-gray-100 dark:border-gray-700 flex items-center gap-2">
-                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd"/></svg>
+                <svg class="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10S2 17.523 2 12Zm9.408-5.5a1 1 0 1 0 0 2h.01a1 1 0 1 0 0-2h-.01ZM10 10a1 1 0 1 0 0 2h1v3h-1a1 1 0 1 0 0 2h4a1 1 0 1 0 0-2h-1v-4a1 1 0 0 0-1-1h-2Z" clip-rule="evenodd"/></svg>
                 <span>Informasi Tiket</span>
             </h5>
 
@@ -239,7 +239,7 @@
                                     </option>
                                 @endforeach
                             </select>
-                            <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-lg text-xs transition-all flex-shrink-0" title="Simpan Penugasan">
+                            <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 p-2 rounded-lg text-xs transition-all shrink-0" title="Simpan Penugasan">
                                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 11.917 9.724 16.5 19 7.5"/></svg>
                             </button>
                         </form>
@@ -298,9 +298,9 @@ document.addEventListener('DOMContentLoaded', function() {
         const div = document.createElement('div');
         div.className = 'chat-bubble ' + data.sender_type;
 
-        let senderIcon = '<svg class="w-3.5 h-3.5 inline-block flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg> ';
+        let senderIcon = '<svg class="w-3.5 h-3.5 inline-block shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z" clip-rule="evenodd"/></svg> ';
         if (data.sender_type === 'bot') {
-            senderIcon = '<svg class="w-3.5 h-3.5 text-blue-500 inline-block flex-shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg> ';
+            senderIcon = '<svg class="w-3.5 h-3.5 text-blue-500 inline-block shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg> ';
         }
 
         const escapedMsg = data.message
@@ -383,7 +383,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .finally(function() {
             chatInput.disabled = false;
             btnSend.disabled = false;
-            btnSend.innerHTML = '<svg class="w-5 h-5 flex-shrink-0 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 8.594-16-8.5A1 1 0 0 0 .658.347l2.853 8.358a1 1 0 0 0 .943.695h7.24a1 1 0 0 1 0 2h-7.24a1 1 0 0 0-.944.695L.658 20.453a1 1 0 0 0 1.256 1.257l16-8.5a1 1 0 0 0 0-1.761Z"/></svg>';
+            btnSend.innerHTML = '<svg class="w-5 h-5 shrink-0 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 8.594-16-8.5A1 1 0 0 0 .658.347l2.853 8.358a1 1 0 0 0 .943.695h7.24a1 1 0 0 1 0 2h-7.24a1 1 0 0 0-.944.695L.658 20.453a1 1 0 0 0 1.256 1.257l16-8.5a1 1 0 0 0 0-1.761Z"/></svg>';
             chatInput.focus();
         });
     });
