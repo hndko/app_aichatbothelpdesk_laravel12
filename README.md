@@ -1,59 +1,134 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+<div align="center">
+  <img src="public/assets/images/logo.png" alt="MariDesk AI Logo" width="120" style="border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1);">
+  
+  # 🚀 MariDesk AI
+  ### Sistem Manajemen IT Helpdesk & Asisten Virtual Cerdas Berbasis AI
+  
+  [![Laravel Version](https://img.shields.io/badge/Laravel-12.x-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)](https://laravel.com)
+  [![Tailwind CSS v4](https://img.shields.io/badge/Tailwind_CSS-v4.0-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com)
+  [![Flowbite](https://img.shields.io/badge/Flowbite-UI_Library-1E40AF?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://flowbite.com)
+  [![PHP Version](https://img.shields.io/badge/PHP-8.2+-777BB4?style=for-the-badge&logo=php&logoColor=white)](https://php.net)
+  [![MySQL](https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://mysql.com)
+  [![AI Powered](https://img.shields.io/badge/AI_Powered-OpenAI_%2F_Gemini-412991?style=for-the-badge&logo=openai&logoColor=white)](https://openai.com)
+</div>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+---
 
-## About Laravel
+## 🌟 Tentang Proyek (Portfolio Highlight)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+**MariDesk AI** adalah solusi platform **IT Helpdesk modern** yang digabungkan dengan **Kecerdasan Buatan (AI Chatbot)** untuk mentransformasi cara perusahaan menangani kendala teknis sehari-hari. 
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Proyek ini dibangun sebagai representasi nyata dari alur kerja operasional IT Support di level *enterprise*, di mana efisiensi, kecepatan respon, dan kepuasan pengguna menjadi prioritas utama. Dengan menyaring pertanyaan umum melalui *Knowledge Base* pintar, MariDesk AI menghemat hingga **70% waktu teknisi IT**, sehingga teknisi dapat fokus menyelesaikan masalah teknis yang lebih kompleks.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+---
 
-## Learning Laravel
+## ✨ Fitur Unggulan
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### 🤖 1. AI Chatbot Asisten Virtual 24/7
+* **Automasi Jawaban Instan**: Pelapor dapat berinteraksi langsung dengan AI Chatbot sebelum tiket diteruskan ke admin. AI menjawab pertanyaan secara akurat berdasarkan data *Knowledge Base* perusahaan.
+* **Smart Fallback**: Jika kendala membutuhkan intervensi manusia, alur percakapan mulus beralih menjadi tiket penanganan oleh teknisi.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 🎫 2. Manajemen Tiket Multi-Kategori & Status
+* **Kategori Terstruktur**: Pemisahan kendala ke dalam **Hardware**, **Software**, dan **Network**.
+* **Alur Status Transparan**: Pemantauan status tiket secara *real-time* dari `Open` ➔ `Progress` ➔ `Closed`.
+* **Prioritas Penanganan**: Pengelompokan tingkat urgensi (*Low*, *Medium*, *High*, *Urgent*).
 
-## Laravel Sponsors
+### 💡 3. Sentimen Analisis AI (*Standout Feature*)
+* **Deteksi Emosi Pelapor**: AI secara otomatis menganalisis nada pesan dan percakapan untuk menentukan tingkat kepuasan pelapor (**😊 Puas / 😐 Netral / 😠 Tidak Puas / Urgent**).
+* Membantu manajer IT memprioritaskan tiket dengan sentimen negatif agar segera ditangani guna menjaga kualitas layanan (*SLA*).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 📑 4. Ekspor Laporan Eksekutif (PDF & Excel)
+* **Laporan Siap Cetak**: Unduh rekapitulasi performa teknisi, analisis sentimen, dan riwayat kendala dalam format **PDF** (berkualitas tinggi) maupun **Excel** untuk analisis lanjutan.
 
-### Premium Partners
+### 🎨 5. Desain UI/UX Premium & Mode Gelap (*Dark Mode*)
+* Didesain dengan **Tailwind CSS v4.0** dan **Flowbite**, memberikan tampilan yang estetis, *glassmorphism*, bergaya *modern dynamic*, serta **100% responsif** di semua perangkat (Desktop, Tablet, dan Mobile).
+* Dilengkapi dengan efek interaktif, transisi halus, dan kursor kustom.
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+### 🇮🇩 6. Lokalisasi Indonesia Penuh
+* Menggunakan format waktu **Carbon Indonesia (`translatedFormat`)** dengan jam, menit, dan detik (WIB).
+* Sudah dilengkapi 20+ seeder data *Knowledge Base* kasus nyata IT Helpdesk kantor di Indonesia.
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## 🛠️ Teknologi yang Digunakan
 
-## Code of Conduct
+| Komponen | Teknologi / Library |
+| :--- | :--- |
+| **Backend Framework** | Laravel 12 (PHP 8.2+) |
+| **Frontend Styling** | Tailwind CSS v4.0, Vanilla CSS |
+| **Component Library** | Flowbite Components & Flowbite SVG Icons |
+| **Database** | MySQL (Laragon / Eloquent ORM) |
+| **AI Integration** | OpenAI API / Gemini API / OpenRouter LLM |
+| **PDF & Excel Export** | DomPDF & Maatwebsite Excel |
+| **Notification & Alert** | Flowbite Toast / SweetAlert2 |
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+---
 
-## Security Vulnerabilities
+## 🚀 Panduan Instalasi & Menjalankan Proyek
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### 1. Kloning Repositori
+```bash
+git clone https://github.com/hndko/app_aichatbothelpdesk_laravel12.git
+cd app_aichatbothelpdesk_laravel12
+```
 
-## License
+### 2. Instal Dependensi
+```bash
+composer install
+npm install
+```
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### 3. Konfigurasi Environment (`.env`)
+Salin file `.env.example` menjadi `.env`, lalu atur koneksi database dan API Key AI Anda:
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+Pastikan Anda menambahkan konfigurasi AI di `.env`:
+```env
+AI_PROVIDER=openai # atau gemini / openrouter
+AI_API_KEY="your-api-key-here"
+AI_MODEL="gpt-4o-mini" # atau model pilihan Anda
+```
+
+### 4. Migrasi & Seeding Database
+Jalankan migrasi beserta seeder terpecah yang sudah menyediakan 20 FAQ dan akun demo:
+```bash
+php artisan migrate:fresh --seed
+```
+
+### 5. Build Asset & Jalankan Server
+```bash
+npm run build
+php artisan serve
+```
+Buka browser Anda dan akses: **`http://127.0.0.1:8000`**
+
+---
+
+## 🔐 Akun Demo (Untuk Pengujian)
+
+Anda dapat masuk menggunakan akun seeder berikut:
+
+| Peran (*Role*) | Email | Password | Hak Akses |
+| :--- | :--- | :--- | :--- |
+| 🛡️ **Administrator IT** | `admin@example.com` | `password` | Kelola tiket, balas chat, analisis sentimen, ekspor laporan PDF/Excel, kelola FAQ |
+| 👤 **Karyawan / Pelapor** | `user@example.com` | `password` | Submit tiket baru, chat dengan AI Bot, pantau status tiket |
+| 👤 **Karyawan 2** | `siti@example.com` | `password` | Submit tiket baru |
+
+---
+
+## 📸 Snapshot Struktur Seeder
+
+Proyek ini menerapkan arsitektur *seeder* yang modular dan bersih (`database/seeders/`):
+* `CategorySeeder.php` ➔ Data kategori Hardware, Software, Network.
+* `UserSeeder.php` ➔ Akun Administrator & Karyawan (dengan email `@example.com`).
+* `WebsiteSettingSeeder.php` ➔ Konfigurasi nama platform & identitas perusahaan.
+* `KnowledgeBaseSeeder.php` ➔ 20+ FAQ realistis IT Helpdesk Indonesia.
+* `TicketSeeder.php` ➔ Contoh tiket awal beserta riwayat interaksi.
+
+---
+
+<div align="center">
+  <p>Dikembangkan dengan ❤️ sebagai bukti portofolio keahlian pengerjaan aplikasi <strong>AI Agentic Coding & Fullstack Laravel Development</strong>.</p>
+</div>
