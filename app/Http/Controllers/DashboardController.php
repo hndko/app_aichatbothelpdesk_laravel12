@@ -19,6 +19,8 @@ class DashboardController extends Controller
 
         if ($user->isUser()) {
             $query->where('user_id', $user->id);
+        } elseif ($user->isHelpdesk()) {
+            $query->where('assigned_admin_id', $user->id);
         }
 
         // Filter berdasarkan Range Date

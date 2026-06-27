@@ -25,6 +25,8 @@ class TiketController extends Controller
 
         if ($user->isUser()) {
             $query->where('user_id', $user->id);
+        } elseif ($user->isHelpdesk()) {
+            $query->where('assigned_admin_id', $user->id);
         }
 
         // Filter status
@@ -166,6 +168,10 @@ class TiketController extends Controller
             abort(403, 'Anda tidak memiliki akses untuk melihat tiket ini.');
         }
 
+        if (auth()->user()->isHelpdesk() && $ticket->assigned_admin_id !== auth()->id()) {
+            abort(403, 'Tiket ini tidak ditugaskan kepada Anda.');
+        }
+
         $ticket->status_badge = match($ticket->status) {
             'open'     => 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border border-red-200 dark:border-red-800',
             'progress' => 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800',
@@ -197,7 +203,7 @@ class TiketController extends Controller
 
         $data['title']  = 'Detail Tiket #' . $ticket->ticket_number;
         $data['ticket'] = $ticket;
-        $data['admins'] = User::whereIn('role', ['helpdesk', 'admin'])->get();
+        $data['admins'] = User::whereIn('role', ['helpdesk', 'service_desk', 'admin'])->get();
 
         return view('backend.tiket.show', $data);
     }

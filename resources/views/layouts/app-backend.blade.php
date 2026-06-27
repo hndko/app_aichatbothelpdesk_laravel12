@@ -58,7 +58,7 @@
                             </div>
                             <div class="hidden md:block text-left">
                                 <div class="text-xs font-bold text-gray-900 dark:text-white leading-tight">{{ auth()->user()->name }}</div>
-                                <div class="text-[10px] font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">{{ auth()->user()->role }}</div>
+                                <div class="text-[10px] font-semibold text-blue-600 dark:text-blue-400 uppercase tracking-wider">{{ str_replace('_', ' ', auth()->user()->role) }}</div>
                             </div>
                             <svg class="w-3 h-3 text-gray-500 ms-1 hidden sm:block" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4"/></svg>
                         </button>
@@ -120,38 +120,42 @@
                 <li>
                     <a href="{{ route('tiket.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('tiket.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
                         <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('tiket.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M4 4a2 2 0 0 0-2 2v12a2 2 0 0 0 .586 1.414l2.828 2.828A2 2 0 0 0 6.828 20H18a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2H4Zm2 3a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h6a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Zm0 4a1 1 0 0 1 1-1h4a1 1 0 1 1 0 2H7a1 1 0 0 1-1-1Z" clip-rule="evenodd"/></svg>
-                        <span class="ms-3">Tiket Saya</span>
+                        <span class="ms-3">{{ auth()->user()->isUser() ? 'Tiket Saya' : 'Kelola Tiket' }}</span>
                     </a>
                 </li>
 
-                @if(auth()->user()->role === 'admin')
+                @if(auth()->user()->isStaff())
                     <li class="pt-5">
                         <div class="px-3 py-2 text-[11px] font-bold text-gray-400 uppercase tracking-widest dark:text-gray-500">
-                            Kelola Admin
+                            {{ auth()->user()->isAdmin() ? 'Kelola Admin' : 'Kelola Staf' }}
                         </div>
                     </li>
-                    <li>
-                        <a href="{{ route('ai-setting.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('ai-setting.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
-                            <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('ai-setting.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.464-.736a8.001 8.001 0 0 0-.39-.569l.533-.697a1 1 0 0 0 .068-1.16l-1-1.732a1 1 0 0 0-1.16-.068l-.697.533c-.2-.152-.408-.288-.624-.407l-.736-.464V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-.736.464c-.216.119-.424.255-.624.407l-.697-.533a1 1 0 0 0-1.16.068l-1 1.732a1 1 0 0 0 .068 1.16l.533.697-.39.569-.464.736H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.464.736c.119.216.255.424.407.624l-.533.697a1 1 0 0 0-.068 1.16l1 1.732a1 1 0 0 0 1.16.068l.697-.533c.2.152.408.288.624.407l.736.464V21a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l.736-.464c.216-.119.424-.255.624-.407l.697.533a1 1 0 0 0 1.16-.068l1-1.732a1 1 0 0 0-.068-1.16l-.533-.697c.152-.2.288-.408.407-.624l.464-.736H21a1 1 0 0 0 1-1Zm-9 2a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
-                            <span class="ms-3">Konfigurasi AI</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('knowledge-base.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('knowledge-base.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
-                            <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('knowledge-base.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-1v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2H6Zm6 2v12H7a1 1 0 0 0-1 1v1h11V4h-5Z" clip-rule="evenodd"/></svg>
-                            <span class="ms-3">Knowledge Base</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{{ route('users.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('users.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
-                            <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('users.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.764A5.998 5.998 0 0 1 19.5 18Z" clip-rule="evenodd"/></svg>
-                            <span class="ms-3">Kelola User</span>
-                        </a>
-                    </li>
+
+                    @if(auth()->user()->isAdmin())
+                        <li>
+                            <a href="{{ route('ai-setting.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('ai-setting.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
+                                <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('ai-setting.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13v-2a1 1 0 0 0-1-1h-.757l-.464-.736a8.001 8.001 0 0 0-.39-.569l.533-.697a1 1 0 0 0 .068-1.16l-1-1.732a1 1 0 0 0-1.16-.068l-.697.533c-.2-.152-.408-.288-.624-.407l-.736-.464V3a1 1 0 0 0-1-1h-2a1 1 0 0 0-1 1v.757l-.736.464c-.216.119-.424.255-.624.407l-.697-.533a1 1 0 0 0-1.16.068l-1 1.732a1 1 0 0 0 .068 1.16l.533.697-.39.569-.464.736H3a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h.757l.464.736c.119.216.255.424.407.624l-.533.697a1 1 0 0 0-.068 1.16l1 1.732a1 1 0 0 0 1.16.068l.697-.533c.2.152.408.288.624.407l.736.464V21a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1v-.757l.736-.464c.216-.119.424-.255.624-.407l.697.533a1 1 0 0 0 1.16-.068l1-1.732a1 1 0 0 0-.068-1.16l-.533-.697c.152-.2.288-.408.407-.624l.464-.736H21a1 1 0 0 0 1-1Zm-9 2a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z"/></svg>
+                                <span class="ms-3">Konfigurasi AI</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('knowledge-base.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('knowledge-base.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
+                                <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('knowledge-base.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M6 2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 1 0 0-2h-1v-2h2a1 1 0 0 0 1-1V4a2 2 0 0 0-2-2H6Zm6 2v12H7a1 1 0 0 0-1 1v1h11V4h-5Z" clip-rule="evenodd"/></svg>
+                                <span class="ms-3">Knowledge Base</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{ route('users.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('users.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
+                                <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('users.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 6a3.5 3.5 0 1 0 0 7 3.5 3.5 0 0 0 0-7Zm-1.5 8a4 4 0 0 0-4 4 2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-3Zm6.82-3.096a5.51 5.51 0 0 0-2.797-6.293 3.5 3.5 0 1 1 2.796 6.292ZM19.5 18h.5a2 2 0 0 0 2-2 4 4 0 0 0-4-4h-1.1a5.503 5.503 0 0 1-.471.764A5.998 5.998 0 0 1 19.5 18Z" clip-rule="evenodd"/></svg>
+                                <span class="ms-3">Kelola User</span>
+                            </a>
+                        </li>
+                    @endif
+
                     <li>
                         <a href="{{ route('report.index') }}" class="flex items-center p-3 text-gray-900 rounded-xl dark:text-white hover:bg-blue-50 dark:hover:bg-gray-700 group transition-all {{ request()->routeIs('report.*') ? 'bg-blue-600 text-white dark:bg-blue-600 dark:text-white font-bold shadow-md shadow-blue-500/20' : '' }}">
                             <svg class="w-5 h-5 shrink-0 transition duration-75 {{ request()->routeIs('report.*') ? 'text-white' : 'text-gray-500 dark:text-gray-400 group-hover:text-blue-600 dark:group-hover:text-blue-400' }}" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M9 2.221V7H4.221a2 2 0 0 1 .365-.5L8.5 2.586A2 2 0 0 1 9 2.22ZM11 2v5a2 2 0 0 1-2 2H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H11Zm.5 9a1 1 0 0 0-1 1v5a1 1 0 1 0 2 0v-5a1 1 0 0 0-1-1Zm-4 2a1 1 0 0 0-1 1v3a1 1 0 1 0 2 0v-3a1 1 0 0 0-1-1Zm8-4a1 1 0 0 0-1 1v7a1 1 0 1 0 2 0v-7a1 1 0 0 0-1-1Z" clip-rule="evenodd"/></svg>
-                            <span class="ms-3">Laporan</span>
+                            <span class="ms-3">Laporan Analisis</span>
                         </a>
                     </li>
                 @endif

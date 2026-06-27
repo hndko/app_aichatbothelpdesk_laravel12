@@ -78,14 +78,14 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50/80 dark:bg-gray-700/80 dark:text-gray-300">
                     <tr>
                         <th scope="col" class="px-6 py-4 font-bold">No. Tiket</th>
-                        @if(auth()->user()->isAdmin())
+                        @if(auth()->user()->isStaff())
                             <th scope="col" class="px-6 py-4 font-bold">Pelapor</th>
                         @endif
                         <th scope="col" class="px-6 py-4 font-bold">Subjek Kendala</th>
                         <th scope="col" class="px-6 py-4 font-bold">Kategori</th>
                         <th scope="col" class="px-6 py-4 font-bold">Prioritas</th>
                         <th scope="col" class="px-6 py-4 font-bold">Status</th>
-                        @if(auth()->user()->isAdmin())
+                        @if(auth()->user()->isStaff())
                             <th scope="col" class="px-6 py-4 font-bold">Sentimen AI</th>
                         @endif
                         <th scope="col" class="px-6 py-4 font-bold">Teknisi IT</th>
@@ -101,7 +101,7 @@
                                     <span>{{ $ticket->ticket_number }}</span>
                                 </a>
                             </td>
-                            @if(auth()->user()->isAdmin())
+                            @if(auth()->user()->isStaff())
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="font-bold text-gray-900 dark:text-white">{{ $ticket->user->name ?? '-' }}</div>
                                     <div class="text-xs text-gray-500 dark:text-gray-400">{{ $ticket->user->email ?? '' }}</div>
@@ -125,7 +125,7 @@
                                     {{ strtoupper($ticket->status) }}
                                 </span>
                             </td>
-                            @if(auth()->user()->isAdmin())
+                            @if(auth()->user()->isStaff())
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <span class="text-xs font-bold px-3 py-1 rounded-lg {{ $ticket->sentiment_badge }} inline-block">
                                         {{ $ticket->sentiment_label }}
@@ -156,7 +156,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="{{ auth()->user()->isAdmin() ? 10 : 8 }}" class="px-6 py-16 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="{{ auth()->user()->isStaff() ? 10 : 8 }}" class="px-6 py-16 text-center text-gray-500 dark:text-gray-400">
                                 <div class="w-16 h-16 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mx-auto mb-3 text-gray-400">
                                     <svg class="w-8 h-8" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 13h3.439a.991.991 0 0 1 .908.586l.944 2.228a.991.991 0 0 0 .908.586h3.602a.991.991 0 0 0 .908-.586l.944-2.228a.991.991 0 0 1 .908-.586H20M4 13v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-6M4 13l2-9h12l2 9"/></svg>
                                 </div>

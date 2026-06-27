@@ -127,6 +127,7 @@
                     <h3 class="font-bold text-gray-900 dark:text-white flex items-center gap-2">
                         <span class="text-lg">💬</span>
                         <span>Ruang Diskusi & Bantuan AI</span>
+                    </h3>
                     @if($ticket->is_ai_active)
                         <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800 shadow-2xs">
                             <span class="w-2 h-2 rounded-full bg-blue-600 animate-ping"></span>
