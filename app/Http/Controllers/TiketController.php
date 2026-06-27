@@ -46,8 +46,42 @@ class TiketController extends Controller
             });
         }
 
+        $tickets = $query->latest()->paginate(10)->withQueryString();
+        $tickets->getCollection()->transform(function ($ticket) {
+            $ticket->status_badge = match($ticket->status) {
+                'open'     => 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border border-red-200 dark:border-red-800',
+                'progress' => 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800',
+                'closed'   => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800',
+                default    => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600',
+            };
+
+            $ticket->priority_badge = match($ticket->priority) {
+                'urgent' => 'bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800',
+                'high'   => 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800',
+                'medium' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800',
+                default  => 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600',
+            };
+
+            $ticket->sentiment_badge = match($ticket->sentiment) {
+                'positive' => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800',
+                'negative' => 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800',
+                default    => 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300 border border-sky-200 dark:border-sky-800',
+            };
+
+            $ticket->sentiment_label = match($ticket->sentiment) {
+                'positive' => '😊 Puas',
+                'negative' => '😠 Urgent',
+                default    => '😐 Netral',
+            };
+
+            $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i WIB');
+            $ticket->category_name  = strtoupper($ticket->category->name ?? '-');
+
+            return $ticket;
+        });
+
         $data['title']      = 'Tiket Kendala';
-        $data['tickets']    = $query->latest()->paginate(10)->withQueryString();
+        $data['tickets']    = $tickets;
         $data['categories'] = Category::all();
 
         return view('backend.tiket.index', $data);
@@ -144,6 +178,35 @@ class TiketController extends Controller
         if (auth()->user()->isUser() && $ticket->user_id !== auth()->id()) {
             abort(403, 'Anda tidak memiliki akses untuk melihat tiket ini.');
         }
+
+        $ticket->status_badge = match($ticket->status) {
+            'open'     => 'bg-red-100 text-red-800 dark:bg-red-900/40 dark:text-red-300 border border-red-200 dark:border-red-800',
+            'progress' => 'bg-amber-100 text-amber-800 dark:bg-amber-900/40 dark:text-amber-300 border border-amber-200 dark:border-amber-800',
+            'closed'   => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800',
+            default    => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300 border border-gray-200 dark:border-gray-600',
+        };
+
+        $ticket->priority_badge = match($ticket->priority) {
+            'urgent' => 'bg-purple-100 text-purple-800 dark:bg-purple-900/40 dark:text-purple-300 border border-purple-200 dark:border-purple-800',
+            'high'   => 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800',
+            'medium' => 'bg-blue-100 text-blue-800 dark:bg-blue-900/40 dark:text-blue-300 border border-blue-200 dark:border-blue-800',
+            default  => 'bg-slate-100 text-slate-800 dark:bg-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-600',
+        };
+
+        $ticket->sentiment_badge = match($ticket->sentiment) {
+            'positive' => 'bg-emerald-100 text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800',
+            'negative' => 'bg-rose-100 text-rose-800 dark:bg-rose-900/40 dark:text-rose-300 border border-rose-200 dark:border-rose-800',
+            default    => 'bg-sky-100 text-sky-800 dark:bg-sky-900/40 dark:text-sky-300 border border-sky-200 dark:border-sky-800',
+        };
+
+        $ticket->sentiment_label = match($ticket->sentiment) {
+            'positive' => '😊 Puas / Positif',
+            'negative' => '😠 Tidak Puas / Urgent',
+            default    => '😐 Netral / Normal',
+        };
+
+        $ticket->formatted_date = $ticket->created_at->translatedFormat('d F Y, H:i:s WIB');
+        $ticket->category_name  = strtoupper($ticket->category->name ?? '-');
 
         $data['title']  = 'Detail Tiket #' . $ticket->ticket_number;
         $data['ticket'] = $ticket;

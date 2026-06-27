@@ -1,25 +1,48 @@
 @extends('layouts.app-backend')
 
 @section('content')
-<div class="max-w-4xl mx-auto">
-    <div class="flex items-center justify-between mb-6">
-        <div>
-            <h4 class="text-2xl font-bold text-gray-900 dark:text-white">{{ $title }}</h4>
-            <p class="text-sm text-gray-500 dark:text-gray-400">Laporkan kendala IT yang Anda alami secara detail</p>
+<div class="max-w-4xl mx-auto space-y-6">
+    <!-- Header Section -->
+    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 sm:p-8 shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row sm:items-center justify-between gap-4 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-indigo-50 dark:bg-indigo-900/10 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="z-10">
+            <h1 class="text-2xl font-black text-gray-900 dark:text-white tracking-tight flex items-center gap-2.5">
+                <span>✨</span>
+                <span>{{ $title }}</span>
+            </h1>
+            <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Sampaikan kendala teknis yang Anda alami. AI kami akan menganalisis dan memberikan saran awal secara instan.</p>
         </div>
-        <a href="{{ route('tiket.index') }}" class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 inline-flex items-center gap-1 transition-all">
-            <svg class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
-            <span>Kembali</span>
-        </a>
+
+        <div class="z-10 shrink-0">
+            <a href="{{ route('tiket.index') }}" class="py-2.5 px-4 text-xs font-bold text-gray-700 focus:outline-none bg-gray-100 rounded-xl border border-gray-200 hover:bg-gray-200 hover:text-blue-700 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-600 inline-flex items-center gap-1.5 transition-all shadow-2xs">
+                <svg class="w-4 h-4 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12l4-4m-4 4 4 4"/></svg>
+                <span>Kembali ke Daftar</span>
+            </a>
+        </div>
     </div>
 
+    <!-- AI Banner Tip -->
+    <div class="bg-linear-to-r from-blue-600 to-indigo-600 rounded-2xl p-6 shadow-md text-white flex items-start gap-4 relative overflow-hidden">
+        <div class="w-12 h-12 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center shrink-0 text-2xl">
+            🤖
+        </div>
+        <div>
+            <h4 class="font-bold text-base">Asisten AI Cerdas Siap Membantu!</h4>
+            <p class="text-xs text-blue-100 mt-1 leading-relaxed">
+                Begitu tiket dikirim, sistem kami akan langsung mengklasifikasikan urgensi masalah dan AI Chatbot akan menjawab FAQ atau memberikan panduan *troubleshooting* awal sebelum teknisi IT kami mengambil alih penanganan.
+            </p>
+        </div>
+    </div>
+
+    <!-- Form Container -->
     <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 p-6 sm:p-8">
         <form action="{{ route('tiket.store') }}" method="POST" class="space-y-6">
             @csrf
 
+            <!-- Subjek -->
             <div>
-                <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 18"><path d="M18 0H2a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h3.546l3.2 3.659a1 1 0 0 0 1.506 0L13.454 14H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-8 10H5a1 1 0 0 1 0-2h5a1 1 0 1 1 0 2Zm5-4H5a1 1 0 0 1 0-2h10a1 1 0 1 1 0 2Z"/></svg>
+                <label for="subject" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.583 8.445h.01M10.86 19.71l-6.573-6.63a.993.993 0 0 1 0-1.4l7.329-7.394A.98.98 0 0 1 12.31 4l5.734.007A1.968 1.968 0 0 1 20 5.983v5.5a.992.992 0 0 1-.316.727l-7.44 7.5a.974.974 0 0 1-1.384.001Z"/></svg>
                     <span>Subjek Kendala</span> <span class="text-red-500">*</span>
                 </label>
                 <input
@@ -27,23 +50,27 @@
                     id="subject"
                     name="subject"
                     value="{{ old('subject') }}"
-                    placeholder="Contoh: Laptop mati total saat charge atau Koneksi Wi-Fi putus-putus"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition-all @error('subject') border-red-500 @enderror"
+                    placeholder="Contoh: Laptop mati total saat terhubung charger atau Wi-Fi ruangan lantai 2 tidak stabil"
+                    class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-2xs @error('subject') border-red-500 focus:ring-red-500 @enderror"
                     required
                 >
                 @error('subject')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="mt-2 text-xs font-bold text-red-600 dark:text-red-500 flex items-center gap-1">
+                        <svg class="w-3.5 h-3.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm0 16a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm1-5.034V12a1 1 0 0 1-2 0v-1.418a1 1 0 0 1 1.038-.999 1.436 1.436 0 0 0 1.488-1.441 1.501 1.501 0 1 0-3-.116.986.986 0 0 1-1.037.961 1 1 0 0 1-.96-1.037A3.5 3.5 0 1 1 11 11.466Z"/></svg>
+                        <span>{{ $message }}</span>
+                    </p>
                 @enderror
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <!-- Kategori Masalah -->
                 <div>
-                    <label for="category_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="m18.774 8.245-.892-.893a1.5 1.5 0 0 1-.437-1.052V5.036a2.484 2.484 0 0 0-2.48-2.48H13.7a1.5 1.5 0 0 1-1.052-.438l-.893-.892a2.484 2.484 0 0 0-3.51 0l-.893.892a1.5 1.5 0 0 1-1.052.437H5.036a2.484 2.484 0 0 0-2.48 2.481V6.3a1.5 1.5 0 0 1-.438 1.052l-.892.893a2.484 2.484 0 0 0 0 3.51l.892.893a1.5 1.5 0 0 1 .437 1.052v1.264a2.484 2.484 0 0 0 2.481 2.481H6.3a1.5 1.5 0 0 1 1.052.437l.893.892a2.484 2.484 0 0 0 3.51 0l.893-.892a1.5 1.5 0 0 1 1.052-.437h1.264a2.484 2.484 0 0 0 2.481-2.48V13.7a1.5 1.5 0 0 1 .437-1.052l.892-.893a2.484 2.484 0 0 0 0-3.51Z"/><path fill="#fff" d="M8 13a1 1 0 0 1-.707-.293l-2-2a1 1 0 1 1 1.414-1.414l1.42 1.42 5.318-3.545a1 1 0 0 1 1.11 1.664l-6 4A1 1 0 0 1 8 13Z"/></svg>
+                    <label for="category_id" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2m14 0V9a2 2 0 0 0-2-2M5 11V9a2 2 0 0 1 2-2m0 0V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M7 7h10"/></svg>
                         <span>Kategori Masalah</span> <span class="text-red-500">*</span>
                     </label>
-                    <select name="category_id" id="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all @error('category_id') border-red-500 @enderror" required>
-                        <option value="">-- Pilih Kategori --</option>
+                    <select name="category_id" id="category_id" class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all shadow-2xs @error('category_id') border-red-500 focus:ring-red-500 @enderror" required>
+                        <option value="">-- Pilih Kategori Kendala --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
                                 {{ strtoupper($cat->name) }} — {{ $cat->description ?? '' }}
@@ -51,58 +78,62 @@
                         @endforeach
                     </select>
                     @error('category_id')
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        <p class="mt-2 text-xs font-bold text-red-600 dark:text-red-500 flex items-center gap-1">
+                            <span>{{ $message }}</span>
+                        </p>
                     @enderror
                 </div>
 
+                <!-- Prioritas -->
                 <div>
-                    <label for="priority" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white flex items-center gap-1.5">
-                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/></svg>
-                        <span>Tingkat Prioritas</span> <span class="text-red-500">*</span>
+                    <label for="priority" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/></svg>
+                        <span>Perkiraan Tingkat Urgensi</span> <span class="text-red-500">*</span>
                     </label>
-                    <select name="priority" id="priority" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all @error('priority') border-red-500 @enderror" required>
-                        <option value="low" {{ old('priority') === 'low' ? 'selected' : '' }}>Low (Rendah)</option>
-                        <option value="medium" {{ old('priority', 'medium') === 'medium' ? 'selected' : '' }}>Medium (Sedang)</option>
-                        <option value="high" {{ old('priority') === 'high' ? 'selected' : '' }}>High (Darurat / Mendesak)</option>
+                    <select name="priority" id="priority" class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all shadow-2xs @error('priority') border-red-500 focus:ring-red-500 @enderror" required>
+                        <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>🟢 Low — Tidak mengganggu pekerjaan utama</option>
+                        <option value="medium" {{ old('priority', 'medium') == 'medium' ? 'selected' : '' }}>🔵 Medium — Mengganggu sebagian aktivitas kerja</option>
+                        <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>🔴 High / Urgent — Pekerjaan lumpuh total / membutuhkan penanganan segera</option>
                     </select>
                     @error('priority')
-                        <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                        <p class="mt-2 text-xs font-bold text-red-600 dark:text-red-500 flex items-center gap-1">
+                            <span>{{ $message }}</span>
+                        </p>
                     @enderror
                 </div>
             </div>
 
+            <!-- Deskripsi Detail -->
             <div>
-                <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white flex items-center gap-1.5">
-                    <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M16 14V2a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v15a3 3 0 0 0 3 3h12a1 1 0 0 0 0-2h-1v-2a2 2 0 0 0 2-2ZM4 2h2v12H4V2Zm8 16H3a1 1 0 0 1 0-2h9v2Z"/></svg>
-                    <span>Deskripsi Detail Kendala</span> <span class="text-red-500">*</span>
+                <label for="description" class="block mb-2 text-sm font-bold text-gray-900 dark:text-white flex items-center justify-between">
+                    <span class="flex items-center gap-1.5">
+                        <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 9h5m3 0h2M7 12h2m3 0h5M5 5h14a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2Zm0 10v5l4-5h10"/></svg>
+                        <span>Deskripsi Detail Kendala</span> <span class="text-red-500">*</span>
+                    </span>
+                    <span class="text-xs font-normal text-gray-400">Jelaskan kronologi & pesan error jika ada</span>
                 </label>
                 <textarea
-                    name="description"
                     id="description"
+                    name="description"
                     rows="6"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 transition-all @error('description') border-red-500 @enderror"
-                    placeholder="Jelaskan secara kronologis kapan kendala terjadi, pesan error yang muncul, atau langkah yang sudah Anda coba..."
+                    placeholder="Jelaskan secara rinci permasalahan Anda. Misalnya: 'Sejak jam 08.00 pagi, aplikasi akuntansi tidak bisa dibuka dan memunculkan error Database Connection Timeout...'"
+                    class="bg-gray-50 border border-gray-200 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-2xs @error('description') border-red-500 focus:ring-red-500 @enderror"
                     required
                 >{{ old('description') }}</textarea>
                 @error('description')
-                    <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                    <p class="mt-2 text-xs font-bold text-red-600 dark:text-red-500 flex items-center gap-1">
+                        <span>{{ $message }}</span>
+                    </p>
                 @enderror
             </div>
 
-            <div class="flex items-center p-4 text-sm text-blue-800 border border-blue-300 rounded-xl bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800 gap-3" role="alert">
-                <svg class="w-7 h-7 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm0 5a3 3 0 1 1 0 6 3 3 0 0 1 0-6Zm0 13a8.949 8.949 0 0 1-4.951-1.488A3.987 3.987 0 0 1 9 13h2a3.987 3.987 0 0 1 3.951 3.512A8.949 8.949 0 0 1 10 18Z"/></svg>
-                <div>
-                    <span class="font-semibold">Asisten AI Otomatis:</span> AI Chatbot kami akan langsung menganalisis laporan Anda dan memberikan solusi FAQ instan setelah tiket ini dikirim.
-                </div>
-            </div>
-
-            <div class="flex justify-end items-center gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-                <a href="{{ route('tiket.index') }}" class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700 transition-all">
+            <!-- Submit Button Area -->
+            <div class="pt-4 border-t border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row items-center justify-end gap-3">
+                <a href="{{ route('tiket.index') }}" class="w-full sm:w-auto py-3 px-6 text-sm font-bold text-gray-700 focus:outline-none bg-gray-100 rounded-xl border border-gray-200 hover:bg-gray-200 text-center dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600 transition-all">
                     Batal
                 </a>
-                <button type="submit" class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center gap-2 shadow-md shadow-blue-500/20 transition-all">
-                    <svg class="w-4 h-4 shrink-0 rotate-90 rtl:-rotate-90" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 20"><path d="m17.914 8.594-16-8.5A1 1 0 0 0 .658.347l2.853 8.358a1 1 0 0 0 .943.695h7.24a1 1 0 0 1 0 2h-7.24a1 1 0 0 0-.944.695L.658 20.453a1 1 0 0 0 1.256 1.257l16-8.5a1 1 0 0 0 0-1.761Z"/></svg>
-                    <span>Kirim Tiket</span>
+                <button type="submit" class="w-full sm:w-auto text-white bg-linear-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-bold rounded-xl text-sm px-8 py-3 text-center inline-flex items-center justify-center gap-2 shadow-lg shadow-blue-500/25 transition-all transform hover:-translate-y-0.5 active:translate-y-0">
+                    <span>🚀 Kirim Tiket & Hubungkan dengan AI</span>
                 </button>
             </div>
         </form>
