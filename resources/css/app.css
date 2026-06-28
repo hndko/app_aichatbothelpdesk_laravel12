@@ -74,113 +74,138 @@ button, [role="button"], input[type="submit"], input[type="button"], input[type=
 /* ==========================================
    PREMIUM FLOWBITE DATATABLES STYLING
    ========================================== */
-.dataTable-wrapper {
+.datatable-wrapper, .dataTable-wrapper {
     font-family: inherit;
     width: 100%;
 }
 
 /* Header & Footer Controls Bar */
+.datatable-wrapper .datatable-top,
 .dataTable-wrapper .dataTable-top,
+.datatable-wrapper .datatable-bottom,
 .dataTable-wrapper .dataTable-bottom {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1rem;
-    padding: 1.25rem 1.5rem;
-    background-color: #ffffff;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 1rem !important;
+    padding: 1.25rem 1.5rem !important;
+    background-color: #ffffff !important;
 }
+.dark .datatable-wrapper .datatable-top,
 .dark .dataTable-wrapper .dataTable-top,
+.dark .datatable-wrapper .datatable-bottom,
 .dark .dataTable-wrapper .dataTable-bottom {
-    background-color: #1f2937;
+    background-color: #1f2937 !important;
 }
+.datatable-wrapper .datatable-top,
 .dataTable-wrapper .dataTable-top {
-    border-bottom: 1px solid #f1f5f9;
+    border-bottom: 1px solid #f1f5f9 !important;
 }
+.dark .datatable-wrapper .datatable-top,
 .dark .dataTable-wrapper .dataTable-top {
-    border-color: #374151;
+    border-color: #374151 !important;
 }
+.datatable-wrapper .datatable-bottom,
 .dataTable-wrapper .dataTable-bottom {
-    border-top: 1px solid #f1f5f9;
+    border-top: 1px solid #f1f5f9 !important;
 }
+.dark .datatable-wrapper .datatable-bottom,
 .dark .dataTable-wrapper .dataTable-bottom {
-    border-color: #374151;
+    border-color: #374151 !important;
+}
+
+/* Clear simple-datatables floats */
+.datatable-top > div, .dataTable-top > div,
+.datatable-top > nav, .dataTable-top > nav,
+.datatable-bottom > div, .dataTable-bottom > div,
+.datatable-bottom > nav, .dataTable-bottom > nav {
+    float: none !important;
+    margin: 0 !important;
 }
 
 /* Dropdown Selector ("10 data per halaman") */
-.dataTable-dropdown label {
-    display: flex !important;
+.datatable-dropdown label, .dataTable-dropdown label {
+    display: inline-flex !important;
     align-items: center !important;
-    gap: 0.5rem !important;
+    gap: 0.75rem !important;
     font-size: 0.8125rem !important;
     font-weight: 600 !important;
     color: #475569 !important;
 }
-.dark .dataTable-dropdown label {
+.dark .datatable-dropdown label, .dark .dataTable-dropdown label {
     color: #94a3b8 !important;
 }
-.dataTable-selector {
+.datatable-selector, .dataTable-selector {
     background-color: #f8fafc !important;
     border: 1px solid #cbd5e1 !important;
     color: #0f172a !important;
     border-radius: 0.5rem !important;
-    padding: 0.45rem 2rem 0.45rem 0.75rem !important;
+    padding: 0.45rem 2.25rem 0.45rem 0.85rem !important;
     font-size: 0.8125rem !important;
     font-weight: 700 !important;
     cursor: pointer !important;
     outline: none !important;
     transition: all 0.2s ease !important;
 }
-.dark .dataTable-selector {
+.dark .datatable-selector, .dark .dataTable-selector {
     background-color: #111827 !important;
     border-color: #4b5563 !important;
     color: #f8fafc !important;
 }
-.dataTable-selector:focus {
+.datatable-selector:focus, .dataTable-selector:focus {
     border-color: #3b82f6 !important;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
 }
 
 /* Search Box ("Cari data di tabel...") */
-.dataTable-search input,
-.dataTable-input {
+.datatable-search, .dataTable-search {
+    display: flex !important;
+    align-items: center !important;
+}
+.datatable-search input, .dataTable-search input,
+.datatable-input, .dataTable-input {
     background-color: #f8fafc !important;
     border: 1px solid #cbd5e1 !important;
     color: #0f172a !important;
     border-radius: 0.75rem !important;
-    padding: 0.55rem 1rem !important;
+    padding: 0.55rem 1.25rem !important;
     font-size: 0.875rem !important;
     font-weight: 500 !important;
     outline: none !important;
     transition: all 0.2s ease !important;
-    min-width: 250px !important;
+    min-width: 260px !important;
+    width: 100% !important;
 }
-.dark .dataTable-search input,
-.dark .dataTable-input {
+.dark .datatable-search input, .dark .dataTable-search input,
+.dark .datatable-input, .dark .dataTable-input {
     background-color: #111827 !important;
     border-color: #4b5563 !important;
     color: #f8fafc !important;
 }
-.dataTable-input:focus {
+.datatable-input:focus, .dataTable-input:focus,
+.datatable-search input:focus, .dataTable-search input:focus {
     border-color: #3b82f6 !important;
     background-color: #ffffff !important;
     box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
 }
-.dark .dataTable-input:focus {
+.dark .datatable-input:focus, .dark .dataTable-input:focus,
+.dark .datatable-search input:focus, .dark .dataTable-search input:focus {
     background-color: #1f2937 !important;
     border-color: #60a5fa !important;
     box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2) !important;
 }
 
 /* Table Container & Table Headers */
-.dataTable-container {
-    overflow-x: auto;
+.datatable-container, .dataTable-container {
+    overflow-x: auto !important;
+    scrollbar-width: thin !important;
 }
-.dataTable-table {
+.datatable-table, .dataTable-table {
     width: 100% !important;
     border-collapse: collapse !important;
 }
-.dataTable-table th {
+.datatable-table th, .dataTable-table th {
     padding: 0.85rem 1.25rem !important;
     font-size: 0.75rem !important;
     font-weight: 800 !important;
@@ -191,12 +216,12 @@ button, [role="button"], input[type="submit"], input[type="button"], input[type=
     border-bottom: 2px solid #e2e8f0 !important;
     text-align: left !important;
 }
-.dark .dataTable-table th {
+.dark .datatable-table th, .dark .dataTable-table th {
     color: #e2e8f0 !important;
     background-color: #111827 !important;
     border-color: #374151 !important;
 }
-.dataTable-table th a {
+.datatable-table th a, .dataTable-table th a {
     text-decoration: none !important;
     color: inherit !important;
     display: flex !important;
@@ -205,45 +230,45 @@ button, [role="button"], input[type="submit"], input[type="button"], input[type=
 }
 
 /* Table Cells */
-.dataTable-table td {
+.datatable-table td, .dataTable-table td {
     padding: 1rem 1.25rem !important;
     vertical-align: middle !important;
     border-bottom: 1px solid #f1f5f9 !important;
     font-size: 0.875rem !important;
 }
-.dark .dataTable-table td {
+.dark .datatable-table td, .dark .dataTable-table td {
     border-color: #374151 !important;
 }
-.dataTable-table tr {
+.datatable-table tr, .dataTable-table tr {
     background-color: #ffffff;
     transition: background-color 0.15s ease;
 }
-.dark .dataTable-table tr {
+.dark .datatable-table tr, .dark .dataTable-table tr {
     background-color: #1f2937;
 }
-.dataTable-table tr:hover td {
+.datatable-table tr:hover td, .dataTable-table tr:hover td {
     background-color: #f8fafc !important;
 }
-.dark .dataTable-table tr:hover td {
+.dark .datatable-table tr:hover td, .dark .dataTable-table tr:hover td {
     background-color: rgba(55, 65, 81, 0.6) !important;
 }
 
 /* Info Summary Text ("Menampilkan 1 - 10 dari...") */
-.dataTable-info {
+.datatable-info, .dataTable-info {
     font-size: 0.8125rem !important;
     font-weight: 600 !important;
     color: #64748b !important;
     margin: 0 !important;
 }
-.dark .dataTable-info {
+.dark .datatable-info, .dark .dataTable-info {
     color: #94a3b8 !important;
 }
 
 /* Pagination Buttons */
-.dataTable-pagination {
+.datatable-pagination, .dataTable-pagination {
     margin: 0 !important;
 }
-.dataTable-pagination ul {
+.datatable-pagination ul, .dataTable-pagination ul {
     display: flex !important;
     align-items: center !important;
     gap: 0.35rem !important;
@@ -251,7 +276,8 @@ button, [role="button"], input[type="submit"], input[type="button"], input[type=
     padding: 0 !important;
     margin: 0 !important;
 }
-.dataTable-pagination li a {
+.datatable-pagination li a, .dataTable-pagination li a,
+.datatable-pagination li button, .dataTable-pagination li button {
     border-radius: 0.5rem !important;
     padding: 0.4rem 0.85rem !important;
     font-weight: 700 !important;
@@ -263,22 +289,24 @@ button, [role="button"], input[type="submit"], input[type="button"], input[type=
     transition: all 0.15s ease !important;
     display: inline-block !important;
 }
-.dark .dataTable-pagination li a {
+.dark .datatable-pagination li a, .dark .dataTable-pagination li a,
+.dark .datatable-pagination li button, .dark .dataTable-pagination li button {
     color: #e2e8f0 !important;
     background-color: #111827 !important;
     border-color: #374151 !important;
 }
-.dataTable-pagination li a:hover {
+.datatable-pagination li a:hover, .dataTable-pagination li a:hover,
+.datatable-pagination li button:hover, .dataTable-pagination li button:hover {
     background-color: #e2e8f0 !important;
     color: #0f172a !important;
 }
-.dark .dataTable-pagination li a:hover {
+.dark .datatable-pagination li a:hover, .dark .dataTable-pagination li a:hover,
+.dark .datatable-pagination li button:hover, .dark .dataTable-pagination li button:hover {
     background-color: #374151 !important;
     color: #ffffff !important;
 }
-.dataTable-pagination .active a,
-.dataTable-pagination .active a:focus,
-.dataTable-pagination .active a:hover {
+.datatable-pagination .active a, .dataTable-pagination .active a,
+.datatable-pagination .active button, .dataTable-pagination .active button {
     background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
     color: #ffffff !important;
     border-color: transparent !important;
