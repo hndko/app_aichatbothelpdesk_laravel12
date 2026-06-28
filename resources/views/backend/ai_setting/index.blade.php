@@ -72,7 +72,7 @@
                     <div class="grow">
                         <div class="flex items-center justify-between">
                             <span class="text-base font-extrabold text-gray-900 dark:text-white">OpenRouter AI</span>
-                            <span class="provider-badge {{ $ai_provider === 'openrouter' ? 'inline-block' : 'hidden' }} w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm"></span>
+                            <span class="provider-badge w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm" style="display: {{ $ai_provider === 'openrouter' ? 'inline-block' : 'none' }}"></span>
                         </div>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Akses ke 100+ model AI (OpenAI GPT-4o, Claude 3.5, DeepSeek, Llama 3) hanya dengan 1 API Key.</p>
                         <span class="inline-block mt-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-indigo-100 dark:bg-indigo-900/60 text-indigo-800 dark:text-indigo-300">Rekomendasi Terbaik</span>
@@ -88,7 +88,7 @@
                     <div class="grow">
                         <div class="flex items-center justify-between">
                             <span class="text-base font-extrabold text-gray-900 dark:text-white">OpenAI Direct</span>
-                            <span class="provider-badge {{ $ai_provider === 'openai' ? 'inline-block' : 'hidden' }} w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm"></span>
+                            <span class="provider-badge w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm" style="display: {{ $ai_provider === 'openai' ? 'inline-block' : 'none' }}"></span>
                         </div>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Koneksi langsung ke server resmi OpenAI (GPT-3.5 Turbo, GPT-4o Mini, GPT-4o). Sangat stabil & cepat.</p>
                         <span class="inline-block mt-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-emerald-100 dark:bg-emerald-900/60 text-emerald-800 dark:text-emerald-300">Resmi & Stabil</span>
@@ -104,7 +104,7 @@
                     <div class="grow">
                         <div class="flex items-center justify-between">
                             <span class="text-base font-extrabold text-gray-900 dark:text-white">Google Gemini</span>
-                            <span class="provider-badge {{ $ai_provider === 'gemini' ? 'inline-block' : 'hidden' }} w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm"></span>
+                            <span class="provider-badge w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm" style="display: {{ $ai_provider === 'gemini' ? 'inline-block' : 'none' }}"></span>
                         </div>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Model LLM generasi terbaru dari Google (Gemini 1.5 Flash / Pro) via endpoint kompatibel OpenAI.</p>
                         <span class="inline-block mt-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-sky-100 dark:bg-sky-900/60 text-sky-800 dark:text-sky-300">Kecepatan Tinggi</span>
@@ -120,7 +120,7 @@
                     <div class="grow">
                         <div class="flex items-center justify-between">
                             <span class="text-base font-extrabold text-gray-900 dark:text-white">Custom / Local LLM</span>
-                            <span class="provider-badge {{ $ai_provider === 'custom' ? 'inline-block' : 'hidden' }} w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm"></span>
+                            <span class="provider-badge w-2.5 h-2.5 rounded-full bg-indigo-600 shadow-sm" style="display: {{ $ai_provider === 'custom' ? 'inline-block' : 'none' }}"></span>
                         </div>
                         <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 leading-relaxed">Hubungkan ke server LLM lokal (Ollama, LM Studio, vLLM) atau penyedia pihak ketiga lainnya.</p>
                         <span class="inline-block mt-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded bg-amber-100 dark:bg-amber-900/60 text-amber-800 dark:text-amber-300">Self-Hosted</span>
@@ -197,18 +197,21 @@
                 </div>
 
                 <!-- Timeout -->
-                <div class="space-y-2">
+                <div class="space-y-3">
                     <div class="flex items-center justify-between">
                         <label for="ai_timeout" class="block text-sm font-bold text-gray-900 dark:text-white">
                             Batas Waktu Tunggu (Timeout) <span class="text-red-500">*</span>
                         </label>
-                        <span id="timeout-display" class="text-xs font-extrabold px-2 py-0.5 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 rounded-md">{{ old('ai_timeout', $ai_timeout) }} Detik</span>
+                        <span id="timeout-display" class="text-xs font-extrabold px-2.5 py-1 bg-indigo-100 dark:bg-indigo-900/60 text-indigo-700 dark:text-indigo-300 rounded-lg">{{ old('ai_timeout', $ai_timeout) }} Detik</span>
                     </div>
-                    <input type="range" id="ai_timeout" name="ai_timeout" min="5" max="120" step="5" value="{{ old('ai_timeout', $ai_timeout) }}" class="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer dark:bg-gray-700 accent-indigo-600">
-                    <div class="flex justify-between text-[11px] text-gray-400">
-                        <span>Cepat (5s)</span>
-                        <span>Normal (30s)</span>
-                        <span>Maksimal (120s)</span>
+                    <div class="relative flex items-center">
+                        <input type="number" id="ai_timeout" name="ai_timeout" min="5" max="300" value="{{ old('ai_timeout', $ai_timeout) }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white font-bold transition-all" required>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 pt-1">
+                        <button type="button" onclick="setTimeoutValue(15)" class="timeout-btn px-2.5 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 text-gray-700 dark:text-gray-300 transition-all text-center bg-white dark:bg-gray-800 cursor-pointer">15s (Cepat)</button>
+                        <button type="button" onclick="setTimeoutValue(30)" class="timeout-btn px-2.5 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 text-gray-700 dark:text-gray-300 transition-all text-center bg-white dark:bg-gray-800 cursor-pointer">30s (Normal)</button>
+                        <button type="button" onclick="setTimeoutValue(60)" class="timeout-btn px-2.5 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 text-gray-700 dark:text-gray-300 transition-all text-center bg-white dark:bg-gray-800 cursor-pointer">60s (Lama)</button>
+                        <button type="button" onclick="setTimeoutValue(120)" class="timeout-btn px-2.5 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 text-gray-700 dark:text-gray-300 transition-all text-center bg-white dark:bg-gray-800 cursor-pointer">120s (Maks)</button>
                     </div>
                 </div>
             </div>
@@ -296,10 +299,10 @@ document.addEventListener('DOMContentLoaded', function() {
             if (radio && radio.value === providerKey) {
                 radio.checked = true;
                 card.className = 'provider-card relative flex items-start p-5 rounded-2xl border-2 cursor-pointer transition-all border-indigo-600 bg-indigo-50/60 dark:bg-indigo-900/20 shadow-sm';
-                if (badge) badge.classList.remove('hidden');
+                if (badge) badge.style.display = 'inline-block';
             } else if (radio) {
                 card.className = 'provider-card relative flex items-start p-5 rounded-2xl border-2 cursor-pointer transition-all border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-gray-600 bg-white dark:bg-gray-800';
-                if (badge) badge.classList.add('hidden');
+                if (badge) badge.style.display = 'none';
             }
         });
 
@@ -307,8 +310,15 @@ document.addEventListener('DOMContentLoaded', function() {
         if (activeProviderLabel) activeProviderLabel.textContent = config.label;
         if (infoBox) infoBox.innerHTML = config.infoHtml;
 
-        // Auto update base URL ONLY if clicked by user OR input is empty
-        if (isUserClick || !baseUrlInput.value.trim()) {
+        // Auto update base URL & Model Identifier if clicked by user
+        if (isUserClick) {
+            baseUrlInput.value = config.defaultUrl;
+            if (config.models && config.models.length > 0) {
+                modelInput.value = config.models[0].id;
+                modelInput.classList.add('ring-2', 'ring-indigo-500');
+                setTimeout(() => modelInput.classList.remove('ring-2', 'ring-indigo-500'), 500);
+            }
+        } else if (!baseUrlInput.value.trim()) {
             baseUrlInput.value = config.defaultUrl;
         }
 
@@ -349,11 +359,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Timeout slider display
+    // Timeout input display & buttons sync
     if (timeoutInput && timeoutDisplay) {
         timeoutInput.addEventListener('input', (e) => {
-            timeoutDisplay.textContent = e.target.value + ' Detik';
+            const val = e.target.value || 30;
+            timeoutDisplay.textContent = val + ' Detik';
+            updateTimeoutButtons(val);
         });
+        updateTimeoutButtons(timeoutInput.value || 30);
     }
 
     // Initialize with current selected provider
@@ -362,6 +375,24 @@ document.addEventListener('DOMContentLoaded', function() {
         updateUiForProvider(initialRadio.value, false);
     }
 });
+
+function setTimeoutValue(val) {
+    const input = document.getElementById('ai_timeout');
+    if (input) {
+        input.value = val;
+        input.dispatchEvent(new Event('input'));
+    }
+}
+
+function updateTimeoutButtons(val) {
+    document.querySelectorAll('.timeout-btn').forEach(btn => {
+        if (btn.textContent.startsWith(val + 's')) {
+            btn.className = 'timeout-btn px-2.5 py-2 text-xs font-bold rounded-xl border-2 border-indigo-600 bg-indigo-50 dark:bg-indigo-900/50 text-indigo-700 dark:text-indigo-300 transition-all text-center shadow-xs cursor-pointer';
+        } else {
+            btn.className = 'timeout-btn px-2.5 py-2 text-xs font-bold rounded-xl border border-gray-200 dark:border-gray-700 hover:bg-indigo-50 dark:hover:bg-indigo-900/40 hover:border-indigo-300 dark:hover:border-indigo-700 text-gray-700 dark:text-gray-300 transition-all text-center bg-white dark:bg-gray-800 cursor-pointer';
+        }
+    });
+}
 
 function togglePasswordVisibility(inputId) {
     const input = document.getElementById(inputId);
