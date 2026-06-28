@@ -27,7 +27,7 @@ class ReportController extends Controller
         }
 
         $data['title']      = 'Laporan Performa Helpdesk';
-        $data['tickets']    = $query->latest()->get();
+        $data['tickets']    = $query->latest()->paginate(10)->withQueryString();
         $data['categories'] = Category::all();
 
         // Statistik laporan

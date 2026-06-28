@@ -23,7 +23,7 @@ class UserController extends Controller
         }
 
         $data['title'] = 'Kelola User';
-        $data['users'] = $query->latest()->get();
+        $data['users'] = $query->latest()->paginate(10)->withQueryString();
 
         return view('backend.users.index', $data);
     }
