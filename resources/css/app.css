@@ -28,53 +28,259 @@ button, [role="button"], input[type="submit"], input[type="button"], input[type=
     cursor: pointer !important;
 }
 
-/* Custom Flowbite Styling for simple-datatables */
+/* ==========================================
+   GLOBAL SCROLLBAR STYLING (Sleek & Modern)
+   ========================================== */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #cbd5e1 transparent;
+}
+.dark * {
+    scrollbar-color: #475569 transparent;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background-color: #cbd5e1;
+    border-radius: 9999px;
+    border: 1px solid transparent;
+}
+::-webkit-scrollbar-thumb:hover {
+    background-color: #94a3b8;
+}
+.dark ::-webkit-scrollbar-thumb {
+    background-color: #475569;
+}
+.dark ::-webkit-scrollbar-thumb:hover {
+    background-color: #64748b;
+}
+
+/* Specific sleek override for dataTable containers & overflow wrappers */
+.dataTable-container, .overflow-x-auto, .overflow-y-auto {
+    scrollbar-width: thin !important;
+}
+.dataTable-container::-webkit-scrollbar,
+.overflow-x-auto::-webkit-scrollbar {
+    height: 6px !important;
+}
+
+
+/* ==========================================
+   PREMIUM FLOWBITE DATATABLES STYLING
+   ========================================== */
+.dataTable-wrapper {
+    font-family: inherit;
+    width: 100%;
+}
+
+/* Header & Footer Controls Bar */
 .dataTable-wrapper .dataTable-top,
 .dataTable-wrapper .dataTable-bottom {
-    padding: 1rem 1.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.25rem 1.5rem;
+    background-color: #ffffff;
 }
-.dataTable-input {
-    background-color: #f9fafb !important;
-    border: 1px solid #e5e7eb !important;
-    color: #111827 !important;
-    border-radius: 0.5rem !important;
-    padding: 0.5rem 1rem !important;
-    font-size: 0.875rem !important;
-    outline: none !important;
+.dark .dataTable-wrapper .dataTable-top,
+.dark .dataTable-wrapper .dataTable-bottom {
+    background-color: #1f2937;
 }
-.dark .dataTable-input {
-    background-color: #374151 !important;
-    border-color: #4b5563 !important;
-    color: #ffffff !important;
+.dataTable-wrapper .dataTable-top {
+    border-bottom: 1px solid #f1f5f9;
+}
+.dark .dataTable-wrapper .dataTable-top {
+    border-color: #374151;
+}
+.dataTable-wrapper .dataTable-bottom {
+    border-top: 1px solid #f1f5f9;
+}
+.dark .dataTable-wrapper .dataTable-bottom {
+    border-color: #374151;
+}
+
+/* Dropdown Selector ("10 data per halaman") */
+.dataTable-dropdown label {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.5rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+    color: #475569 !important;
+}
+.dark .dataTable-dropdown label {
+    color: #94a3b8 !important;
 }
 .dataTable-selector {
-    background-color: #f9fafb !important;
-    border: 1px solid #e5e7eb !important;
-    color: #111827 !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
     border-radius: 0.5rem !important;
-    padding: 0.5rem 2rem 0.5rem 1rem !important;
-    font-size: 0.875rem !important;
+    padding: 0.45rem 2rem 0.45rem 0.75rem !important;
+    font-size: 0.8125rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
 }
 .dark .dataTable-selector {
-    background-color: #374151 !important;
+    background-color: #111827 !important;
     border-color: #4b5563 !important;
-    color: #ffffff !important;
+    color: #f8fafc !important;
 }
-.dataTable-pagination a {
-    border-radius: 0.5rem !important;
-    padding: 0.375rem 0.75rem !important;
-    font-weight: 600 !important;
+.dataTable-selector:focus {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+}
+
+/* Search Box ("Cari data di tabel...") */
+.dataTable-search input,
+.dataTable-input {
+    background-color: #f8fafc !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    border-radius: 0.75rem !important;
+    padding: 0.55rem 1rem !important;
+    font-size: 0.875rem !important;
+    font-weight: 500 !important;
+    outline: none !important;
+    transition: all 0.2s ease !important;
+    min-width: 250px !important;
+}
+.dark .dataTable-search input,
+.dark .dataTable-input {
+    background-color: #111827 !important;
+    border-color: #4b5563 !important;
+    color: #f8fafc !important;
+}
+.dataTable-input:focus {
+    border-color: #3b82f6 !important;
+    background-color: #ffffff !important;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+}
+.dark .dataTable-input:focus {
+    background-color: #1f2937 !important;
+    border-color: #60a5fa !important;
+    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.2) !important;
+}
+
+/* Table Container & Table Headers */
+.dataTable-container {
+    overflow-x: auto;
+}
+.dataTable-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+}
+.dataTable-table th {
+    padding: 0.85rem 1.25rem !important;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.05em !important;
+    color: #334155 !important;
+    background-color: #f1f5f9 !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    text-align: left !important;
+}
+.dark .dataTable-table th {
+    color: #e2e8f0 !important;
+    background-color: #111827 !important;
+    border-color: #374151 !important;
+}
+.dataTable-table th a {
+    text-decoration: none !important;
+    color: inherit !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+}
+
+/* Table Cells */
+.dataTable-table td {
+    padding: 1rem 1.25rem !important;
+    vertical-align: middle !important;
+    border-bottom: 1px solid #f1f5f9 !important;
     font-size: 0.875rem !important;
 }
-.dark .dataTable-pagination a {
-    color: #d1d5db !important;
+.dark .dataTable-table td {
+    border-color: #374151 !important;
 }
-.dark .dataTable-pagination a:hover {
+.dataTable-table tr {
+    background-color: #ffffff;
+    transition: background-color 0.15s ease;
+}
+.dark .dataTable-table tr {
+    background-color: #1f2937;
+}
+.dataTable-table tr:hover td {
+    background-color: #f8fafc !important;
+}
+.dark .dataTable-table tr:hover td {
+    background-color: rgba(55, 65, 81, 0.6) !important;
+}
+
+/* Info Summary Text ("Menampilkan 1 - 10 dari...") */
+.dataTable-info {
+    font-size: 0.8125rem !important;
+    font-weight: 600 !important;
+    color: #64748b !important;
+    margin: 0 !important;
+}
+.dark .dataTable-info {
+    color: #94a3b8 !important;
+}
+
+/* Pagination Buttons */
+.dataTable-pagination {
+    margin: 0 !important;
+}
+.dataTable-pagination ul {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.35rem !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+.dataTable-pagination li a {
+    border-radius: 0.5rem !important;
+    padding: 0.4rem 0.85rem !important;
+    font-weight: 700 !important;
+    font-size: 0.8125rem !important;
+    color: #475569 !important;
+    background-color: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    text-decoration: none !important;
+    transition: all 0.15s ease !important;
+    display: inline-block !important;
+}
+.dark .dataTable-pagination li a {
+    color: #e2e8f0 !important;
+    background-color: #111827 !important;
+    border-color: #374151 !important;
+}
+.dataTable-pagination li a:hover {
+    background-color: #e2e8f0 !important;
+    color: #0f172a !important;
+}
+.dark .dataTable-pagination li a:hover {
     background-color: #374151 !important;
+    color: #ffffff !important;
 }
 .dataTable-pagination .active a,
 .dataTable-pagination .active a:focus,
 .dataTable-pagination .active a:hover {
-    background-color: #2563eb !important;
+    background: linear-gradient(135deg, #2563eb, #4f46e5) !important;
     color: #ffffff !important;
+    border-color: transparent !important;
+    box-shadow: 0 2px 4px rgba(37, 99, 235, 0.3) !important;
 }
