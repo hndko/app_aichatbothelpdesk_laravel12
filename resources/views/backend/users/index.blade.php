@@ -23,11 +23,15 @@
             </div>
         </div>
 
-        <div class="z-10 shrink-0">
-            <div class="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center">
+        <div class="z-10 shrink-0 flex flex-col sm:flex-row items-center gap-3 w-full sm:w-auto">
+            <div class="px-4 py-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 text-center w-full sm:w-auto">
                 <span class="block text-[11px] font-bold uppercase tracking-widest text-indigo-200">Total Terdaftar</span>
                 <span class="text-xl font-black text-white">{{ $users->total() }} Pengguna</span>
             </div>
+            <a href="{{ route('users.create') }}" class="w-full sm:w-auto px-5 py-3.5 rounded-2xl bg-white text-indigo-900 font-extrabold text-sm shadow-lg hover:bg-indigo-50 transition-all flex items-center justify-center gap-2 hover:scale-105 active:scale-95 shrink-0">
+                <svg class="w-5 h-5 text-indigo-600 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 12h14m-7 7V5"/></svg>
+                <span>Tambah Pengguna</span>
+            </a>
         </div>
     </div>
 
@@ -36,6 +40,14 @@
         <div class="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-900/30 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 flex items-center gap-3 shadow-xs">
             <svg class="w-6 h-6 shrink-0 text-emerald-600 dark:text-emerald-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/></svg>
             <span class="text-sm font-bold">{{ session('success') }}</span>
+        </div>
+    @endif
+
+    <!-- Alert Error -->
+    @if(session('error'))
+        <div class="p-4 rounded-2xl bg-rose-50 dark:bg-rose-900/30 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 flex items-center gap-3 shadow-xs">
+            <svg class="w-6 h-6 shrink-0 text-rose-600 dark:text-rose-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20"><path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM10 15a1 1 0 1 1 0-2 1 1 0 0 1 0 2Zm1-4a1 1 0 0 1-2 0V6a1 1 0 0 1 2 0v5Z"/></svg>
+            <span class="text-sm font-bold">{{ session('error') }}</span>
         </div>
     @endif
 
@@ -74,6 +86,7 @@
                         <th scope="col" class="px-6 py-4 text-center">Peran Akses (*Role*)</th>
                         <th scope="col" class="px-6 py-4">Kontak Telepon</th>
                         <th scope="col" class="px-6 py-4">Terdaftar Sejak</th>
+                        <th scope="col" class="px-6 py-4 text-right">Aksi</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-100 dark:divide-gray-700">
@@ -125,15 +138,48 @@
                                     <span>{{ $user->created_at->translatedFormat('d M Y, H:i') }} WIB</span>
                                 </div>
                             </td>
+                            <td class="px-6 py-5 text-right whitespace-nowrap">
+                                <div class="flex items-center justify-end gap-1.5">
+                                    <!-- Tombol Reset Password -->
+                                    <form action="{{ route('users.reset-password', $user->id) }}" method="POST" class="inline">
+                                        @csrf
+                                        <button type="submit" class="px-2.5 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 dark:bg-amber-900/30 dark:hover:bg-amber-900/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 transition-all font-bold text-xs flex items-center gap-1 cursor-pointer shadow-2xs" title="Reset password pengguna ke default: password" onclick="return confirm('Yakin ingin mereset password pengguna {{ $user->name }} menjadi: password ?')">
+                                            <span>🔑</span>
+                                            <span class="hidden md:inline">Reset Pass</span>
+                                        </button>
+                                    </form>
+
+                                    <!-- Tombol Edit -->
+                                    <a href="{{ route('users.edit', $user->id) }}" class="p-2 text-indigo-600 hover:bg-indigo-50 rounded-xl dark:text-indigo-400 dark:hover:bg-gray-700 transition-all font-bold flex items-center gap-1 text-xs border border-transparent hover:border-indigo-200 dark:hover:border-gray-600" title="Edit Pengguna">
+                                        <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m14.304 4.844 2.852 2.852M7 7H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1v-4.5m2.409-9.91a2.017 2.017 0 0 1 0 2.853l-6.844 6.844L8 14l.713-3.565 6.844-6.844a2.015 2.015 0 0 1 2.852 0Z"/></svg>
+                                        <span class="hidden sm:inline">Edit</span>
+                                    </a>
+
+                                    <!-- Tombol Hapus -->
+                                    @if(auth()->id() !== $user->id)
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" class="inline">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="p-2 text-rose-600 hover:bg-rose-50 rounded-xl dark:text-rose-400 dark:hover:bg-gray-700 transition-all font-bold flex items-center gap-1 text-xs border border-transparent hover:border-rose-200 dark:hover:border-gray-600 cursor-pointer" title="Hapus Pengguna" onclick="return confirm('Yakin ingin menghapus akun pengguna {{ $user->name }} dari sistem?')">
+                                                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/></svg>
+                                                <span class="hidden sm:inline">Hapus</span>
+                                            </button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-16 text-center text-gray-500 dark:text-gray-400">
+                            <td colspan="6" class="px-6 py-16 text-center text-gray-500 dark:text-gray-400">
                                 <div class="w-16 h-16 rounded-full bg-gray-100 dark:bg-gray-700/50 flex items-center justify-center mx-auto mb-3">
                                     <svg class="w-8 h-8 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8Zm-2 9a4 4 0 0 0-4 4v1a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-1a4 4 0 0 0-4-4h-4Z"/></svg>
                                 </div>
                                 <h5 class="text-base font-bold text-gray-800 dark:text-gray-200 mb-1">Pengguna Tidak Ditemukan</h5>
-                                <p class="text-xs max-w-sm mx-auto">Tidak ada data pengguna yang sesuai dengan kata kunci pencarian Anda.</p>
+                                <p class="text-xs max-w-sm mx-auto mb-4">Tidak ada data pengguna yang sesuai dengan kata kunci pencarian Anda.</p>
+                                <a href="{{ route('users.create') }}" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs shadow-sm inline-flex items-center gap-1.5 transition-all">
+                                    <span>+ Tambah Pengguna Baru</span>
+                                </a>
                             </td>
                         </tr>
                     @endforelse

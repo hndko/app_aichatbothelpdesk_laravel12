@@ -63,9 +63,15 @@ Route::middleware('auth')->group(function () {
         Route::get('/ai-setting', [AiSettingController::class, 'index'])->name('ai-setting.index');
         Route::put('/ai-setting', [AiSettingController::class, 'update'])->name('ai-setting.update');
 
-        // Kelola User
+        // Kelola User CRUD
         Route::prefix('users')->name('users.')->group(function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
+            Route::get('/create', [UserController::class, 'create'])->name('create');
+            Route::post('/', [UserController::class, 'store'])->name('store');
+            Route::get('/{id}/edit', [UserController::class, 'edit'])->name('edit');
+            Route::put('/{id}', [UserController::class, 'update'])->name('update');
+            Route::delete('/{id}', [UserController::class, 'destroy'])->name('destroy');
+            Route::post('/{id}/reset-password', [UserController::class, 'resetPassword'])->name('reset-password');
         });
 
         // Knowledge Base CRUD
