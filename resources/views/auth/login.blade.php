@@ -124,13 +124,140 @@
                 </button>
             </form>
 
-            <!-- Demo Hint Box -->
-            <div class="mt-8 p-4 bg-blue-50/70 dark:bg-gray-700/50 rounded-xl border border-blue-100 dark:border-gray-600">
-                <span class="text-xs font-bold text-blue-800 dark:text-blue-300 uppercase tracking-wider block mb-1">Akun Demo Pengujian:</span>
-                <div class="text-xs text-gray-600 dark:text-gray-300 space-y-1">
-                    <div>👑 Admin: <code class="font-mono bg-white dark:bg-gray-800 px-1.5 py-0.5 rounded text-blue-600 dark:text-blue-400">admin@example.com</code> / <code class="font-mono">password</code></div>
-                    <div>👤 Karyawan: <code class="font-mono bg-white dark:bg-gray-800 px-1.5 py-0.5 rounded text-indigo-600 dark:text-indigo-400">user@example.com</code> / <code class="font-mono">password</code></div>
+            <!-- Demo Hint Box Trigger -->
+            <div class="mt-8 p-4 bg-linear-to-r from-blue-50 to-indigo-50 dark:from-gray-700/60 dark:to-gray-800/60 rounded-2xl border border-blue-200/60 dark:border-gray-600 flex items-center justify-between gap-3 shadow-2xs">
+                <div class="flex items-center gap-3">
+                    <div class="p-2.5 bg-blue-600 text-white rounded-xl shadow-md shadow-blue-500/20 shrink-0">
+                        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 9h3m-3 3h3m-3 3h3m-6 1c-.306-.612-.933-1-1.618-1H7.618c-.685 0-1.312.388-1.618 1M4 5h16a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1Zm7 5a2 2 0 1 1-4 0 2 2 0 0 1 4 0Z"/></svg>
+                    </div>
+                    <div>
+                        <span class="text-xs font-extrabold text-gray-900 dark:text-white block tracking-wide">INGIN PENGUJIAN CEPAT?</span>
+                        <span class="text-xs text-gray-500 dark:text-gray-400">Tersedia 6 akun demo siap pakai (1-Klik Login)</span>
+                    </div>
                 </div>
+                <button data-modal-target="demoAccountsModal" data-modal-toggle="demoAccountsModal" type="button" class="py-2.5 px-4 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-xl dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 transition-all shrink-0 shadow-md shadow-blue-500/20 flex items-center gap-1.5 cursor-pointer transform hover:scale-105">
+                    <span>✨ Pilih Akun</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Daftar Akun Demo -->
+<div id="demoAccountsModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full backdrop-blur-xs">
+    <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-2xl shadow-2xl dark:bg-gray-800 border border-gray-100 dark:border-gray-700 overflow-hidden">
+            <!-- Modal header -->
+            <div class="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-700 bg-linear-to-r from-blue-600 to-indigo-600 text-white">
+                <div class="flex items-center gap-2.5">
+                    <svg class="w-6 h-6" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12h4m-2 2v-4M4 18v-1a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v1a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1Zm8-10a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z"/></svg>
+                    <h3 class="text-lg font-extrabold tracking-wide">
+                        Pilih Akun Demo Pengujian (1-Klik Login)
+                    </h3>
+                </div>
+                <button type="button" class="text-white/80 bg-transparent hover:bg-white/10 hover:text-white rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center transition-colors" data-modal-hide="demoAccountsModal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/></svg>
+                    <span class="sr-only">Tutup modal</span>
+                </button>
+            </div>
+            <!-- Modal body -->
+            <div class="p-6 space-y-3 max-h-[70vh] overflow-y-auto">
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-3 bg-blue-50 dark:bg-gray-700/50 p-3 rounded-xl border border-blue-100 dark:border-gray-600">
+                    💡 <strong>Tips Pengujian:</strong> Klik tombol <strong>"⚡ Gunakan Akun"</strong> pada salah satu peran di bawah ini untuk mengisi kredensial dan langsung masuk ke dalam sistem secara otomatis.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- 1. Admin -->
+                    <div class="p-3.5 rounded-xl border border-purple-200 dark:border-purple-900/50 bg-purple-50/40 dark:bg-purple-950/20 hover:border-purple-500 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-extrabold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">👑 Administrator IT</span>
+                                <span class="bg-purple-100 text-purple-800 text-xs font-bold px-2 py-0.5 rounded-md dark:bg-purple-900 dark:text-purple-300">Admin</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Kendali penuh sistem, konfigurasi LLM AI, kelola seluruh pengguna & ekspor laporan.</p>
+                        </div>
+                        <button type="button" onclick="fillAndLogin('admin@example.com', 'password')" class="w-full py-2 px-3 text-xs font-bold text-white bg-purple-600 hover:bg-purple-700 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer">
+                            <span>⚡ Gunakan Akun</span>
+                        </button>
+                    </div>
+
+                    <!-- 2. Service Desk -->
+                    <div class="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900/50 bg-blue-50/40 dark:bg-blue-950/20 hover:border-blue-500 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-extrabold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">📋 Service Desk</span>
+                                <span class="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-0.5 rounded-md dark:bg-blue-900 dark:text-blue-300">Distributor</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Penerima tiket masuk, memvalidasi kendala, dan menugaskan ke teknisi Helpdesk.</p>
+                        </div>
+                        <button type="button" onclick="fillAndLogin('servicedesk@example.com', 'password')" class="w-full py-2 px-3 text-xs font-bold text-white bg-blue-600 hover:bg-blue-700 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer">
+                            <span>⚡ Gunakan Akun</span>
+                        </button>
+                    </div>
+
+                    <!-- 3. Helpdesk 1 -->
+                    <div class="p-3.5 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/40 dark:bg-emerald-950/20 hover:border-emerald-500 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-extrabold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">🔧 Helpdesk 1 (HW/Net)</span>
+                                <span class="bg-emerald-100 text-emerald-800 text-xs font-bold px-2 py-0.5 rounded-md dark:bg-emerald-900 dark:text-emerald-300">Teknisi</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Spesialis Hardware & Jaringan. Menangani tiket, chat realtime & AI Suggested Reply.</p>
+                        </div>
+                        <button type="button" onclick="fillAndLogin('helpdesk1@example.com', 'password')" class="w-full py-2 px-3 text-xs font-bold text-white bg-emerald-600 hover:bg-emerald-700 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer">
+                            <span>⚡ Gunakan Akun</span>
+                        </button>
+                    </div>
+
+                    <!-- 4. Helpdesk 2 -->
+                    <div class="p-3.5 rounded-xl border border-teal-200 dark:border-teal-900/50 bg-teal-50/40 dark:bg-teal-950/20 hover:border-teal-500 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-extrabold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">💻 Helpdesk 2 (Software)</span>
+                                <span class="bg-teal-100 text-teal-800 text-xs font-bold px-2 py-0.5 rounded-md dark:bg-teal-900 dark:text-teal-300">Teknisi</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Spesialis Software & OS. Menangani penyelesaian tiket dan takeover obrolan AI.</p>
+                        </div>
+                        <button type="button" onclick="fillAndLogin('helpdesk2@example.com', 'password')" class="w-full py-2 px-3 text-xs font-bold text-white bg-teal-600 hover:bg-teal-700 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer">
+                            <span>⚡ Gunakan Akun</span>
+                        </button>
+                    </div>
+
+                    <!-- 5. User Budi -->
+                    <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/40 hover:border-slate-400 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-extrabold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">👤 Budi Santoso</span>
+                                <span class="bg-slate-200 text-slate-800 text-xs font-bold px-2 py-0.5 rounded-md dark:bg-slate-700 dark:text-slate-300">Pelapor</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Karyawan pelapor kendala IT, interaksi FAQ otomatis & buat tiket masalah.</p>
+                        </div>
+                        <button type="button" onclick="fillAndLogin('user@example.com', 'password')" class="w-full py-2 px-3 text-xs font-bold text-white bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer">
+                            <span>⚡ Gunakan Akun</span>
+                        </button>
+                    </div>
+
+                    <!-- 6. User Siti -->
+                    <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50/60 dark:bg-slate-800/40 hover:border-slate-400 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-center justify-between mb-1.5">
+                                <span class="font-extrabold text-sm text-gray-900 dark:text-white flex items-center gap-1.5">👤 Siti Aminah</span>
+                                <span class="bg-slate-200 text-slate-800 text-xs font-bold px-2 py-0.5 rounded-md dark:bg-slate-700 dark:text-slate-300">Pelapor</span>
+                            </div>
+                            <p class="text-xs text-gray-500 dark:text-gray-400 line-clamp-2 mb-3">Karyawan divisi Finance yang melaporkan kendala aplikasi akuntansi.</p>
+                        </div>
+                        <button type="button" onclick="fillAndLogin('siti@example.com', 'password')" class="w-full py-2 px-3 text-xs font-bold text-white bg-slate-700 hover:bg-slate-800 dark:bg-slate-600 dark:hover:bg-slate-500 rounded-lg transition-all shadow-xs flex items-center justify-center gap-1 cursor-pointer">
+                            <span>⚡ Gunakan Akun</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal footer -->
+            <div class="flex items-center justify-end p-4 border-t border-gray-100 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/80">
+                <button data-modal-hide="demoAccountsModal" type="button" class="py-2 px-5 text-xs font-bold text-gray-700 focus:outline-none bg-white rounded-xl border border-gray-200 hover:bg-gray-100 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600 dark:hover:bg-gray-600 transition-all cursor-pointer">
+                    Tutup
+                </button>
             </div>
         </div>
     </div>
@@ -151,5 +278,18 @@
             eyeSlashIcon.classList.add('hidden');
         }
     });
+
+    function fillAndLogin(email, password) {
+        document.getElementById('email').value = email;
+        document.getElementById('password').value = password;
+        
+        const closeBtn = document.querySelector('[data-modal-hide="demoAccountsModal"]');
+        if (closeBtn) closeBtn.click();
+
+        setTimeout(() => {
+            const submitBtn = document.querySelector('form button[type="submit"]');
+            if (submitBtn) submitBtn.click();
+        }, 200);
+    }
 </script>
 @endsection
