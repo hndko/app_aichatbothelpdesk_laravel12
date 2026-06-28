@@ -86,7 +86,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <!-- Nama Lengkap -->
                 <div class="space-y-2">
-                    <label for="name" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="name" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                         <span>Nama Lengkap</span> <span class="text-red-500">*</span>
                     </label>
@@ -96,7 +96,7 @@
                         name="name"
                         value="{{ old('name', $user->name) }}"
                         placeholder="Contoh: Budi Santoso"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold @error('name') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
                         required
                     >
                     @error('name')
@@ -106,7 +106,7 @@
 
                 <!-- Email -->
                 <div class="space-y-2">
-                    <label for="email" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="email" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-purple-600"></span>
                         <span>Alamat Email</span> <span class="text-red-500">*</span>
                     </label>
@@ -116,7 +116,7 @@
                         name="email"
                         value="{{ old('email', $user->email) }}"
                         placeholder="Contoh: budi@company.com"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold @error('email') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
                         required
                     >
                     @error('email')
@@ -128,7 +128,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
                 <!-- No Telepon -->
                 <div class="space-y-2">
-                    <label for="phone" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="phone" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
                         <span>Nomor WhatsApp / Telepon</span>
                     </label>
@@ -138,7 +138,7 @@
                         name="phone"
                         value="{{ old('phone', $user->phone) }}"
                         placeholder="Contoh: 081234567890"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium @error('phone') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('phone') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium"
                     >
                     @error('phone')
                         <p class="text-xs font-bold text-rose-600 dark:text-rose-400 mt-1">{{ $message }}</p>
@@ -147,7 +147,7 @@
 
                 <!-- Status Hak Akses (Readonly) -->
                 <div class="space-y-2">
-                    <label class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span>🔒 Status Hak Akses (*Role*)</span>
                     </label>
                     <div class="relative">
@@ -200,7 +200,7 @@
                         id="password"
                         name="password"
                         placeholder="Masukkan sandi baru..."
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-mono @error('password') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-mono"
                     >
                     @error('password')
                         <p class="text-xs font-bold text-rose-600 dark:text-rose-400 mt-1">{{ $message }}</p>

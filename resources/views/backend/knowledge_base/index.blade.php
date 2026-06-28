@@ -81,7 +81,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50/80 dark:bg-gray-700/80 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700 font-extrabold">
                     <tr>
                         <th scope="col" class="px-6 py-4 w-12 text-center">#</th>
-                        <th scope="col" class="px-6 py-4 min-w-[300px]">Pertanyaan & Solusi FAQ</th>
+                        <th scope="col" class="px-6 py-4 min-w-75">Pertanyaan & Solusi FAQ</th>
                         <th scope="col" class="px-6 py-4">Kategori</th>
                         <th scope="col" class="px-6 py-4 text-center">Status AI</th>
                         <th scope="col" class="px-6 py-4">Diperbarui</th>

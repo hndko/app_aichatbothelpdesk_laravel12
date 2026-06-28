@@ -35,7 +35,7 @@
 
             <!-- Pertanyaan -->
             <div class="space-y-2">
-                <label for="question" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                <label for="question" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                     <span>Pertanyaan (FAQ)</span> <span class="text-red-500">*</span>
                 </label>
@@ -45,7 +45,7 @@
                     name="question"
                     value="{{ old('question') }}"
                     placeholder="Contoh: Bagaimana cara reset password akun email kantor?"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold @error('question') border-red-500 @enderror"
+                    class="bg-gray-50 border @error('question') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
                     required
                 >
                 @error('question')
@@ -58,7 +58,7 @@
 
             <!-- Jawaban -->
             <div class="space-y-2">
-                <label for="answer" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                <label for="answer" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
                     <span>Solusi / Jawaban Lengkap</span> <span class="text-red-500">*</span>
                 </label>
@@ -66,7 +66,7 @@
                     name="answer"
                     id="answer"
                     rows="8"
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium leading-relaxed @error('answer') border-red-500 @enderror"
+                    class="bg-gray-50 border @error('answer') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium leading-relaxed"
                     placeholder="Tulis jawaban solutif, detail langkah demi langkah yang mudah diikuti oleh karyawan..."
                     required
                 >{{ old('answer') }}</textarea>
@@ -81,10 +81,10 @@
             <!-- Kategori & Status -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-2 border-t border-gray-100 dark:border-gray-700">
                 <div class="space-y-2">
-                    <label for="category_id" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="category_id" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span>🏷️ Kategori Masalah</span>
                     </label>
-                    <select name="category_id" id="category_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all font-semibold @error('category_id') border-red-500 @enderror">
+                    <select name="category_id" id="category_id" class="bg-gray-50 border @error('category_id') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all font-semibold">
                         <option value="">-- Umum (Tanpa Kategori Khusus) --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
@@ -98,14 +98,14 @@
                 </div>
 
                 <div class="space-y-2">
-                    <label class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span>⚡ Status Publikasi AI</span>
                     </label>
                     <div class="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-200 dark:border-gray-600 flex items-center justify-between">
                         <span class="text-xs font-medium text-gray-600 dark:text-gray-300">Aktifkan sebagai referensi bot</span>
                         <label class="inline-flex items-center cursor-pointer">
                             <input type="checkbox" id="is_active" name="is_active" value="1" class="sr-only peer" {{ old('is_active', 1) ? 'checked' : '' }}>
-                            <div class="relative w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:inset-s-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
+                            <div class="relative w-11 h-6 bg-gray-300 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-indigo-300 dark:peer-focus:ring-indigo-800 rounded-full peer dark:bg-gray-600 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-0.5 after:inset-s-0.5 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-indigo-600"></div>
                         </label>
                     </div>
                 </div>

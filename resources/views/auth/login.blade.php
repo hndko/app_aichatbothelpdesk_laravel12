@@ -1,7 +1,7 @@
 @extends('layouts.app-auth')
 
 @section('content')
-<div class="grid grid-cols-1 md:grid-cols-12 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 w-full min-h-[560px]">
+<div class="grid grid-cols-1 md:grid-cols-12 bg-white dark:bg-gray-800 rounded-3xl shadow-2xl overflow-hidden border border-gray-100 dark:border-gray-700 w-full min-h-140">
     <!-- Kolom 1 (Kiri - 5 Columns): Branding Showcase -->
     <div class="md:col-span-5 bg-linear-to-br from-blue-600 via-indigo-700 to-slate-900 text-white p-8 sm:p-10 flex flex-col justify-between relative overflow-hidden">
         <!-- Ambient Glowing Effects -->

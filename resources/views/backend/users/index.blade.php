@@ -82,7 +82,7 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50/80 dark:bg-gray-700/80 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700 font-extrabold">
                     <tr>
                         <th scope="col" class="px-6 py-4 w-16 text-center">ID</th>
-                        <th scope="col" class="px-6 py-4 min-w-[250px]">Informasi Pengguna</th>
+                        <th scope="col" class="px-6 py-4 min-w-62.5">Informasi Pengguna</th>
                         <th scope="col" class="px-6 py-4 text-center">Peran Akses (*Role*)</th>
                         <th scope="col" class="px-6 py-4">Kontak Telepon</th>
                         <th scope="col" class="px-6 py-4">Terdaftar Sejak</th>

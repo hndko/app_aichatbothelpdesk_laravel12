@@ -36,7 +36,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Nama Lengkap -->
                 <div class="space-y-2">
-                    <label for="name" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="name" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-indigo-600"></span>
                         <span>Nama Lengkap</span> <span class="text-red-500">*</span>
                     </label>
@@ -46,7 +46,7 @@
                         name="name"
                         value="{{ old('name') }}"
                         placeholder="Contoh: Budi Santoso"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold @error('name') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
                         required
                     >
                     @error('name')
@@ -56,7 +56,7 @@
 
                 <!-- Email -->
                 <div class="space-y-2">
-                    <label for="email" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="email" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-purple-600"></span>
                         <span>Alamat Email</span> <span class="text-red-500">*</span>
                     </label>
@@ -66,7 +66,7 @@
                         name="email"
                         value="{{ old('email') }}"
                         placeholder="Contoh: budi@company.com"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold @error('email') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
                         required
                     >
                     @error('email')
@@ -78,11 +78,11 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <!-- Role -->
                 <div class="space-y-2">
-                    <label for="role" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="role" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-emerald-600"></span>
                         <span>Peran Akses (*Role*)</span> <span class="text-red-500">*</span>
                     </label>
-                    <select name="role" id="role" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all font-bold @error('role') border-red-500 @enderror">
+                    <select name="role" id="role" class="bg-gray-50 border @error('role') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all font-bold">
                         <option value="user" {{ old('role') === 'user' ? 'selected' : '' }}>👤 Karyawan / Pelapor (User)</option>
                         <option value="helpdesk" {{ old('role') === 'helpdesk' ? 'selected' : '' }}>🟢 Teknisi Helpdesk</option>
                         <option value="service_desk" {{ old('role') === 'service_desk' ? 'selected' : '' }}>🔵 Service Desk</option>
@@ -95,7 +95,7 @@
 
                 <!-- No Telepon -->
                 <div class="space-y-2">
-                    <label for="phone" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="phone" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span>📱 Nomor WhatsApp / Telepon</span>
                     </label>
                     <input
@@ -104,7 +104,7 @@
                         name="phone"
                         value="{{ old('phone') }}"
                         placeholder="Contoh: 081234567890"
-                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium @error('phone') border-red-500 @enderror"
+                        class="bg-gray-50 border @error('phone') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium"
                     >
                     @error('phone')
                         <p class="text-xs font-bold text-rose-600 dark:text-rose-400 mt-1">{{ $message }}</p>
@@ -115,7 +115,7 @@
             <!-- Password -->
             <div class="space-y-2 pt-2 border-t border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between">
-                    <label for="password" class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label for="password" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span class="w-2 h-2 rounded-full bg-amber-500"></span>
                         <span>Password Akun</span> <span class="text-red-500">*</span>
                     </label>
@@ -129,7 +129,7 @@
                     name="password"
                     value="{{ old('password', 'password') }}"
                     placeholder="Masukkan password akun..."
-                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-mono font-bold @error('password') border-red-500 @enderror"
+                    class="bg-gray-50 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-mono font-bold"
                     required
                 >
                 <p class="text-xs text-gray-500 dark:text-gray-400">Anda dapat mengubah atau membiarkan password default di atas (<code class="font-mono font-bold text-gray-700 dark:text-gray-300">password</code>).</p>
@@ -141,7 +141,7 @@
             <!-- Spesialisasi Kategori (Untuk Teknisi & Staf) -->
             <div id="specialization_section" class="space-y-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between">
-                    <label class="block text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
+                    <label class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span>🛠️ Spesialisasi Penanganan Kategori Tiket</span>
                     </label>
                     <span class="text-[11px] font-semibold text-gray-500 dark:text-gray-400 italic">(Khusus untuk Teknisi Helpdesk / Staf)</span>

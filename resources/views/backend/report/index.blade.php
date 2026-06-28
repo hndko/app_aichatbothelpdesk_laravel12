@@ -134,7 +134,7 @@
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50/50 dark:bg-gray-700/50 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700 font-extrabold">
                     <tr>
-                        <th scope="col" class="px-6 py-4 min-w-[200px]">Nama Teknisi / Staf</th>
+                        <th scope="col" class="px-6 py-4 min-w-50">Nama Teknisi / Staf</th>
                         <th scope="col" class="px-6 py-4">Peran (*Role*)</th>
                         <th scope="col" class="px-6 py-4 text-center">Tiket Hari Ini</th>
                         <th scope="col" class="px-6 py-4 text-center">Minggu Ini</th>
@@ -179,12 +179,12 @@
                                 {{ $staff->monthly }}
                             </td>
                             <td class="px-6 py-4.5 text-center whitespace-nowrap">
-                                <span class="px-3 py-1 rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 font-extrabold text-sm border border-amber-200 dark:border-amber-800 inline-block min-w-[3rem]">
+                                <span class="px-3 py-1 rounded-xl bg-amber-50 dark:bg-amber-900/30 text-amber-700 dark:text-amber-400 font-extrabold text-sm border border-amber-200 dark:border-amber-800 inline-block min-w-12">
                                     {{ $staff->total_active }}
                                 </span>
                             </td>
                             <td class="px-6 py-4.5 text-center whitespace-nowrap">
-                                <span class="px-3 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 font-extrabold text-sm border border-emerald-200 dark:border-emerald-800 inline-block min-w-[3rem]">
+                                <span class="px-3 py-1 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 font-extrabold text-sm border border-emerald-200 dark:border-emerald-800 inline-block min-w-12">
                                     {{ $staff->total_closed }}
                                 </span>
                             </td>
@@ -218,12 +218,12 @@
                 <thead class="text-xs text-gray-700 uppercase bg-gray-50/50 dark:bg-gray-700/50 dark:text-gray-300 border-b border-gray-100 dark:border-gray-700 font-extrabold">
                     <tr>
                         <th scope="col" class="px-6 py-4">No. Tiket</th>
-                        <th scope="col" class="px-6 py-4 min-w-[150px]">Pelapor</th>
-                        <th scope="col" class="px-6 py-4 min-w-[200px]">Subjek Masalah</th>
+                        <th scope="col" class="px-6 py-4 min-w-37.5">Pelapor</th>
+                        <th scope="col" class="px-6 py-4 min-w-50">Subjek Masalah</th>
                         <th scope="col" class="px-6 py-4">Kategori</th>
                         <th scope="col" class="px-6 py-4 text-center">Status</th>
                         <th scope="col" class="px-6 py-4 text-center">Sentimen AI</th>
-                        <th scope="col" class="px-6 py-4 min-w-[150px]">Teknisi Assignee</th>
+                        <th scope="col" class="px-6 py-4 min-w-37.5">Teknisi Assignee</th>
                         <th scope="col" class="px-6 py-4">Tanggal</th>
                     </tr>
                 </thead>
