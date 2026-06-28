@@ -96,7 +96,11 @@
                         name="name"
                         value="{{ old('name', $user->name) }}"
                         placeholder="Contoh: Budi Santoso"
-                        class="bg-gray-50 border @error('name') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
+                        @class([
+                            'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold',
+                            'border-red-500' => $errors->has('name'),
+                            'border-gray-300' => !$errors->has('name'),
+                        ])
                         required
                     >
                     @error('name')
@@ -116,7 +120,11 @@
                         name="email"
                         value="{{ old('email', $user->email) }}"
                         placeholder="Contoh: budi@company.com"
-                        class="bg-gray-50 border @error('email') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
+                        @class([
+                            'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold',
+                            'border-red-500' => $errors->has('email'),
+                            'border-gray-300' => !$errors->has('email'),
+                        ])
                         required
                     >
                     @error('email')
@@ -138,7 +146,11 @@
                         name="phone"
                         value="{{ old('phone', $user->phone) }}"
                         placeholder="Contoh: 081234567890"
-                        class="bg-gray-50 border @error('phone') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium"
+                        @class([
+                            'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium',
+                            'border-red-500' => $errors->has('phone'),
+                            'border-gray-300' => !$errors->has('phone'),
+                        ])
                     >
                     @error('phone')
                         <p class="text-xs font-bold text-rose-600 dark:text-rose-400 mt-1">{{ $message }}</p>
@@ -200,7 +212,11 @@
                         id="password"
                         name="password"
                         placeholder="Masukkan sandi baru..."
-                        class="bg-gray-50 border @error('password') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-mono"
+                        @class([
+                            'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-mono',
+                            'border-red-500' => $errors->has('password'),
+                            'border-gray-300' => !$errors->has('password'),
+                        ])
                     >
                     @error('password')
                         <p class="text-xs font-bold text-rose-600 dark:text-rose-400 mt-1">{{ $message }}</p>

@@ -51,7 +51,11 @@
                     name="subject"
                     value="{{ old('subject') }}"
                     placeholder="Contoh: Laptop mati total saat terhubung charger atau Wi-Fi ruangan lantai 2 tidak stabil"
-                    class="bg-gray-50 border @error('subject') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-blue-500 focus:border-blue-500 @enderror text-gray-900 text-sm rounded-xl block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-2xs"
+                    @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-2xs',
+                        'border-red-500 focus:ring-red-500' => $errors->has('subject'),
+                        'border-gray-200 focus:ring-blue-500 focus:border-blue-500' => !$errors->has('subject'),
+                    ])
                     required
                 >
                 @error('subject')
@@ -69,7 +73,11 @@
                         <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 0 1 2 2v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-6a2 2 0 0 1 2-2m14 0V9a2 2 0 0 0-2-2M5 11V9a2 2 0 0 1 2-2m0 0V5a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v2M7 7h10"/></svg>
                         <span>Kategori Masalah</span> <span class="text-red-500">*</span>
                     </label>
-                    <select name="category_id" id="category_id" class="bg-gray-50 border @error('category_id') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-blue-500 focus:border-blue-500 @enderror text-gray-900 text-sm rounded-xl block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all shadow-2xs" required>
+                    <select name="category_id" id="category_id" @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all shadow-2xs',
+                        'border-red-500 focus:ring-red-500' => $errors->has('category_id'),
+                        'border-gray-200 focus:ring-blue-500 focus:border-blue-500' => !$errors->has('category_id'),
+                    ]) required>
                         <option value="">-- Pilih Kategori Kendala --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
@@ -90,7 +98,11 @@
                         <svg class="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"><path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h6l2 4m-8-4v8m0-8V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v9h2m8 0H9m4 0h2m4 0h2v-4m0 0h-5m3.5 5.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Zm-10 0a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0Z"/></svg>
                         <span>Perkiraan Tingkat Urgensi</span> <span class="text-red-500">*</span>
                     </label>
-                    <select name="priority" id="priority" class="bg-gray-50 border @error('priority') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-blue-500 focus:border-blue-500 @enderror text-gray-900 text-sm rounded-xl block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all shadow-2xs" required>
+                    <select name="priority" id="priority" @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all shadow-2xs',
+                        'border-red-500 focus:ring-red-500' => $errors->has('priority'),
+                        'border-gray-200 focus:ring-blue-500 focus:border-blue-500' => !$errors->has('priority'),
+                    ]) required>
                         <option value="low" {{ old('priority') == 'low' ? 'selected' : '' }}>🟢 Low — Tidak mengganggu pekerjaan utama</option>
                         <option value="medium" {{ old('priority', 'medium') == 'medium' ? 'selected' : '' }}>🔵 Medium — Mengganggu sebagian aktivitas kerja</option>
                         <option value="high" {{ old('priority') == 'high' ? 'selected' : '' }}>🔴 High / Urgent — Pekerjaan lumpuh total / membutuhkan penanganan segera</option>
@@ -117,7 +129,11 @@
                     name="description"
                     rows="6"
                     placeholder="Jelaskan secara rinci permasalahan Anda. Misalnya: 'Sejak jam 08.00 pagi, aplikasi akuntansi tidak bisa dibuka dan memunculkan error Database Connection Timeout...'"
-                    class="bg-gray-50 border @error('description') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-blue-500 focus:border-blue-500 @enderror text-gray-900 text-sm rounded-xl block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-2xs"
+                    @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl block w-full p-4 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all shadow-2xs',
+                        'border-red-500 focus:ring-red-500' => $errors->has('description'),
+                        'border-gray-200 focus:ring-blue-500 focus:border-blue-500' => !$errors->has('description'),
+                    ])
                     required
                 >{{ old('description') }}</textarea>
                 @error('description')

@@ -45,7 +45,11 @@
                     name="question"
                     value="{{ old('question') }}"
                     placeholder="Contoh: Bagaimana cara reset password akun email kantor?"
-                    class="bg-gray-50 border @error('question') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold"
+                    @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-semibold',
+                        'border-red-500' => $errors->has('question'),
+                        'border-gray-300' => !$errors->has('question'),
+                    ])
                     required
                 >
                 @error('question')
@@ -66,7 +70,11 @@
                     name="answer"
                     id="answer"
                     rows="8"
-                    class="bg-gray-50 border @error('answer') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium leading-relaxed"
+                    @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white transition-all font-medium leading-relaxed',
+                        'border-red-500' => $errors->has('answer'),
+                        'border-gray-300' => !$errors->has('answer'),
+                    ])
                     placeholder="Tulis jawaban solutif, detail langkah demi langkah yang mudah diikuti oleh karyawan..."
                     required
                 >{{ old('answer') }}</textarea>
@@ -84,7 +92,11 @@
                     <label for="category_id" class="text-sm font-bold text-gray-900 dark:text-white flex items-center gap-1.5">
                         <span>🏷️ Kategori Masalah</span>
                     </label>
-                    <select name="category_id" id="category_id" class="bg-gray-50 border @error('category_id') border-red-500 @else border-gray-300 @enderror text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all font-semibold">
+                    <select name="category_id" id="category_id" @class([
+                        'bg-gray-50 border text-gray-900 text-sm rounded-xl focus:ring-indigo-500 focus:border-indigo-500 block w-full p-3.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white transition-all font-semibold',
+                        'border-red-500' => $errors->has('category_id'),
+                        'border-gray-300' => !$errors->has('category_id'),
+                    ])>
                         <option value="">-- Umum (Tanpa Kategori Khusus) --</option>
                         @foreach($categories as $cat)
                             <option value="{{ $cat->id }}" {{ old('category_id') == $cat->id ? 'selected' : '' }}>
